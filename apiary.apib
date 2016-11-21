@@ -1,99 +1,181 @@
 FORMAT: 1A
-HOST: http://app.fxhello.com/api/
+HOST: http://uat.fxhello.com/api/
 
 # FX Hello
 
 Polls is a simple API allowing consumers to view polls and vote in them.
 
+IMPORTANT: The API URL is set to UAT server in this documentation. Make sure to change the URL to http://app.fxhello.com to communicate with the Production system.
+
 ## Authentication [/authenticate]
 
 ### Login [POST]
+Allows the user to login using their email address and the password. The API will return a JSON Web Token (JWT) upon successful login. This token needs to be sent in the header of each call of the API.
 
-This allows the user to login using their email address and the password. The API will return a JSON Web Token (JWT) upon successful login. This token needs to be sent in the header of each call of the API.
++ Request
 
-+ Request (application/json)
-    {
-        "email": "user@example.com",
-        "password": "Abc@1234"
-    }
+    + Headers
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "email": "user@example.com",
+            "password": "Abc@1234"
+        }
     
 + Response 200 (application/json)
+
     + Body
         {
             "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1",
             "isError": false
         }
 
-## Questions Collection [/questions]
-
-### List All Questions [GET]
-
-+ Response 200 (application/json)
-
-        [
-            {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 2048
-                    }, {
-                        "choice": "Python",
-                        "votes": 1024
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 512
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 256
-                    }
-                ]
-            }
-        ]
-
-### Create a New Question [POST]
-
-You may create your own question using this action. It takes a JSON
-object containing a question and a collection of answers in the
-form of choices.
+### Register [POST /register]
+Allows user to create an account
 
 + Request (application/json)
 
+    + Headers
+            Accept: application/vnd.fxhello.v1+json
+    + Body
         {
-            "question": "Favourite programming language?",
-            "choices": [
-                "Swift",
-                "Python",
-                "Objective-C",
-                "Ruby"
-            ]
+            "name": "John",
+            "teamName": "WidgetCorp",
+            "email": "john@example.com",
+            "password": "Abc@1234"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1",
+            "isError": false
+        }
+        
+## Categories [/categories]
+
+### Get a list of categories [POST /categories/get]
+Allows the user to get a list of categories and their ID's that belongs to the Organization/team. 
+
++ Parameters
+    + subType (optional, number) ... NULL or 0 return all categories. Passing the relavent subType return only the applicable categories.
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "subType": 0
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+            "payload" : ""
+        }
+
+### Create category [POST /categories/create]
+This allows the user to create a new contact category.
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "name": "The new contact category name"
+            "subType": "contact"
         }
 
 + Response 201 (application/json)
 
-    + Headers
+    + Body
+        {
+            "message": "Successfully crated new customer category"
+        }
 
-            Location: /questions/2
+## Background services [/services]
+
+
+## Stores [/stores]
+
+### Get list of stores [POST /stores]
+Get a list of stores (warehouses, store locations, etc.) along with their ID, type.
+
++ Parameters
+    + subType (optional, number) ... NULL or 0 return all stores. Passing the relavent subType return only the applicable stores from the store type.
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "subType": 0
+        }
+
++ Response 200 (application/json)
 
     + Body
+        {
+            "payload" : ""
+        }
 
-            {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 0
-                    }
-                ]
-            }
+## CRM [/crm]
+
+
+## Support [/support]
+
+## HR [/hr]
+
+### Clock-in [POST /hr/clock-in]
+Allows the authenticated user to clock in.
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+    
+    + Body
+        {
+            "message": "Clock-in successful"
+        }
+
++ Response 403 (application/json)
+    
+    + Body
+        {
+            "message": "You are not setup as an employee of your organization."
+        }
+
+### Clock-out [POST /hr/clock-out]
+Allows the authenticated user to clock out if the user is already clocked-in.
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+    
+    + Body
+        {
+            "message": "Clock-in successful"
+        }
+
++ Response 403 (application/json)
+    
+    + Body
+        {
+            "message": "You are not setup as an employee of your organization."
+        }
