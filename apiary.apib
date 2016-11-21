@@ -98,15 +98,14 @@ Allows the user to get a list of categories and their ID's that belongs to the O
                 }
             ]
             },
-            "code": 200
          }
         
 
-### Create category [POST /categories/save]
-This allows the user to create a new category.
+### Create category [POST /categoryCreate]
+This allows the user to create a new category for the specified subType.
 
 + Parameters
-    + subType (optional, number) ...  subType = 3 for customers and subType = 4 for contacts. Can keep it as NULL or 0.
+    + subType (required, number) ...  subType = 3 for customers and subType = 4 for contacts. Can keep it as NULL or 0.
 
 
 + Request
@@ -120,12 +119,11 @@ This allows the user to create a new category.
             "subType": 3
         }
 
-+ Response 201 (application/json)
++ Response 200 (application/json)
 
     + Body
         {
               "message": "Data saved successfully!!!",
-              "code": 200
         }
 
 ## Background services [/services]
