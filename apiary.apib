@@ -1328,7 +1328,7 @@ Allows the authenticated user to clock out if the user is already clocked-in.
         }
 
 
-## SALES [POST /sales]
+## SALES [/sales]
 
 ### Get a list of sales overview [POST /sales/overview]
 Allows the user to get a list of sales overview that belongs to the Organization/team. 
@@ -2000,3 +2000,163 @@ Allows the user to get the product price that belongs to the Organization/team.
           ],
           "code": 200
         }
+
+
+## MARKETING [/marketing]
+
+### Get a list of marketing campaigns [POST /marketing/campaigns]
+Allows the user to get a list of marketing campaigns that belongs to the Organization/team. 
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+      {
+          "payload": [
+                {
+                  "id": "580494806b0bdc02f42265a2",
+                  "campaign": "New marketing campaign"
+                } 
+            ],
+          "code": 200
+        }
+
+
+### Create a marketing campaign [POST /marketing/campaigns/campaign/save]
+Allows the user to create a marketing campaign that belongs to the Organization/team. 
+
++ Parameters
+    + category (string)
+    + campaign (string)
+    + location (optional, string)
+    + assign_to (optional, string)
+    + description (optional, string)
+    + budget_allocation (optional, string)
+    + start_date (optional, string)
+    + end_date (optional, string)
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "category": "5801b8184189dc69ad4409ea"
+            "campaign": "Demo campaign"
+            "location": "Colombo"
+            "assign_to": ""
+            "description": "Demo"
+            "budget_allocation": "12000"
+            "start_date": "2016-09-26"
+            "end_date": "2016-11-26"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+       {
+          "message": "Data saved successfully!!!",
+          "code": 200
+        }
+
+
+### Get a list of marketing resources [POST /marketing/resources]
+Allows the user to get a list of marketing resources that belongs to the Organization/team. 
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+      {
+          "payload": [
+                {
+                  "id": "58049c806b0bdc0212189813",
+                  "resource": "New marketing 123",
+                  "location": "Galle",
+                  "zone": "",
+                  "category": "580493816b0bdc0530310c32",
+                  "user": "",
+                  "date": "2016-10-17 09:40:15"
+                }
+            ],
+          "code": 200
+        }
+
+
+### Display marketing resource profile [POST /marketing/resources/resource]
+Allows the user to get details of the marketing resource that belongs to the Organization/team. 
+
++ Parameters
+    + resourceid (string) 
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "resourceid": "58219ae758e13f3933622853"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "payload": [
+            {
+              "id": "58219ae758e13f3933622853",
+              "name": "Demo M Resource 08",
+              "categoryName": "first resource category",
+              "location": "Colombo 07",
+              "profileimage": "https://cdn.fxhello.com/img/imgph300.png",
+              "profileImgStatus": false,
+              "cuid": 1679,
+              "uuid": 1679,
+              "created_at": "2016-11-08 09:29:11",
+              "updated_at": "2016-11-08 09:29:11"
+            }
+          ]
+        }
+
+
+### Create a marketing resource [POST /marketing/resources/resource/save]
+Allows the user to create a marketing resource that belongs to the Organization/team. 
+
++ Parameters
+    + category (string)
+    + resource (string)
+    + location (optional, string)
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "category": "5801b8184189dc69ad4409f8"
+            "resource": "Demo marketing resource"
+            "location": "Colombo"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+       {
+          "message": "Data saved successfully!!!",
+          "code": 200,
+          "resource_id": "5832d9c26b0bdc070f6b9702"
+        }
+
