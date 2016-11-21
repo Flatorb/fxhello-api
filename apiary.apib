@@ -55,7 +55,7 @@ Allows user to create an account
         
 ## Categories [/categories]
 
-### Get a list of categories [POST /categories/get]
+### Get a list of categories [POST /categories]
 Allows the user to get a list of categories and their ID's that belongs to the Organization/team. 
 
 + Parameters
@@ -75,11 +75,30 @@ Allows the user to get a list of categories and their ID's that belongs to the O
 
     + Body
         {
-            "payload" : ""
-        }
+           "payload": {
+             "customers": [
+                {
+                    "id": "57fdc2c06b0bdc7ee01a59d2",
+                    "name": "New Customer category"
+                }
+             ],
+            "contacts": [
+                {
+                    "id": "57fdc2006b0bdc7d6809b522",
+                    "name": "New contact category"
+                }
+            ]
+            },
+            "code": 200
+         }
+        
 
-### Create category [POST /categories/create]
+### Create category [POST /categories/save]
 This allows the user to create a new contact category.
+
++ Parameters
+    + subType (optional, number) ...  subType = 3 for customers and subType = 4 for contacts. Can keep it as NULL or 0.
+
 
 + Request
 
@@ -89,14 +108,15 @@ This allows the user to create a new contact category.
     + Body
         {
             "name": "The new contact category name"
-            "subType": "contact"
+            "subType": 3
         }
 
 + Response 201 (application/json)
 
     + Body
         {
-            "message": "Successfully crated new customer category"
+              "message": "Data saved successfully!!!",
+              "code": 200
         }
 
 ## Background services [/services]
@@ -128,6 +148,72 @@ Get a list of stores (warehouses, store locations, etc.) along with their ID, ty
         }
 
 ## CRM [/crm]
+
+### Get a list of customers [POST /crm/customers]
+Allows the user to get a list of customers and their information that belongs to the Organization/team. 
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+        {
+           "payload": [
+                {
+                  "id": "57ff51896b0bdc0747634a73",
+                  "name": "Francisca Industries PVT LTD",
+                  "status": "Prospect",
+                  "email": "fransis@flatorb.com",
+                  "telephone": "675677 , 234",
+                  "added_by": "Keshani",
+                  "profileimage": "https://cdn.fxhello.com/img/imgph300.png",
+                  "profileImgStatus": false,
+                  "created_on": "2016-10-13 09:19:03"
+                 }
+            ],
+            "code": 200
+        }
+
+### Get a list of categories [POST /categories]
+Allows the user to get a list of categories and their ID's that belongs to the Organization/team. 
+
++ Parameters
+    + subType (optional, number) ... NULL or 0 return all categories. Passing the relavent subType return only the applicable categories.
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "subType": 0
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+           "payload": {
+             "customers": [
+                {
+                    "id": "57fdc2c06b0bdc7ee01a59d2",
+                    "name": "New Customer category"
+                }
+             ],
+            "contacts": [
+                {
+                    "id": "57fdc2006b0bdc7d6809b522",
+                    "name": "New contact category"
+                }
+            ]
+            },
+            "code": 200
+         }
 
 
 ## Support [/support]
