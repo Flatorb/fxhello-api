@@ -61,6 +61,33 @@ Allows user to create an account
             "isError": false
         }
         
+## Organization
+
+### Create Organization [POST /organizationCreate]
+User can create a new organization. The new organization will become the new active organization of the user.
+
++ Parameters
+    + orgName (required) ... This is the name of the organization
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "orgName": "Widget Corp"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+            "orgId": 1624,
+            "message": "Organization created successfully",
+            "isError": false
+        }
+
 ## Categories [/categories]
 
 ### Get a list of categories [POST /categories]
