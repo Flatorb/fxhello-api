@@ -68,7 +68,8 @@ Allows the user to get a list of categories and their ID's that belongs to the O
 
 + Parameters
     + subType (optional, number) ... NULL or 0 return all categories. Passing the relavent subType return only the applicable categories.
-    
+    + category_name (number)
+
 + Request
 
     + Headers
@@ -524,7 +525,7 @@ Allows the user to get contact details of the selected contact that belongs to t
     }
 
 
-### Create a Contact [POST /crm/contacts/contact/save]
+### Create a contact [POST /crm/contacts/contact/save]
 Allows the user to  saves a contact under the active Organization/team. 
 
 + Parameters
@@ -766,6 +767,519 @@ Allows the user to get a list of values for the drop downs countries and custome
 ## Support [/support]
 
 ## HR [/hr]
+
+### Get a list of departments [POST /hr/departments]
+Allows the user to get a list of departments and their ID's that belongs to the Organization/team. 
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+       {
+          "payload": [
+            {
+              "id": "5801b8184189dc69ad440a11",
+              "name": "Legal"
+            }
+          ],
+          "code": 200
+        }
+
+
+### Create a department [POST /hr/department/save]
+Allows the user to  saves a department under the active Organization/team. 
+
++ Parameters
+    + dep_name (string) 
+    + parent (optional, string)
+    + description (optional, string)
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "dep_name": "Demo department"
+            "parent": ""
+            "description": "Testing"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "message": "Data saved successfully!!!",
+          "code": 200
+        }
+
+
+### Edit a department [POST /hr/department/save]
+Allows the user to edit the details of the selected department under the active Organization/team. 
+
++ Parameters
+    + dep_id (string) 
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "dep_id": "5832ac4d6b0bdc2882135a32"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "payload": [
+            {
+              "id": "5832ac4d6b0bdc2882135a32",
+              "name": "Demo department"
+            }
+          ]
+        }
+
+
+### Update department [POST /hr/department/update]
+Allows the user to update the details of the selected department under the active Organization/team. 
+
++ Parameters
+    + dep_id (string) 
+    + dep_name (string) 
+    + parent (optional, string) 
+    + description (optional, string) 
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "dep_id": "5832ac4d6b0bdc2882135a32"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "message": "Data updated successfully!!!",
+          "code": 200
+        }
+
+
+### Get a list of employment types [POST /hr/employee-types]
+Allows the user to get a list of employment types and their ID's that belongs to the Organization/team. 
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+    {
+        "payload": [
+            {
+              "id": "5801b8184189dc69ad4409d2",
+              "name": "Internship"
+            }
+        ],
+      "code": 200
+    }  
+
+
+### Create employment type [POST /categories]
+Allows the user to create an employment type under to the Organization/team. 
+
++ Parameters
+    + emp_type (string) 
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "emp_type": "Part time"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "message": "Data saved successfully!!!",
+          "code": 200
+        }
+
+
+### Get a list of employees [POST /hr/employees]
+Allows the user to get a list of employees and their information that belongs to the Organization/team. 
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "payload": [
+                {
+                  "id": "5805a3536b0bdc039843aff2",
+                  "name": "Nickles Domnick",
+                  "contact": "23423412312 , 23423",
+                  "email": "chamal@flatorb.com",
+                  "title": "IT",
+                  "department": "Finance"
+                }
+            ],
+          "code": 200
+        }
+
+
+### Display employee profile [POST /hr/employees/employee]
+Allows the user to get employee details of the selected employee that belongs to the Organization/team. 
+
++ Parameters
+    + empid (string) ... Passing the relavent empId to return only the relevant empId details.
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "empid": 5806d9fe6b0bdc0209217585
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "payload": [
+            {
+              "id": "581fef8c6b0bdc02094d57a2",
+              "name": "Sam Doe",
+              "addresses": {
+                "address1": "",
+                "address2": "",
+                "city": "",
+                "state": "",
+                "stateID": "",
+                "zip": "",
+                "country": "Austria",
+                "countryID": "Austria",
+                "description": "",
+                "status": 1,
+                "cuid": 6,
+                "uuid": 6,
+                "created_at": "2016-11-07 03:05:46",
+                "updated_at": "2016-11-07 03:05:46"
+              },
+              "telephone1": "",
+              "telephone2": "",
+              "mobile": "",
+              "depName": "Postman",
+              "description": "",
+              "email": "sam@flatorb.com",
+              "jobtitle": "Developer",
+              "profileimage": "https://cdn.fxhello.com/img/imgph300.png",
+              "profileImgStatus": false,
+              "created_at": "2016-11-07 03:05:46",
+              "updated_at": "2016-11-07 03:05:46"
+            }
+          ]
+        }
+
+
+### Create an employee [POST /hr/employees/employee/save]
+Allows the user to  saves an employee under the active Organization/team. 
+
++ Parameters
+    + emp_id (string) 
+    + file_no (optional, string)
+    + email (string)
+    + country (number)
+    + prefix (string)
+    + firstname (string)
+    + middlename (optional, number)
+    + lastname (string)
+    + address1 (optional, string)
+    + address2 (optional, string)
+    + city (optional, string)
+    + zip (optional, string)
+    + state (optional, string)
+    + telephone1 (optional, string)
+    + telephone2 (optional, string)
+    + mobile (string)
+    + nationality (optional, string)
+    + ssn (optional, string)
+    + birth_place (optional, string)
+    + marital_status (optional, string)
+    + religion (optional, string)
+    + gender (optional, string)
+    + immigration_status (optional, string)
+    + description (optional, string)
+    + emp_description (optional, string)
+    + emp_type (string)
+    + department (string)
+    + job_title (string)
+    + join_date (optional, string)
+    + termination_date (optional, string)
+    + birth_date (optional, string)
+    + user (optional, string)
+    + password (optional, string)
+    + confirm_password (optional, string)
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "emp_id": "423423123"
+            "file_no": "FX0092"
+            "email": "git@flatorb.com"
+            "country": 34
+            "prefix": "Mr."
+            "firstname": "Demo"
+            "middlename": ""
+            "lastname": "GitHub"
+            "address1": "342"
+            "address2": "Galle Road"
+            "city": "Colombo"
+            "zip": ""
+            "state": ""
+            "telephone1": "011 1111111"
+            "telephone2": "022 2222222"
+            "mobile": "077 7777777"
+            "nationality": '"
+            "ssn": '"
+            "birth_place": '"
+            "marital_status": '"
+            "religion": '"
+            "gender": "Male"
+            "immigration_status": '"
+            "description": '"
+            "emp_description": '"
+            "emp_type": "581c346d6b0bdc020671e1c2"
+            "department": "581c28b16b0bdc02047fcaa3"
+            "job_title": "Developer"
+            "join_date": '"
+            "termination_date": '"
+            "birth_date": '"
+            "user": '"
+            "password": '"
+            "confirm_password": '"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+    {
+      "message": "Data saved successfully!!!",
+      "code": 200,
+      "employee_id": "5832bb016b0bdc05cf54b892"
+    }
+
+
+### Edit employee [POST /crm/contacts/contact/edit]
+Allows the user to get employee details of the selected employee to the edit form, that belongs to the Organization/team. 
+
++ Parameters
+    + employeeid (string) ... Passing the relavent employeeId to return only the relevant employee details.
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "employeeid": "5832bb016b0bdc05cf54b892"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "payload": [
+            {
+              "id": "5832bb016b0bdc05cf54b892",
+              "firstname": "Demo",
+              "middlename": "",
+              "lastname": "GitHub",
+              "addresses": {
+                "main": {
+                  "address1": "342",
+                  "address2": "Galle Road",
+                  "city": "Colombo",
+                  "state": "",
+                  "stateID": "",
+                  "zip": "",
+                  "country": "Bouvet Island",
+                  "countryID": "Bouvet Island",
+                  "description": "",
+                  "status": 1,
+                  "cuid": 1679,
+                  "uuid": 1679,
+                  "created_at": "2016-11-21 09:14:39",
+                  "updated_at": "2016-11-21 09:14:39"
+                }
+              },
+              "meta": {
+                "nationality": "",
+                "ssn": "",
+                "birthPlace": "",
+                "materialStatus": "",
+                "religion": "",
+                "gender": "Male",
+                "immigrationStatus": "",
+                "description": "",
+                "telephone2": "022 2222222"
+              },
+              "telephone1": "011 1111111",
+              "mobile": "077 7777777",
+              "status": 1,
+              "email": "git@flatorb.com",
+              "description": "",
+              "countryID": "Bouvet Island",
+              "created_at": "2016-11-21 09:14:39",
+              "updated_at": "2016-11-21 09:14:39"
+            }
+          ]
+        }
+
+
+### Update employee [POST /hr/employees/employee/update]
+Allows the user to  update the selected employee under the active Organization/team. 
+
++ Parameters
+    + hr_id (string) 
+    + emp_id (string) 
+    + file_no (optional, string)
+    + email (string)
+    + country (number)
+    + prefix (string)
+    + firstname (string)
+    + middlename (optional, number)
+    + lastname (string)
+    + address1 (optional, string)
+    + address2 (optional, string)
+    + city (optional, string)
+    + zip (optional, string)
+    + state (optional, string)
+    + telephone1 (optional, string)
+    + telephone2 (optional, string)
+    + mobile (string)
+    + nationality (optional, string)
+    + ssn (optional, string)
+    + birth_place (optional, string)
+    + marital_status (optional, string)
+    + religion (optional, string)
+    + gender (optional, string)
+    + immigration_status (optional, string)
+    + description (optional, string)
+    + emp_description (optional, string)
+    + emp_type (string)
+    + department (string)
+    + job_title (string)
+    + join_date (optional, string)
+    + termination_date (optional, string)
+    + birth_date (optional, string)
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "hr_id": "5832bb016b0bdc05cf54b892"
+            "emp_id": "423423123"
+            "file_no": "FX0092"
+            "email": "git@flatorb.com"
+            "country": 34
+            "prefix": "Mr."
+            "firstname": "Testing"
+            "middlename": ""
+            "lastname": "GitHub"
+            "address1": "342"
+            "address2": "Galle Road"
+            "city": "Colombo"
+            "zip": ""
+            "state": ""
+            "telephone1": "011 1111111"
+            "telephone2": "022 2222222"
+            "mobile": "077 7777777"
+            "nationality": '"
+            "ssn": '"
+            "birth_place": '"
+            "marital_status": '"
+            "religion": '"
+            "gender": "Male"
+            "immigration_status": '"
+            "description": '"
+            "emp_description": '"
+            "emp_type": "581c346d6b0bdc020671e1c2"
+            "department": "581c28b16b0bdc02047fcaa3"
+            "job_title": "Developer"
+            "join_date": '"
+            "termination_date": '"
+            "birth_date": '"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "message": "Data updated successfully!!!",
+          "code": 200
+        }
+
+
+### Get a list of my time sheets [POST /hr/mytimesheets]
+Allows the user to get a list of my time sheets that belongs to the Organization/team. 
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "payload": [
+            {
+              "id": "582058166b0bdc17d22a19c2",
+              "created_at": "2016-11-07 10:31:50",
+              "to": "2016-11-07 10:32:53",
+              "from": "2016-11-07 10:31:50",
+              "difference": "0.02"
+            }
+          ],
+          "code": 200
+        }
+
 
 ### Clock-in [POST /hr/clock-in]
 Allows the authenticated user to clock in.
