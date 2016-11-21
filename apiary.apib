@@ -40,15 +40,23 @@ Allows user to create an account
     + Body
         {
             "name": "John",
-            "teamName": "WidgetCorp",
             "email": "john@example.com",
-            "password": "Abc@1234"
+            "password": "Abc@1234",
+            "password_confirmation": "Abc@1234"
         }
 
 + Response 200 (application/json)
 
     + Body
         {
+            "user": {
+                "name": "TOne",
+                "email": "tone@flatorb.com",
+                "updated_at": "2016-11-21 05:56:03",
+                "created_at": "2016-11-21 05:56:03",
+                "id": 1640,
+                "tax_rate": 0
+            }
             "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1",
             "isError": false
         }
