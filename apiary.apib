@@ -430,6 +430,331 @@ Allows the user to  update the selected customer under the active Organization/t
           "code": 200
         }
 
+
+### Get a list of contacts [POST /crm/contacts]
+Allows the user to get a list of contacts and their information that belongs to the Organization/team. 
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+        {
+           "payload": [
+                {
+                    "id": "57ff61a96b0bdc091d013592",
+                    "name": "Genevieve Isabelle",
+                    "company": null,
+                    "position": "HR",
+                    "telephone": "344234 , 234234",
+                    "email": "gene@flatorb.com",
+                    "added_by": "Keshani",
+                    "profileimage": "https://cdn.fxhello.com/img/imgph300.png",
+                    "profileImgStatus": false,
+                    "created_on": "2016-10-13 10:27:52"
+                }
+            ],
+            "code": 200
+        }
+
+
+### Display contact profile [POST /crm/contacts/contact]
+Allows the user to get contact details of the selected contact that belongs to the Organization/team. 
+
++ Parameters
+    + contactid (string) ... Passing the relavent contactId to return only the relevant contact details.
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "contactid": 5806d9fe6b0bdc0209217585
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "payload": [
+            {
+              "id": "57ff61a96b0bdc091d013592",
+              "customerName": null,
+              "firstName": "Genevieve",
+              "lastName": "Isabelle",
+              "telephone": "344234",
+              "mobile": "234234",
+              "email": "gene@flatorb.com",
+              "image": "",
+              "position": "HR",
+              "profileimage": "https://cdn.fxhello.com/img/imgph300.png",
+              "profileImgStatus": false,
+              "addresses": {
+                "address1": "234",
+                "address2": "Galle Road",
+                "city": "Colombo",
+                "state": "",
+                "stateid": null,
+                "zip": "",
+                "country": "Ecuador",
+                "countryid": "63",
+                "description": "",
+                "status": 1,
+                "cuid": 6,
+                "uuid": 6,
+                "created_at": "2016-10-13 10:27:52",
+                "updated_at": "2016-10-13 10:27:52"
+              }
+            }
+        ]
+    }
+
+
+### Create a Contact [POST /crm/contacts/contact/save]
+Allows the user to  saves a contact under the active Organization/team. 
+
++ Parameters
+    + customer (optional, string) 
+    + prefix (string)
+    + firstName (string)
+    + middleName (optional, string)
+    + lastName (optional, string)
+    + email (optional, string)
+    + country (number)
+    + position (optional, string)
+    + department (optional, string)
+    + contact_type (optional, string)
+    + telephone (optional, string)
+    + mobile (string)
+    + address1 (optional, string)
+    + address2 (optional, string)
+    + city (optional, string)
+    + post_code (string)
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "customer": "583285a06b0bdc28804587c2"
+            "prefix": "Mr.""
+            "firstName": "Git"
+            "middleName": "Contact"
+            "lastName": "Demo"
+            "email": "git@flatorb.com"
+            "country": "56"
+            "position": "Trainee Developer"
+            "department": "IT"
+            "contact_type": ""
+            "telephone": "011 1111111"
+            "mobile": "077 7777777"
+            "address1": "45"
+            "address2": "Galle Road"
+            "city": "Colombo"
+            "post_code": '"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+    {
+        "message": "Data saved successfully!!!",
+        "code": 200,
+        "contact_id": "58329bf16b0bdc244f367da3"
+    }
+
+
+### Edit contact [POST /crm/contacts/contact/edit]
+Allows the user to get contact details of the selected contact to the edit form, that belongs to the Organization/team. 
+
++ Parameters
+    + contactid (string) ... Passing the relavent contactId to return only the relevant contact details.
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "contactid": "58329bf16b0bdc244f367da3"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "payload": [
+            {
+              "id": "58329bf16b0bdc244f367da3",
+              "cutomerName": "Github demo customer ",
+              "firstName": "Git",
+              "middleName": "Contact",
+              "lastName": "Demo",
+              "telephone": "011 1111111",
+              "mobile": "077 7777777",
+              "email": "git@flatorb.com",
+              "title": "Trainee Developer",
+              "image": "",
+              "department": "IT",
+              "contact_type": "",
+              "addresses": {
+                "address1": "45",
+                "address2": "Galle Road",
+                "city": "Colombo",
+                "state": "",
+                "zip": "",
+                "country": "Czech Republic",
+                "countryid": "Czech Republic",
+                "description": "",
+                "status": 1,
+                "cuid": 1679,
+                "uuid": 1679,
+                "created_at": "2016-11-21 07:02:07",
+                "updated_at": "2016-11-21 07:02:07"
+              }
+            }
+          ]
+        }
+
+
+### Update contact [POST /crm/contacts/contact/update]
+Allows the user to  update the selected contact under the active Organization/team. 
+
++ Parameters
+    + contactid (string) 
+    + prefix (string) 
+    + firstName (string)
+    + middleName (optional, string)
+    + lastName (optional, string)
+    + email (optional, string)
+    + country (number)
+    + position (optional, string)
+    + department (optional, string)
+    + contact_type (optional, string)
+    + telephone (optional, string)
+    + mobile (string)
+    + address1 (optional, string)
+    + address2 (optional, string)
+    + city (optional, string)
+    + post_code (optional, string)
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "contactid": "583285a06b0bdc28804587c2"
+            "prefix": "Github demo customer "
+            "firstName": "Mr.""
+            "middleName": "5801b8184189dc69ad4409e7"
+            "lastName": "git@flatorb.com"
+            "email": "www.github.com"
+            "country": 23
+            "position": "123"
+            "department": "Galle Road"
+            "contact_type": "Colombo"
+            "telephone": "0"
+            "mobile": "0"
+            "address1": "011 11111111"
+            "address2": "022 22222222"
+            "city": "077 7777777"
+            "post_code": "011 1111111"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "message": "Data updated successfully!!!",
+          "code": 200
+        }
+
+
+### Get values for the customer create from dropdowns [POST /crm/customer/dropdowns]
+Allows the user to get a list of values for the drop downs countries, customer status and lead source that belongs to the Organization/team. 
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "payload": {
+                "countries": [
+                  {
+                    "id": 3,
+                    "country": "Afghanistan"
+                  }
+                ],
+                "customerStatuses": [
+                  {
+                    "id": 1,
+                    "status": "Customer"
+                  },
+                ],
+                "leadSources": [
+                  {
+                    "id": "57fcd93e4189dc6a846be182",
+                    "source": "This is test"
+                  },
+                ],
+                "categories": [
+                 {
+                    "id": "57fdc2c06b0bdc7ee01a59d2",
+                    "name": "New Customer category"
+                  },
+                ]
+            },
+            "code": 200
+        }
+
+
+### Get values for the contact create from dropdowns [POST /crm/contact/dropdowns]
+Allows the user to get a list of values for the drop downs countries and customers that belongs to the Organization/team. 
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "payload": {
+                "countries": [
+                  {
+                    "id": 3,
+                    "country": "Afghanistan"
+                  }
+                ],
+                "customers": [
+                  {
+                    "id": "57ff51896b0bdc0747634a73",
+                    "name": "Francisca Industries PVT LTD"
+                  },
+                ]
+            },
+            "code": 200
+        }
+
+
 ## Support [/support]
 
 ## HR [/hr]
