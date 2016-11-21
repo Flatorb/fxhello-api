@@ -94,7 +94,7 @@ Allows the user to get a list of categories and their ID's that belongs to the O
         
 
 ### Create category [POST /categories/save]
-This allows the user to create a new contact category.
+This allows the user to create a new category.
 
 + Parameters
     + subType (optional, number) ...  subType = 3 for customers and subType = 4 for contacts. Can keep it as NULL or 0.
@@ -178,11 +178,11 @@ Allows the user to get a list of customers and their information that belongs to
             "code": 200
         }
 
-### Get a list of categories [POST /categories]
-Allows the user to get a list of categories and their ID's that belongs to the Organization/team. 
+### Display customer profile [POST /crm/customers/customer]
+Allows the user to get customer details of the selected customer that belongs to the Organization/team. 
 
 + Parameters
-    + subType (optional, number) ... NULL or 0 return all categories. Passing the relavent subType return only the applicable categories.
+    + customerid (string) ... Passing the relavent customerId to return only the relevant customer details.
     
 + Request
 
@@ -191,30 +191,244 @@ Allows the user to get a list of categories and their ID's that belongs to the O
             Accept: application/vnd.fxhello.v1+json
     + Body
         {
-            "subType": 0
+            "customerid": 5806d9fe6b0bdc0209217585
         }
 
 + Response 200 (application/json)
 
     + Body
         {
-           "payload": {
-             "customers": [
-                {
-                    "id": "57fdc2c06b0bdc7ee01a59d2",
-                    "name": "New Customer category"
-                }
-             ],
-            "contacts": [
-                {
-                    "id": "57fdc2006b0bdc7d6809b522",
-                    "name": "New contact category"
-                }
-            ]
-            },
-            "code": 200
-         }
+          "payload": [
+            {
+              "id": "5806d9fe6b0bdc0209217585",
+              "name": "Aileen Annie",
+              "addresses": {
+                "address1": "",
+                "address2": "",
+                "city": "",
+                "state": "",
+                "stateid": null,
+                "zip": "",
+                "country": "Estonia",
+                "countryid": "64",
+                "description": "",
+                "status": 1,
+                "cuid": 6,
+                "uuid": 6,
+                "created_at": "2016-10-19 02:27:07",
+                "updated_at": "2016-10-19 02:27:07"
+              },
+              "telephone1": "",
+              "telephone2": null,
+              "mobile": "",
+              "fax": null,
+              "status": "Prospect",
+              "email": "",
+              "website": "",
+              "description": "",
+              "profileimage": "https://cdn.fxhello.com/img/imgph300.png",
+              "profileImgStatus": false,
+              "leadSource": "Lead",
+              "customerSince": "2016-10-19",
+              "creditPeriod": null,
+              "cuName": "Keshani",
+              "created_at": "2016-10-19 02:27:07",
+              "uuName": "Keshani",
+              "updated_at": "2016-10-19 02:27:07"
+            }
+          ]
+    }
 
+
+### Create a customer [POST /crm/customers/customer/save]
+Allows the user to  saves a customer under the active Organization/team. 
+
++ Parameters
+    + name (string) 
+    + prefix (string)
+    + category (optional, string)
+    + email (optional, string)
+    + website (optional, string)
+    + country (number)
+    + address1 (optional, string)
+    + address2 (optional, string)
+    + city (optional, string)
+    + zip (optional, string)
+    + state (optional, string)
+    + telephone1 (optional, string)
+    + telephone2 (optional, string)
+    + mobile (string)
+    + fax (optional, string)
+    + status (string)
+    + leadsource (string)
+    + customer_since (optional, string)
+    + description (optional, string)
+    + designation (optional, string)
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "name": "Github test customer"
+            "prefix": "Mr.""
+            "category": "5801b8184189dc69ad4409e7"
+            "email": "git@flatorb.com"
+            "website": "www.github.com"
+            "country": 23
+            "address1": "123"
+            "address2": "Galle Road"
+            "city": "Colombo"
+            "zip": "0"
+            "state": "0"
+            "telephone1": "011 11111111"
+            "telephone2": "022 22222222"
+            "mobile": "077 7777777"
+            "fax": "011 1111111"
+            "status": '3"
+            "leadsource": "581ab6a058e13f4536380912"
+            "customer_since": "2016-11-13"
+            "description": "Test Customer"
+            "designation": "Developer"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "message": "Data saved successfully!!!",
+          "code": 200,
+          "customer_id": "583285a06b0bdc28804587c2"
+        }
+
+
+### Edit customer [POST /crm/customers/customer/edit]
+Allows the user to get customer details of the selected customer to the edit form, that belongs to the Organization/team. 
+
++ Parameters
+    + customerid (string) ... Passing the relavent customerId to return only the relevant customer details.
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "customerid": "583285a06b0bdc28804587c2"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "payload": [
+            {
+              "id": "583285a06b0bdc28804587c2",
+              "name": "Github test customer",
+              "addresses": {
+                "address1": "123",
+                "address2": "Colombo Road",
+                "city": "Colombo",
+                "state": "",
+                "stateid": "",
+                "zip": "",
+                "country": "Bahrain",
+                "countryid": "Bahrain",
+                "description": "",
+                "status": 1,
+                "cuid": 1679,
+                "uuid": 1679,
+                "created_at": "2016-11-21 05:26:51",
+                "updated_at": "2016-11-21 05:26:51"
+              },
+              "telephone1": "45345",
+              "telephone2": "435345",
+              "mobile": "34534",
+              "fax": "345345",
+              "statusID": "3",
+              "status": "Lead",
+              "email": "git@flatorb.com",
+              "website": "",
+              "description": "",
+              "countryID": "Bahrain",
+              "leadSourceID": "581ab6a058e13f4536380912",
+              "leadSource": "Mailed",
+              "customerSince": "1970-01-01",
+              "cuName": "Keshani",
+              "created_at": "2016-11-21 05:26:51",
+              "uuName": "Keshani",
+              "updated_at": "2016-11-21 05:26:51"
+            }
+          ]
+    }
+
+
+### Update customer [POST /crm/customers/customer/update]
+Allows the user to  update the selected customer under the active Organization/team. 
+
++ Parameters
+    + customerid (string) 
+    + name (string) 
+    + prefix (string)
+    + category (optional, string)
+    + email (optional, string)
+    + website (optional, string)
+    + country (number)
+    + address1 (optional, string)
+    + address2 (optional, string)
+    + city (optional, string)
+    + zip (optional, string)
+    + state (optional, string)
+    + telephone1 (optional, string)
+    + telephone2 (optional, string)
+    + mobile (string)
+    + fax (optional, string)
+    + status (string)
+    + leadsource (string)
+    + customer_since (optional, string)
+    + description (optional, string)
+    + designation (optional, string)
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "customerid": "583285a06b0bdc28804587c2"
+            "name": "Github demo customer "
+            "prefix": "Mr.""
+            "category": "5801b8184189dc69ad4409e7"
+            "email": "git@flatorb.com"
+            "website": "www.github.com"
+            "country": 23
+            "address1": "123"
+            "address2": "Galle Road"
+            "city": "Colombo"
+            "zip": "0"
+            "state": "0"
+            "telephone1": "011 11111111"
+            "telephone2": "022 22222222"
+            "mobile": "077 7777777"
+            "fax": "011 1111111"
+            "status": '3"
+            "leadsource": "581ab6a058e13f4536380912"
+            "customer_since": "2016-11-13"
+            "description": "Test Customer"
+            "designation": "Developer"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "message": "Data updated successfully!!!",
+          "code": 200
+        }
 
 ## Support [/support]
 
