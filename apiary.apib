@@ -1326,3 +1326,677 @@ Allows the authenticated user to clock out if the user is already clocked-in.
         {
             "message": "You are not setup as an employee of your organization."
         }
+
+
+## SALES [POST /sales]
+
+### Get a list of sales overview [POST /sales/overview]
+Allows the user to get a list of sales overview that belongs to the Organization/team. 
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "payload": {
+            "customer_sales_orders": [
+                  {
+                    "id": "580ec3528b888048e66070d3",
+                    "name": "Elena Gilbert",
+                    "items": 2,
+                    "value": "1,152,203.63",
+                    "status": "Pending",
+                    "created": "2016-10-25 02:28:34",
+                    "updated": "2016-10-25 02:28:34"
+                  } 
+              ]
+          },
+          "code": 200
+        }
+
+
+### Get a list of opportunities [POST /sales/opportunities]
+Allows the user to get a list of opportunities that belongs to the Organization/team. 
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+       {
+          "payload": {
+            "opportunities": [
+                  {
+                    "id": "58006c356b0bdc042c158284",
+                    "opportunity": "Wesley & Thadeus & DO ",
+                    "customer": "Doe Industries",
+                    "contacts": "-",
+                    "value": "9,000,000.00",
+                    "status": "Decision",
+                    "assignee": "",
+                    "created_on": "2016-10-14 05:25:07"
+                  } 
+              ]
+          },
+          "code": 200
+        }
+
+
+### Display opportunity profile [POST /sales/opportunities/opportunity]
+Allows the user to display the opportunity according to the given opportunity ID that belongs to the Organization/team. 
+
++ Parameters
+    + opportunityid (string)
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "opportunityid": "582be4976b0bdc0e4f706d82"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+       {
+          "payload": {
+            "0": {
+              "id": "58216b4158e13f2bac235f44",
+              "customerName": "Demo ABC 08",
+              "opportunity": "Demo ABC Opportunity",
+              "value": "",
+              "status": "New",
+              "expectedClose": "2016-11-08",
+              "description": "",
+              "profileimage": "https://s3.amazonaws.com/fxhellouat/data/102/customer/5821613758e13f2baf56ba22/1478585938-Bm5PoBeomCoc23jZxnh6.jpg?X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJUVQVA4VO7WZAOVQ%2F20161121%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20161121T101919Z&X-Amz-SignedHeaders=host&X-Amz-Expires=300&X-Amz-Signature=b4aa5184845f7d950e4cfc4d0354d8ef172b647e95bc2031f906a78889a72ba9",
+              "profileImgStatus": true
+            },
+            "products": []
+          }
+        }
+
+
+### Create an opportunity [POST /sales/opportunities/opportunity/save]
+Allows the user to create an opportunity that belongs to the Organization/team. 
+
++ Parameters
+    + customer (string)
+    + opportunity (string)
+    + category (optional, string)
+    + product_categories (optional, string)
+    + products (optional, string)
+    + contacts (optional, string)
+    + value (optional, string)
+    + expected_close (optional, string)
+    + description (optional, string)
+    + status (string)
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "customer": "583285a06b0bdc28804587c2"
+            "opportunity": "Demo opportunity"
+            "category": ""
+            "product_categories": ""
+            "products": ""
+            "contacts": ""
+            "value": "120000"
+            "expected_close": "2016-11-21"
+            "description": "Demo description"
+            "status": "New"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "message": "Data saved successfully!!!",
+          "code": 200,
+          "opportunity_id": "5832cc506b0bdc28804587c4"
+        }
+
+
+### Get vales to the opportunity create form dropdowns [POST /sales/opportunity/dropdowns]
+Allows the user to get a list of products, customer & categories that belongs to the Organization/team.
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+       {
+          "payload": {
+                "products": [
+                      {
+                        "id": "580083186b0bdc05ff588792",
+                        "name": "Mac Book",
+                        "price": "2300"
+                      }
+                  ],
+                "customers": [
+                      {
+                        "id": "57ff51896b0bdc0747634a73",
+                        "name": "Francisca Industries PVT LTD"
+                      },
+                  ],
+                "categories": [
+                      {
+                        "id": "5801b8184189dc69ad4409d9",
+                        "name": "GPS"
+                      } 
+                  ]
+          },
+          "code": 200
+        }
+
+
+### Get the contacts according to the selected customer [POST /sales/opportunities/contacts]
+Allows the user to get contacts according to the selected customer that belongs to the Organization/team.
+
++ Parameters
+    + customerid (string) 
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "customerid": "5800a25a6b0bdc06a814c743"
+        }
+
+
++ Response 200 (application/json)
+
+    + Body
+       {
+          "payload": {
+            "contacts": [
+              {
+                "id": "5800a2026b0bdc063e70f1a3",
+                "contact": "Shelley "
+              }
+            ]
+          },
+          "code": 200
+        }
+
+### Get a list of quotations [POST /sales/quotations]
+Allows the user to get a list of quotations that belongs to the Organization/team. 
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+       {
+          "payload": [
+                {
+                  "id": "580084f36b0bdc057904ef12",
+                  "name": "Donnie MIllers",
+                  "items": 2,
+                  "value": "13,375,432.64",
+                  "status": "Pending",
+                  "updated": "2016-10-14 07:10:41"
+                }
+            ],
+          "code": 200
+        }
+
+
+### Display quotation profile [POST /sales/quotations/quotation]
+Allows the user to display the quotation according to the given quotation ID that belongs to the Organization/team. 
+
++ Parameters
+    + quotationid (string)
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "quotationid": "581c19816b0bdc032d468a23"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+       {
+          "payload": {
+            "0": {
+              "id": "581c19816b0bdc032d468a23",
+              "number": "",
+              "created_at": "2016-11-04 05:15:45",
+              "customername": "Samck Doe",
+              "subtotal": "144",
+              "discount": "",
+              "tax": 19.100736,
+              "grand_total": 182.201472,
+              "status": "Pending",
+              "address1": "",
+              "address2": "",
+              "city": "",
+              "country": "Cook Islands"
+            },
+            "products": [
+              {
+                "product_name": "Mac Book",
+                "qty": "12",
+                "unitprice": "12",
+                "discount": "",
+                "linetotal": "144"
+              }
+            ]
+          }
+        }
+
+
+### Create quotation [POST /sales/quotations/quotation/save]
+Allows the user to create a quotation that belongs to the Organization/team. 
+
++ Parameters
+    + customer (string)
+    + number (optional, string)
+    + description (optional, string)
+    + orderdate (optional, string)
+    + validtill (string)
+    + creditperiod (optional, string)
+    + product_id (string)
+    + qty (string)
+    + unitprice (string)
+    + discount (string)
+    + linetotal (string)
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "customer": "583285a06b0bdc28804587c2"
+            "number": "212312"
+            "description": ""
+            "orderdate": "2016-11-21"
+            "validtill": "2016-11-23"
+            "creditperiod": "1"
+            "product_id": "580083186b0bdc05ff588792"
+            "qty": "2"
+            "unitprice": "1000"
+            "discount": "100"
+            "linetotal": "1900"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "message": "Data saved successfully!!!",
+          "code": 200,
+          "quote_id": "5832c7376b0bdc05ce4573b4"
+        }
+
+
+### Get a list of customer sales order [POST /sales/salesorders]
+Allows the user to get a list of customer sales that belongs to the Organization/team. 
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+       {
+          "payload": {
+            "customer_sales_orders": [
+                  {
+                    "id": "580ec3528b888048e66070d3",
+                    "name": "Elena Gilbert",
+                    "items": 2,
+                    "value": "1,152,203.63",
+                    "status": "Pending",
+                    "created": "2016-10-25 02:28:34",
+                    "updated": "2016-10-25 02:28:34"
+                  }
+              ],
+            "dc_sales_orders": []
+          },
+          "code": 200
+        }
+
+
+### Display sales order profile [POST /sales/salesorders/salesorder]
+Allows the user to display the sales order according to the given sales order ID that belongs to the Organization/team. 
+
++ Parameters
+    + salesorder_id (string)
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "salesorder_id": "582be4976b0bdc0e4f706d82"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+       {
+          "payload": {
+            "0": {
+              "id": "582be4976b0bdc0e4f706d82",
+              "number": "5345",
+              "created_at": "2016-11-16 04:46:14",
+              "customername": "Cass Industries",
+              "subtotal": 4500000,
+              "discount": 0,
+              "tax": 596898,
+              "grand_total": 5693796,
+              "status": "Pending",
+              "address1": "2131",
+              "address2": "Galle Road",
+              "city": "Colombo",
+              "country": "Bolivia"
+            },
+            "products": [
+              {
+                "product_name": "Books",
+                "qty": "45",
+                "unitprice": "100000.00",
+                "discount": "0.00",
+                "linetotal": "4500000.00"
+              }
+            ]
+          }
+        }
+
+
+### Create sales order [POST /sales/salesorders/salesorder/save]
+Allows the user to create a sales order that belongs to the Organization/team. 
+
++ Parameters
+    + customer (string)
+    + quotenumber (optional, string)
+    + sonumber (optional, string)
+    + description (optional, string)
+    + orderdate (string)
+    + creditperiod (optional, string)
+    + product_id (string)
+    + qty (string)
+    + unitprice (string)
+    + discount (string)
+    + linetotal (string)
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "customer": "583285a06b0bdc28804587c2"
+            "quotenumber": "212312"
+            "sonumber": "213123"
+            "description": ""
+            "orderdate": "2016-11-21"
+            "creditperiod": "1"
+            "product_id": "580083186b0bdc05ff588792"
+            "qty": "2"
+            "unitprice": "1000"
+            "discount": "100"
+            "linetotal": "1900"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "message": "Data saved successfully!!!",
+          "code": 200,
+          "sales_order_id": "5832c4af6b0bdc05cd7f9e32"
+        }
+
+
+### Get a list of invoices [POST /sales/invoices]
+Allows the user to get a list of invoices that belongs to the Organization/team. 
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+       {
+          "payload": [
+                {
+                  "id": "58008b4a6b0bdc06881cfab2",
+                  "name": "Donnie MIllers",
+                  "items": 1,
+                  "value": "8,857,276.08",
+                  "status": "Pending",
+                  "created": "2016-10-14 07:37:46",
+                  "updated": "2016-10-14 07:37:46"
+                }
+            ],
+          "code": 200
+        }
+
+
+### Display invoice profile [POST /sales/invoices/invoice]
+Allows the user to display the invoice according to the given invoice ID that belongs to the Organization/team. 
+
++ Parameters
+    + invoiceid (string)
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "invoiceid": "582be4976b0bdc0e4f706d82"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+       {
+          "payload": {
+            "0": {
+              "id": "582036996b0bdc14b145f4f2",
+              "number": null,
+              "created_at": "2016-11-07 08:08:57",
+              "customername": "Samck Doe",
+              "subtotal": "144",
+              "discount": null,
+              "tax": 19.100736,
+              "grand_total": 182.201472,
+              "status": "Pending",
+              "address1": "",
+              "address2": "",
+              "city": "",
+              "country": "Cook Islands"
+            },
+            "products": [
+              {
+                "product_name": "Mac Book",
+                "qty": "12",
+                "unitprice": "12",
+                "discount": "",
+                "linetotal": "144"
+              }
+            ]
+          }
+        }
+
+
+### Create an invoice [POST /sales/invoices/invoice/save]
+Allows the user to create an invoice that belongs to the Organization/team. 
+
++ Parameters
+    + customer (string)
+    + quotenumber (optional, string)
+    + sonumber (optional, string)
+    + description (optional, string)
+    + orderdate (string)
+    + creditperiod (optional, string)
+    + product_id (string)
+    + qty (string)
+    + unitprice (string)
+    + discount (string)
+    + linetotal (string)
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "customer": "583285a06b0bdc28804587c2"
+            "quote_number": "212312"
+            "so_number": "213123"
+            "description": ""
+            "orderdate": "2016-11-21"
+            "creditperiod": "1"
+            "product_id": "580083186b0bdc05ff588792"
+            "qty": "2"
+            "unitprice": "1000"
+            "discount": "100"
+            "linetotal": "1900"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "message": "Data saved successfully!!!",
+          "code": 200,
+          "invoice_id": "5832c8e56b0bdc05ce4573b5"
+        }
+
+
+### Get a list of workorders [POST /sales/workorders]
+Allows the user to get a list of work orders that belongs to the Organization/team. 
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+       {
+          "payload": [
+                {
+                  "id": "57ff36816b0bdc06f947f0f2",
+                  "appointment": "2016-10-26",
+                  "name": "Clive workorder",
+                  "customer_name": "Clive Industries",
+                  "status": 1
+                }
+            ],
+          "code": 200
+        }
+
+
+### Get values to the dropdowns in quotation, sales order and invoice create forms [POST /sales/products/dropdowns]
+Allows the user to get values to the dropdowns in quotation, sales order and invoice create forms that belongs to the Organization/team.
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+      {
+          "payload": {
+            "products": [
+                  {
+                    "id": "580083186b0bdc05ff588792",
+                    "name": "Mac Book",
+                    "price": "2300"
+                  } 
+              ],
+            "customers": [
+                  {
+                    "id": "57ff51896b0bdc0747634a73",
+                    "name": "Francisca Industries PVT LTD"
+                  }, 
+              ]
+          },
+          "code": 200
+        }
+
+
+### Get the product price [POST /sales/products/product/price]
+Allows the user to get the product price that belongs to the Organization/team.
+
++ Parameters
+    + productid (string) 
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "productid": "580083186b0bdc05ff588792"
+        }
+
+
++ Response 200 (application/json)
+
+    + Body
+      {
+          "payload": [
+            {
+              "id": "580083186b0bdc05ff588792",
+              "price": "2300"
+            }
+          ],
+          "code": 200
+        }
