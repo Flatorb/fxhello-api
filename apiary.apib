@@ -94,7 +94,7 @@ User can create a new organization. The new organization will become the new act
 Allows the user to get a list of categories and their ID's that belongs to the Organization/team. 
 
 + Parameters
-    + subType (optional, number) ... NULL or 0 return all categories. Passing the relavent subType return only the applicable categories.
+    + subType (optional, number) ... NULL or 0 return all categories. Passing the relavent subType return only the applicable categories. (subType = 3 for customers, subType = 4 for contacts, subType = 5 for products, subType = 17 for marketing resources and subType = 32 for marketing campaign)
 
 + Request
 
@@ -882,6 +882,44 @@ Allows the user to  saves a support ticket under the active Organization/team.
           "message": "Data saved successfully!!!",
           "ticket_id": "5833fe7f6b0bdc03d0103b52"
         }
+
+
+### Get vales to the supoort ticket create form dropdowns [POST /support/tickets/dropdowns]
+Allows the user to get a list of customers, currency and assignees that belongs to the Organization/team.
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+       {
+        "payload": {
+          "customers": [
+              {
+                "id": "57ff51896b0bdc0747634a73",
+                "name": "Francisca Industries PVT LTD"
+              }
+            ],
+          "assignees": [
+            {
+              "id": "5805a3536b0bdc039843aff2",
+              "name": "Nickles Domnick"
+            }
+          ],
+          "currency": [
+            {
+              "id": 3,
+              "country": "Afghanistan",
+              "currency": "AFN"
+            }
+          ]
+        }
+      }
+
 
 
 ## HR [/hr]
@@ -2250,4 +2288,136 @@ Allows the user to create a marketing resource that belongs to the Organization/
           "message": "Data saved successfully!!!",
           "resource_id": "5832d9c26b0bdc070f6b9702"
         }
+
+
+## Products [/products]
+
+### Get a list of products [POST /products/products]
+Allows the user to get a list of products that belongs to the Organization/team. 
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+      {
+        "payload": [
+            {
+              "id": "580083186b0bdc05ff588792",
+              "sku": "FX000000",
+              "product_name": "Mac Book",
+              "price": "2300",
+              "categoryName": "Laptop",
+              "created_at": "2016-11-08 02:40:49",
+              "updated_at": "2016-11-08 02:40:49"
+            } 
+          ]
+      }
+
+
+### Get a list of weight units [POST /products/products/weight-units]
+Allows the user to get a list of weight units that belongs to the Organization/team. 
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+      {
+        "payload": [
+          {
+            "id": 9,
+            "symbol": "g"
+          },
+          {
+            "id": 10,
+            "symbol": "Kg"
+          },
+          {
+            "id": 11,
+            "symbol": "t"
+          }
+        ]
+      }
+
+
+### Get a list of length units [POST /products/products/length-units]
+Allows the user to get a list of length units that belongs to the Organization/team. 
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+     {
+        "payload": [
+          {
+            "id": 2,
+            "symbol": "cm"
+          },
+          {
+            "id": 6,
+            "symbol": "ft"
+          },
+          {
+            "id": 5,
+            "symbol": "in"
+          },
+          {
+            "id": 4,
+            "symbol": "Km"
+          },
+          {
+            "id": 3,
+            "symbol": "m"
+          },
+          {
+            "id": 8,
+            "symbol": "mi"
+          },
+          {
+            "id": 1,
+            "symbol": "mm"
+          },
+          {
+            "id": 7,
+            "symbol": "yd"
+          }
+        ]
+      }
+
+## General [/]
+
+### Get a list of countries [POST /countries]
+Allows the user to get a list of countries that belongs to the Organization/team. 
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+     {
+        "countries": [
+          {
+            "id": 232,
+            "country": "United States"
+          }
+        ]
+      }
 
