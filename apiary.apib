@@ -1068,7 +1068,7 @@ Allows the user to get a list of employees and their information that belongs to
 Allows the user to get employee details of the selected employee that belongs to the Organization/team. 
 
 + Parameters
-    + empid (string) ... Passing the relavent empId to return only the relevant empId details.
+    + employeeid (string) ... Passing the relavent empId to return only the relevant empId details.
     
 + Request
 
@@ -1077,7 +1077,7 @@ Allows the user to get employee details of the selected employee that belongs to
             Accept: application/vnd.fxhello.v1+json
     + Body
         {
-            "empid": 5806d9fe6b0bdc0209217585
+            "employeeid": 5806d9fe6b0bdc0209217585
         }
 
 + Response 200 (application/json)
@@ -1283,7 +1283,7 @@ Allows the user to get employee details of the selected employee to the edit for
 Allows the user to  update the selected employee under the active Organization/team. 
 
 + Parameters
-    + hr_id (string) 
+    + employeeid (string) 
     + emp_id (string) 
     + file_no (optional, string)
     + email (string)
@@ -1323,7 +1323,7 @@ Allows the user to  update the selected employee under the active Organization/t
             Accept: application/vnd.fxhello.v1+json
     + Body
         {
-            "hr_id": "5832bb016b0bdc05cf54b892"
+            "employeeid": "5832bb016b0bdc05cf54b892"
             "emp_id": "423423123"
             "file_no": "FX0092"
             "email": "git@flatorb.com"
