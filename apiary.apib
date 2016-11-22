@@ -61,6 +61,33 @@ Allows user to create an account
             "isError": false
         }
         
+## Organization
+
+### Create Organization [POST /organizationCreate]
+User can create a new organization. The new organization will become the new active organization of the user.
+
++ Parameters
+    + orgName (required) ... This is the name of the organization
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "orgName": "Widget Corp"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+            "orgId": 1624,
+            "message": "Organization created successfully",
+            "isError": false
+        }
+
 ## Categories [/categories]
 
 ### Get a list of categories [POST /categories]
@@ -91,14 +118,15 @@ Allows the user to get a list of categories and their ID's that belongs to the O
               },
           }
         }
-            
+      
 
-### Create category [POST /categories/save]
-This allows the user to create a new category.
+### Create category [POST /categoryCreate]
+This allows the user to create a new category for the specified subType.
 
 + Parameters
     + subType (optional, number) ...  subType = 3 for customers, subType = 4 for contacts, subType = 17 for marketing resources and subType = 32 for marketing campaign. Can keep it as NULL or 0.
     + category_name (number)
+
 
 + Request
 
@@ -111,11 +139,11 @@ This allows the user to create a new category.
             "subType": 3
         }
 
-+ Response 201 (application/json)
++ Response 200 (application/json)
 
     + Body
         {
-              "message": "Data saved successfully!!!"
+          "message": "Data saved successfully!!!"
         }
 
 ## Background services [/services]
