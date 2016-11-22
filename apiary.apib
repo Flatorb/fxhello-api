@@ -173,8 +173,7 @@ Allows the user to get a list of customers and their information that belongs to
                   "profileImgStatus": false,
                   "created_on": "2016-10-13 09:19:03"
                  }
-            ],
-            "code": 200
+            ]
         }
 
 ### Display customer profile [POST /crm/customers/customer]
@@ -236,7 +235,7 @@ Allows the user to get customer details of the selected customer that belongs to
               "updated_at": "2016-10-19 02:27:07"
             }
           ]
-    }
+        }
 
 
 ### Create a customer [POST /crm/customers/customer/save]
@@ -298,7 +297,6 @@ Allows the user to  saves a customer under the active Organization/team.
     + Body
         {
           "message": "Data saved successfully!!!",
-          "code": 200,
           "customer_id": "583285a06b0bdc28804587c2"
         }
 
@@ -362,7 +360,7 @@ Allows the user to get customer details of the selected customer to the edit for
               "updated_at": "2016-11-21 05:26:51"
             }
           ]
-    }
+        }
 
 
 ### Update customer [POST /crm/customers/customer/update]
@@ -456,8 +454,7 @@ Allows the user to get a list of contacts and their information that belongs to 
                     "profileImgStatus": false,
                     "created_on": "2016-10-13 10:27:52"
                 }
-            ],
-            "code": 200
+                ]
         }
 
 
@@ -566,7 +563,6 @@ Allows the user to  saves a contact under the active Organization/team.
     + Body
     {
         "message": "Data saved successfully!!!",
-        "code": 200,
         "contact_id": "58329bf16b0bdc244f367da3"
     }
 
@@ -675,8 +671,7 @@ Allows the user to  update the selected contact under the active Organization/te
 
     + Body
         {
-          "message": "Data updated successfully!!!",
-          "code": 200
+          "message": "Data updated successfully!!!"
         }
 
 
@@ -718,8 +713,7 @@ Allows the user to get a list of values for the drop downs countries, customer s
                     "name": "New Customer category"
                   },
                 ]
-            },
-            "code": 200
+            }
         }
 
 
@@ -749,8 +743,7 @@ Allows the user to get a list of values for the drop downs countries and custome
                     "name": "Francisca Industries PVT LTD"
                   },
                 ]
-            },
-            "code": 200
+            }
         }
 
 
@@ -776,8 +769,7 @@ Allows the user to get a list of departments and their ID's that belongs to the 
               "id": "5801b8184189dc69ad440a11",
               "name": "Legal"
             }
-          ],
-          "code": 200
+          ]
         }
 
 
@@ -805,8 +797,7 @@ Allows the user to  saves a department under the active Organization/team.
 
     + Body
         {
-          "message": "Data saved successfully!!!",
-          "code": 200
+          "message": "Data saved successfully!!!"
         }
 
 
@@ -862,8 +853,7 @@ Allows the user to update the details of the selected department under the activ
 
     + Body
         {
-          "message": "Data updated successfully!!!",
-          "code": 200
+          "message": "Data updated successfully!!!"
         }
 
 
@@ -885,8 +875,7 @@ Allows the user to get a list of employment types and their ID's that belongs to
               "id": "5801b8184189dc69ad4409d2",
               "name": "Internship"
             }
-        ],
-      "code": 200
+        ]
     }  
 
 
@@ -910,8 +899,7 @@ Allows the user to create an employment type under to the Organization/team.
 
     + Body
         {
-          "message": "Data saved successfully!!!",
-          "code": 200
+          "message": "Data saved successfully!!!"
         }
 
 
@@ -937,8 +925,7 @@ Allows the user to get a list of employees and their information that belongs to
                   "title": "IT",
                   "department": "Finance"
                 }
-            ],
-          "code": 200
+            ]
         }
 
 
@@ -1085,7 +1072,6 @@ Allows the user to  saves an employee under the active Organization/team.
     + Body
     {
       "message": "Data saved successfully!!!",
-      "code": 200,
       "employee_id": "5832bb016b0bdc05cf54b892"
     }
 
@@ -1240,8 +1226,7 @@ Allows the user to  update the selected employee under the active Organization/t
 
     + Body
         {
-          "message": "Data updated successfully!!!",
-          "code": 200
+          "message": "Data updated successfully!!!"
         }
 
 
@@ -1266,8 +1251,7 @@ Allows the user to get a list of my time sheets that belongs to the Organization
               "from": "2016-11-07 10:31:50",
               "difference": "0.02"
             }
-          ],
-          "code": 200
+          ]
         }
 
 
@@ -1345,8 +1329,7 @@ Allows the user to get a list of sales overview that belongs to the Organization
                     "updated": "2016-10-25 02:28:34"
                   } 
               ]
-          },
-          "code": 200
+          }
         }
 
 
@@ -1376,8 +1359,7 @@ Allows the user to get a list of opportunities that belongs to the Organization/
                     "created_on": "2016-10-14 05:25:07"
                   } 
               ]
-          },
-          "code": 200
+          }
         }
 
 
@@ -1457,7 +1439,6 @@ Allows the user to create an opportunity that belongs to the Organization/team.
     + Body
         {
           "message": "Data saved successfully!!!",
-          "code": 200,
           "opportunity_id": "5832cc506b0bdc28804587c4"
         }
 
@@ -1495,8 +1476,7 @@ Allows the user to get a list of products, customer & categories that belongs to
                         "name": "GPS"
                       } 
                   ]
-          },
-          "code": 200
+          }
         }
 
 
@@ -1528,8 +1508,7 @@ Allows the user to get contacts according to the selected customer that belongs 
                 "contact": "Shelley "
               }
             ]
-          },
-          "code": 200
+          }
         }
 
 ### Get a list of quotations [POST /sales/quotations]
@@ -1554,8 +1533,7 @@ Allows the user to get a list of quotations that belongs to the Organization/tea
                   "status": "Pending",
                   "updated": "2016-10-14 07:10:41"
                 }
-            ],
-          "code": 200
+            ]
         }
 
 
@@ -1649,7 +1627,6 @@ Allows the user to create a quotation that belongs to the Organization/team.
     + Body
         {
           "message": "Data saved successfully!!!",
-          "code": 200,
           "quote_id": "5832c7376b0bdc05ce4573b4"
         }
 
@@ -1680,8 +1657,7 @@ Allows the user to get a list of customer sales that belongs to the Organization
                   }
               ],
             "dc_sales_orders": []
-          },
-          "code": 200
+          }
         }
 
 
@@ -1775,7 +1751,6 @@ Allows the user to create a sales order that belongs to the Organization/team.
     + Body
         {
           "message": "Data saved successfully!!!",
-          "code": 200,
           "sales_order_id": "5832c4af6b0bdc05cd7f9e32"
         }
 
@@ -1803,8 +1778,7 @@ Allows the user to get a list of invoices that belongs to the Organization/team.
                   "created": "2016-10-14 07:37:46",
                   "updated": "2016-10-14 07:37:46"
                 }
-            ],
-          "code": 200
+            ]
         }
 
 
@@ -1898,7 +1872,6 @@ Allows the user to create an invoice that belongs to the Organization/team.
     + Body
         {
           "message": "Data saved successfully!!!",
-          "code": 200,
           "invoice_id": "5832c8e56b0bdc05ce4573b5"
         }
 
@@ -1924,8 +1897,7 @@ Allows the user to get a list of work orders that belongs to the Organization/te
                   "customer_name": "Clive Industries",
                   "status": 1
                 }
-            ],
-          "code": 200
+            ]
         }
 
 
@@ -1956,8 +1928,7 @@ Allows the user to get values to the dropdowns in quotation, sales order and inv
                     "name": "Francisca Industries PVT LTD"
                   }, 
               ]
-          },
-          "code": 200
+          }
         }
 
 
@@ -1987,8 +1958,7 @@ Allows the user to get the product price that belongs to the Organization/team.
               "id": "580083186b0bdc05ff588792",
               "price": "2300"
             }
-          ],
-          "code": 200
+          ]
         }
 
 
@@ -2012,8 +1982,7 @@ Allows the user to get a list of marketing campaigns that belongs to the Organiz
                   "id": "580494806b0bdc02f42265a2",
                   "campaign": "New marketing campaign"
                 } 
-            ],
-          "code": 200
+            ]
         }
 
 
@@ -2051,8 +2020,7 @@ Allows the user to create a marketing campaign that belongs to the Organization/
 
     + Body
        {
-          "message": "Data saved successfully!!!",
-          "code": 200
+          "message": "Data saved successfully!!!"
         }
 
 
@@ -2079,8 +2047,7 @@ Allows the user to get a list of marketing resources that belongs to the Organiz
                   "user": "",
                   "date": "2016-10-17 09:40:15"
                 }
-            ],
-          "code": 200
+            ]
         }
 
 
@@ -2146,7 +2113,6 @@ Allows the user to create a marketing resource that belongs to the Organization/
     + Body
        {
           "message": "Data saved successfully!!!",
-          "code": 200,
           "resource_id": "5832d9c26b0bdc070f6b9702"
         }
 
