@@ -777,6 +777,113 @@ Allows the user to get a list of values for the drop downs countries and custome
 
 ## Support [/support]
 
+### Get a list of supoort tickets [POST /support/tickets]
+Allows the user to get a list of support tickets and their information that belongs to the Organization/team. 
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "payload": [
+              {
+                "id": "58084d976b0bdc04741a55a2",
+                "subject": "Test cases",
+                "priority": "",
+                "customer": "Toy Pvt Ltd",
+                "last_modified": "2016-10-20 04:52:38",
+                "assignees": "Nickles"
+              }
+            ]
+        }
+
+### Display support ticket profile [POST /support/tickets/ticket]
+Allows the user to get support ticket details of the selected support ticket that belongs to the Organization/team. 
+
++ Parameters
+    + ticketid (string) ... Passing the relavent ticketId to return only the relevant support ticket details.
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "ticketid": 582d2e9a6b0bdc020972fc62
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "payload": [
+            {
+              "id": "582d2e9a6b0bdc020972fc62",
+              "customerName": "Connie Industries",
+              "subject": "Demo 11/17",
+              "description": "",
+              "priorityName": "High",
+              "assigneeName": "Nickles",
+              "cuName": "Keshani",
+              "created_at": "2016-11-17 04:14:06"
+            }
+          ]
+        }
+
+
+### Create a support ticket [POST /support/tickets/ticketCreate]
+Allows the user to  saves a support ticket under the active Organization/team. 
+
++ Parameters
+    + customer (string) 
+    + contact_name (optional, string)
+    + reported_date (optional, string)
+    + due_date (optional, string)
+    + assign_to (string)
+    + priorityName (string)
+    + subject (string)
+    + description (optional, string)
+    + time_estimate (optional, string)
+    + billing_rate (optional, string)
+    + total_cap (optional, string)
+    + currency (optional, string)
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "customer": "581bf7296b0bdc0206307312"
+            "contact_name": "Sam""
+            "reported_date": "2016-11-22"
+            "due_date": "2016-11-22"
+            "assign_to": "5821771c6b0bdc037a1be432"
+            "priorityName": "High"
+            "subject": "Create Ticket"
+            "description": "Test the ticket"
+            "time_estimate": ""
+            "billing_rate": ""
+            "total_cap": ""
+            "currency": ""
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "message": "Data saved successfully!!!",
+          "ticket_id": "5833fe7f6b0bdc03d0103b52"
+        }
+
+
 ## HR [/hr]
 
 ### Get a list of departments [POST /hr/departments]
@@ -1330,7 +1437,7 @@ Allows the authenticated user to clock out if the user is already clocked-in.
         }
 
 
-## SALES [/sales]
+## Sales [/sales]
 
 ### Get a list of sales overview [POST /sales/overview]
 Allows the user to get a list of sales overview that belongs to the Organization/team. 
@@ -1990,7 +2097,7 @@ Allows the user to get the product price that belongs to the Organization/team.
         }
 
 
-## MARKETING [/marketing]
+## Marketing [/marketing]
 
 ### Get a list of marketing campaigns [POST /marketing/campaigns]
 Allows the user to get a list of marketing campaigns that belongs to the Organization/team. 
