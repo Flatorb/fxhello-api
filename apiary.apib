@@ -174,6 +174,44 @@ Get a list of stores (warehouses, store locations, etc.) along with their ID, ty
             "payload" : ""
         }
 
+### Create a Store [POST /stores/storeCreate]
+This allows the user to create a new store for the specified type.
+
++ Parameters
+    + warehouse (number) 
+    + location (string)
+    + telephone1 (string)
+    + telephone2 (optional, string)
+    + fax (optional, string)
+    + email (optional, string)
+    + country (string)
+    + description (optional, string)
+    + address1 (optional, string)
+    + address2 (optional, string)
+    + state (optional, string)
+    + zip (optional, string)
+    + city (optional, string)
+
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "name": "The new contact category name"
+            "subType": 3
+        }
+
++ Response 200 (application/json)
+
+    + Body
+       {
+          "message": "Data saved successfully!!!",
+          "store_id": "5834226c6b0bdc4b0d33ef92"
+        }
+
 ## CRM [/crm]
 
 ### Get a list of customers [POST /crm/customers]
