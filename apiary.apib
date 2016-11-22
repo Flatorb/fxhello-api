@@ -2028,8 +2028,8 @@ Allows the user to create an invoice that belongs to the Organization/team.
     + Body
         {
             "customer": "583285a06b0bdc28804587c2"
-            "quote_number": "212312"
-            "so_number": "213123"
+            "quotenumber": "212312"
+            "sonumber": "213123"
             "description": ""
             "orderdate": "2016-11-21"
             "creditperiod": "1"
@@ -2421,3 +2421,119 @@ Allows the user to get a list of countries that belongs to the Organization/team
         ]
       }
 
+
+## Finance [/finances]
+
+### Get a list of finance invoices [POST /finances/invoices]
+Allows the user to get a list of finance invoices that belongs to the Organization/team. 
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+     {
+        "payload": {
+          "invoices": [
+            {
+              "id": "58008b4a6b0bdc06881cfab2",
+              "name": "Donnie MIllers",
+              "items": 1,
+              "value": "8,857,276.08",
+              "status": "Pending",
+              "created": "2016-10-14 07:37:46",
+              "updated": "2016-10-14 07:37:46"
+            }
+          ]
+        }
+      }
+
+
+### Get a list of finance sales orders [POST /ffinances/salesorders]
+Allows the user to get a list of finance sales orders that belongs to the Organization/team. 
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+     {
+        "payload": {
+          "customer_sales_orders": [
+            {
+              "id": "580ec3528b888048e66070d3",
+              "name": "Elena Gilbert",
+              "items": 2,
+              "value": "1,152,203.63",
+              "status": "Pending",
+              "created": "2016-10-25 02:28:34",
+              "updated": "2016-10-25 02:28:34"
+            }
+          ],
+          "dc_sales_orders": []
+        }
+      }
+
+
+## Sales force [/salesforce]
+
+### Get a list of sales force resources [POST /fsalesforce/resources]
+Allows the user to get a list of sales force resources that belongs to the Organization/team. 
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+     {
+        "payload": {
+          "resources": [
+            {
+              "id": "5805e3ac6b0bdc09d366df82",
+              "name": "Nickles Domnick",
+              "performance": "",
+              "goal": ""
+            },
+            {
+              "id": "581b02cf58e13f5b131505d2",
+              "name": "Erwines Genel",
+              "performance": "",
+              "goal": ""
+            }
+          ]
+        }
+      }
+
+
+### Get a list of sales force tasks [POST /salesforce/tasks]
+Allows the user to get a list of sales force tasks that belongs to the Organization/team. 
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+    {
+      "payload": [
+        {
+          "id": "5821a4506b0bdc02f8023fc2",
+          "title": "First task"
+        }
+      ]
+    }
