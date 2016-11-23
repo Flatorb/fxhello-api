@@ -228,6 +228,100 @@ This allows the user to create a new store for the specified type.
           "store_id": "5834226c6b0bdc4b0d33ef92"
         }
 
+## Stock [/stock]
+
+### Audit using RFID data [POST /stock/auditRFIDData]
+An defined store can be audied using the RFID data. The RFID data will be matched against the defined store and will return data.
+
++ Parameters
+    + storeId (required, string) ... The ID of the store to be audited
+    + rfidTags (required, string) ... Json string array of RFID tags with their TID and EPC
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "storeId": "18392ac163a",
+            "rfidTags": {
+                {
+                    "tid": "4654323165465FABCE33",
+                    "epc": "4564E536D8FES"
+                },
+                {
+                    "tid": "4654323165465FABCE33",
+                    "epc": "4564E536D8FES"
+                },
+                {
+                    "tid": "4654323165465FABCE33",
+                    "epc": "4564E536D8FES"
+                }
+            }
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+           "payload": [
+                {
+                    "id": "1b897f23ab",
+                    "timestamp": "2016-11-20 16:08:32",
+                    "performedBy": "John",
+                    "storeId": "5834226c6b0bdc4b0d33ef92",
+                    "storeName": "Demo warehouse"
+                    "qtyOnBook": 1300,
+                    "qtyTallying": 1450,
+                    "qtyMissing": 75,
+                    "qtyExcess": 25,
+                    "missing": {
+                        {
+                            "pid": "1793bc23fa33"
+                            "name": "Product name",
+                        },
+                        {
+                            "pid": "1793bc23fa33"
+                            "name": "Product name",
+                        },
+                        {
+                            "pid": "1793bc23fa33"
+                            "name": "Product name",
+                        }
+                    },
+                    "excess": {
+                        {
+                            "pid": "1793bc23fa33"
+                            "name": "Product name",
+                        },
+                        {
+                            "pid": "1793bc23fa33"
+                            "name": "Product name",
+                        },
+                        {
+                            "pid": "1793bc23fa33"
+                            "name": "Product name",
+                        }
+                    },
+                    "tallying": {
+                        {
+                            "pid": "1793bc23fa33"
+                            "name": "Product name",
+                        },
+                        {
+                            "pid": "1793bc23fa33"
+                            "name": "Product name",
+                        },
+                        {
+                            "pid": "1793bc23fa33"
+                            "name": "Product name",
+                        }
+                    }
+                }
+            ]
+        }
+
 ## CRM [/crm]
 
 ### Get a list of customers [POST /crm/customers]
