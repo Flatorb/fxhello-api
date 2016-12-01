@@ -61,31 +61,6 @@ Allows user to create an account
             "isError": false
         }
 
-### Create Organization [POST /organizationCreate]
-User can create a new organization. The new organization will become the new active organization of the user.
-
-+ Parameters
-    + orgName (required) ... This is the name of the organization
-
-+ Request
-
-    + Headers
-            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
-            Accept: application/vnd.fxhello.v1+json
-    + Body
-        {
-            "orgName": "Widget Corp"
-        }
-
-+ Response 200 (application/json)
-
-    + Body
-        {
-            "orgId": 1624,
-            "message": "Organization created successfully",
-            "isError": false
-        }
-
 ### Get Settings [GET /settings]
 This will return all the settings associated for the user, user's current organization, etc.
 
@@ -128,6 +103,57 @@ This will return all the settings associated for the user, user's current organi
                 "useTax": false
             },
             "userSettings": "",
+            "isError": false
+        }
+
+## Organization [/organization]
+
+### Create Organization [POST /organizationCreate]
+User can create a new organization. The new organization will become the new active organization of the user.
+
++ Parameters
+    + orgName (required) ... This is the name of the organization
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "orgName": "Widget Corp"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+            "orgId": 1624,
+            "message": "Organization created successfully",
+            "isError": false
+        }
+
+### Join an existing organization [POST /organizationJoin]
+A user can join an existing organization by providing an invitation key/token. The API will return whether if the joining the organization was a success
+
++ Parameters
+    + invKey (string) ... This is the invitation key/token that the user is submitting for the purpose of joining an existing organization
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "invKey": "sdfhslkdfhlaa39482bfslkadbflkeb1sdfblskfd0q3"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+            "message": "Joined the organization successfully",
             "isError": false
         }
 
