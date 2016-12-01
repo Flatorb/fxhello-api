@@ -130,7 +130,7 @@ This will return all the settings associated for the user, user's current organi
             "userSettings": "",
             "isError": false
         }
-        
+
 ## Categories [/categories]
 
 ### Get a list of categories [POST /categories]
@@ -2738,3 +2738,37 @@ Allows the user to get a list of sales force tasks that belongs to the Organizat
       ]
     }
 
+## General
+
+### Health-check pings [POST /health-check-pings]
+Saves the data of the health-check pings on in to the database
+
++ Parameters
+    + gpsOn (boolean) ... TRUE if GPS is on, FALSE if off and NULL if not available
+    + gpsLat (decimal) ... GPS Latitude
+    + gpsLon (decimal) ... GPS Longitude
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            'gpsOn': true,
+            'gpsLat': 12.12545,
+            'gpsLon': 64.12487,
+            'gpsSignalStrength': '12dB',
+            'batteryPercentage': 87,
+            'dataOn': true,
+            'dataStrength': '',
+            'gsmOn': true,
+            'gsmStrength': '',
+            'timestamp': '2016-11-23 16:23:52'
+        }
+
++ Response 200 (application/json)
+    + Body
+        {
+          "message": "Data save successful."
+        }
