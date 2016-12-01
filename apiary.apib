@@ -61,7 +61,50 @@ Allows user to create an account
             "isError": false
         }
         
-## Organization
+### Get Settings [GET /settings]
+This will return all the settings associated for the user, user's current organization, etc.
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+        {
+            "sendHealthChecks": true,
+            "healthCheckFrequency": 15,
+            "orgSettings": {
+                "modules": {
+                    "crm": true,
+                    "support": true,
+                    "marketing": true,
+                    "sales": true,
+                    "salesForce": true,
+                    "finance": true,
+                    "purchasing": true,
+                    "products": true,
+                    "inventory": true,
+                    "warehouse": true,
+                    "distributionCenters": true,
+                    "productionManagement": true,
+                    "gamification": true,
+                    "fleetManagement": true,
+                    "distribution": true,
+                    "assetManagement": true,
+                    "workflow": true,
+                    "hr": true,
+                    "projectManagement": true,
+                    "lms": true,
+                    "deviceCloud": true
+                },
+                "useTax": false
+            },
+            "userSettings": "",
+            "isError": false
+        }
 
 ### Create Organization [POST /organizationCreate]
 User can create a new organization. The new organization will become the new active organization of the user.
@@ -2694,3 +2737,4 @@ Allows the user to get a list of sales force tasks that belongs to the Organizat
         }
       ]
     }
+
