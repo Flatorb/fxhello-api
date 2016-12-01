@@ -2598,30 +2598,6 @@ Allows the user to get a list of length units that belongs to the Organization/t
         ]
       }
 
-## General [/]
-
-### Get a list of countries [POST /countries]
-Allows the user to get a list of countries that belongs to the Organization/team. 
-
-+ Request
-
-    + Headers
-            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
-            Accept: application/vnd.fxhello.v1+json
-
-+ Response 200 (application/json)
-
-    + Body
-     {
-        "countries": [
-          {
-            "id": 232,
-            "country": "United States"
-          }
-        ]
-      }
-
-
 ## Finance [/finances]
 
 ### Get a list of finance invoices [POST /finances/invoices]
@@ -2739,6 +2715,27 @@ Allows the user to get a list of sales force tasks that belongs to the Organizat
     }
 
 ## General [/]
+
+### Get a list of countries [POST /countries]
+Allows the user to get a list of countries that belongs to the Organization/team. 
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+     {
+        "countries": [
+          {
+            "id": 232,
+            "country": "United States"
+          }
+        ]
+      }
 
 ### Health-check pings [POST /health-check-pings]
 Saves the data of the health-check pings on in to the database
