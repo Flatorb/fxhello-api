@@ -2679,6 +2679,27 @@ Allows the user to get a list of length units that belongs to the Organization/t
         ]
       }
 
+### Assign a RFID to a product [POST /products/assignRFIDtoProduct]
+Allows the user to assign a RFID to a product that does not have a RFID (EPC and TID). 
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+    {
+        "productId": "ab123123ca2cdf12",
+        "tid": "11282010103fcag",
+        "epc": "973403450fcbf"
+    }
+
++ Response 200 (application/json)
+    + Body
+    {
+        "message": "Successfully assigned RFID to product"    
+    }      
+
 ## Finance [/finances]
 
 ### Get a list of finance invoices [POST /finances/invoices]
