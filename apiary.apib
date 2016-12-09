@@ -2599,6 +2599,57 @@ Allows the user to get a list of products that belongs to the Organization/team.
         ]
     }
 
+### Get a product by its RFID [POST /products/productByRFID]
+Allows the user to get the product information by passing the TID and EPC of a RFID tag. 
+
++ Request
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+      {
+        "tid": "46546813031",
+        "epc": "48631568765131"
+      }        
+
++ Response 200 (application/json)
+
+    + Body
+      {
+        "payload": {
+                "_id": {
+                    "oid": "583da8d758e13f563a618f72"
+                },
+                "oid": 102,
+                "sku": "demkoSku1",
+                "barcode": "",
+                "name": "Demo Java Pro1",
+                "category": "5801b8184189dc69ad4409ff",
+                "categoryName": "Demo GPS",
+                "package_id": "",
+                "weight": "",
+                "weightUnit": "10",
+                "meta": "{\"dimensions\":{\"width\":\"12\",\"depth\":\"21\",\"height\":\"1\",\"unit\":\"9\"}}",
+                "manufacturers": "[{\"name\":\"\",\"oid\":0,\"country\":\"1\",\"countryName\":\"Andorra\",\"email\":\"\",\"telephone\":\"\",\"mobile\":\"9\",\"website\":\"9\"}]",
+                "suppliers": "[{\"name\":\"\",\"oid\":0,\"country\":\"1\",\"countryName\":\"Andorra\",\"email\":\"\",\"telephone\":\"\",\"mobile\":\"9\",\"website\":\"\"}]",
+                "productInfo": "",
+                "productUrl": "",
+                "description": "",
+                "brandName": "",
+                "status": 1,
+                "image": "",
+                "price": "",
+                "thresholdPrice": "",
+                "lowestPrice": "",
+                "purchasePrice": "",
+                "creditperiod": "",
+                "cuid": 1631,
+                "uuid": 1631,
+                "created_at": "2016-11-29 16:12:07",
+                "updated_at": "2016-11-29 16:12:07"
+            } 
+    }
+
 
 ### Get a list of weight units [POST /products/products/weight-units]
 Allows the user to get a list of weight units that belongs to the Organization/team. 
