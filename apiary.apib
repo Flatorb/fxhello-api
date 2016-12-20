@@ -163,7 +163,8 @@ A user can join an existing organization by providing an invitation key/token. T
 Allows the user to get a list of categories and their ID's that belongs to the Organization/team. 
 
 + Parameters
-    + subType (optional, number) ... NULL or 0 return all categories. Passing the relavent subType return only the applicable categories. (subType = 3 for customers, subType = 4 for contacts, subType = 5 for products, subType = 17 for marketing resources and subType = 32 for marketing campaign)
+    + type (number) ... 0 return all categories. Passing the relavent type return only the applicable categories. (type = 3 for type, type = 4 for contacts, type = 5 for products, type = 17 for marketing resources and type = 32 for marketing campaign)
+    + subType (optional, number) if subType = 2 and type = 5; returns all the categories relevant to xoxo
 
 + Request
 
@@ -172,7 +173,8 @@ Allows the user to get a list of categories and their ID's that belongs to the O
             Accept: application/vnd.fxhello.v1+json
     + Body
         {
-            "subType": 0
+            "type": 0
+            "subType": 
         }
 
 + Response 200 (application/json)
