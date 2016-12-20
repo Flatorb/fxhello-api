@@ -173,8 +173,8 @@ Allows the user to get a list of categories and their ID's that belongs to the O
             Accept: application/vnd.fxhello.v1+json
     + Body
         {
-            "type": 0
-            "subType": 
+            "type": 5
+            "subType": 2
         }
 
 + Response 200 (application/json)
@@ -182,12 +182,14 @@ Allows the user to get a list of categories and their ID's that belongs to the O
     + Body
         {
           "payload": {
-              "0": {
-                "id": "57fdc2006b0bdc7d6809b522",
-                "name": "New contact category",
-                "subType": 4
-              },
-          }
+             "products": {
+                "categories": [
+                    {
+                        "id": "584a377764d40150492aad92",
+                        "name": "Celebration"
+                    },
+                ]
+            }
         }
       
 
