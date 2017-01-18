@@ -163,7 +163,7 @@ A user can join an existing organization by providing an invitation key/token. T
 Allows the user to get a list of categories and their ID's that belongs to the Organization/team. 
 
 + Parameters
-    + type (number) ... 0 return all categories. Passing the relavent type return only the applicable categories. (type = 3 for type, type = 4 for contacts,    type  = 5 for products, type = 17 for marketing resources and type = 32 for marketing campaign)
+    + type (number) ... 0 return all categories. Passing the relavent type return only the applicable categories. (type = 3 for customers, type = 4 for contacts,    type  = 5 for products, type = 17 for marketing resources, type = 32 for marketing campaign and type = 35 for lead sources)
     + subType (optional, number) ... if subType = 2 and type = 5 returns all the categories relevant to xoxo
 
 + Request
@@ -500,6 +500,7 @@ Allows the user to get customer details of the selected customer that belongs to
 Allows the user to  saves a customer under the active Organization/team. 
 
 + Parameters
+    + subType (int) ... If the subType = 1 then it is a Company and if the subType = 2 it is an Individual Customer 
     + name (string) 
     + prefix (string)
     + category (optional, string)
@@ -2873,7 +2874,7 @@ Allows the user to get a list of sales force tasks that belongs to the Organizat
 
 ## General [/]
 
-### Get a list of countries [POST /countries]
+### Get logged in user details [POST /userProfile]
 Allows the user to get a list of countries that belongs to the Organization/team. 
 
 + Request
@@ -2892,6 +2893,63 @@ Allows the user to get a list of countries that belongs to the Organization/team
             "country": "United States"
           }
         ]
+      }
+
+### Get a list of countries [POST /countries]
+Returns user details of the active organization of the user
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+     {
+      "payload": {
+        "id": 1,
+        "firstname": "test",
+        "lastname": "",
+        "name": "test",
+        "mobile": null,
+        "email": "test@flatorb.com",
+        "country": 0,
+        "state": null,
+        "govid": null,
+        "passport": null,
+        "type": 1,
+        "status": 1,
+        "meta": null,
+        "settings": null,
+        "password": "$2y$10$it26XVlx30.2TF9PEdI0UueAPmO2xquVUaEpaWPYuUxxN6ZVKjCm6",
+        "token": null,
+        "remember_token": "sj7RwafsWwaKNITWe3rq9HUi6phjCPzVIX9Kc2veYKI1SpA6MH54sEhByXhK",
+        "photo_url": null,
+        "uses_two_factor_auth": 0,
+        "authy_id": null,
+        "country_code": null,
+        "phone": null,
+        "two_factor_reset_code": null,
+        "current_team_id": 102,
+        "stripe_id": null,
+        "current_billing_plan": null,
+        "card_brand": null,
+        "card_last_four": null,
+        "card_country": null,
+        "billing_address": null,
+        "billing_address_line_2": null,
+        "billing_city": null,
+        "billing_state": null,
+        "billing_zip": null,
+        "billing_country": null,
+        "vat_id": null,
+        "extra_billing_information": null,
+        "trial_ends_at": null,
+        "last_read_announcements_at": null,
+        "created_at": "2015-10-01 02:51:39",
+        "updated_at": "2016-12-02 05:43:44"
       }
 
 ### Health-check pings [POST /health-check-pings]
