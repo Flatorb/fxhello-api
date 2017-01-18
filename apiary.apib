@@ -2875,27 +2875,6 @@ Allows the user to get a list of sales force tasks that belongs to the Organizat
 ## General [/]
 
 ### Get logged in user details [POST /userProfile]
-Allows the user to get a list of countries that belongs to the Organization/team. 
-
-+ Request
-
-    + Headers
-            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
-            Accept: application/vnd.fxhello.v1+json
-
-+ Response 200 (application/json)
-
-    + Body
-     {
-        "countries": [
-          {
-            "id": 232,
-            "country": "United States"
-          }
-        ]
-      }
-
-### Get a list of countries [POST /countries]
 Returns user details of the active organization of the user
 
 + Request
@@ -2950,6 +2929,28 @@ Returns user details of the active organization of the user
         "last_read_announcements_at": null,
         "created_at": "2015-10-01 02:51:39",
         "updated_at": "2016-12-02 05:43:44"
+      }
+
+### Get a list of countries [POST /countries]
+Allows the user to get a list of countries that belongs to the Organization/team. 
+
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+     {
+        "countries": [
+          {
+            "id": 232,
+            "country": "United States"
+          }
+        ]
       }
 
 ### Health-check pings [POST /health-check-pings]
