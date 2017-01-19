@@ -501,8 +501,8 @@ Allows the user to  saves a customer under the active Organization/team.
 
 + Parameters
     + subType (int) ... If the subType = 1 then it is a Company and if the subType = 2 it is an Individual Customer 
-    + name (string) 
-    + prefix (string)
+    + name (string) ... For Individual Customers the fisrt name & the last name should concatanate and assign it to here
+    + prefix (optional, string) ... This field should be empty for Companies but for Individual Customers this field should be filled out
     + category (optional, string)
     + email (optional, string)
     + website (optional, string)
@@ -520,7 +520,7 @@ Allows the user to  saves a customer under the active Organization/team.
     + leadsource (string)
     + customer_since (optional, string)
     + description (optional, string)
-    + designation (optional, string)
+    + designation (optional, string) ... This field should be empty for Companies
     
 + Request
 
@@ -529,6 +529,7 @@ Allows the user to  saves a customer under the active Organization/team.
             Accept: application/vnd.fxhello.v1+json
     + Body
         {
+            "subType": 2
             "name": "Github test customer"
             "prefix": "Mr.""
             "category": "5801b8184189dc69ad4409e7"
@@ -935,7 +936,7 @@ Allows the user to  update the selected contact under the active Organization/te
 
 
 ### Get values for the customer create from dropdowns [POST /crm/customer/dropdowns]
-Allows the user to get a list of values for the drop downs countries, customer status and lead source that belongs to the Organization/team. 
+Allows the user to get a list of values for the drop downs countries, customer status, lead source and industries that belongs to the Organization/team. 
 
 + Request
 
@@ -970,6 +971,12 @@ Allows the user to get a list of values for the drop downs countries, customer s
                  {
                     "id": "57fdc2c06b0bdc7ee01a59d2",
                     "name": "New Customer category"
+                  },
+                ]
+                 "industries": [
+                 {
+                    "id": 1,
+                    "description": "Agriculture, forestry and fishing"
                   },
                 ]
             }
