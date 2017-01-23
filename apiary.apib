@@ -1067,25 +1067,45 @@ Allows the user to get support ticket details of the selected support ticket tha
             Accept: application/vnd.fxhello.v1+json
     + Body
         {
-            "ticketid": 582d2e9a6b0bdc020972fc62
+            "ticketid": 581ac77358e13f47f338e145
         }
 
 + Response 200 (application/json)
 
     + Body
-        {
-          "payload": [
-            {
-              "id": "582d2e9a6b0bdc020972fc62",
-              "customerName": "Connie Industries",
-              "subject": "Demo 11/17",
-              "description": "",
-              "priorityName": "High",
-              "assigneeName": "Nickles",
-              "cuName": "Keshani",
-              "created_at": "2016-11-17 04:14:06"
-            }
-          ]
+       {
+          "payload": {
+            "0": {
+              "id": "581ac77358e13f47f338e145",
+              "customerName": "John Legend",
+              "subject": "Test the music system",
+              "description": "Thoroughly test the music system",
+              "priorityName": "Low",
+              "assigneeName": "Erwines",
+              "status": null,
+              "statusName": null,
+              "meta": {
+                "support": {
+                  "time_estimate": null,
+                  "billing_rate": null,
+                  "total_cap": null,
+                  "currency": null,
+                  "contact_name": "",
+                  "due_date": "11/21/2016",
+                  "report_date": "11/03/2016"
+                }
+              },
+              "created_by": "Melissa",
+              "created_at": "2016-11-03 05:13:23"
+            },
+            "ticket_comments": [
+              {
+                "id": "588594616b0bdc03b06afba2",
+                "comment": "Test",
+                "created_by": "Melissa"
+              }
+            ]
+          }
         }
 
 
