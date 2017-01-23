@@ -2562,6 +2562,43 @@ Allows the user to create a marketing resource that belongs to the Organization/
         }
 
 
+### Get values for the marketing dropdowns [POST /marketing/dropdowns]
+Allows the user to get a list of values for the drop downs resource categories, campaign categories and employees that belongs to the Organization/team. 
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "payload": {
+                 "marketing_resources": [
+                      {
+                        "id": "5801b8184189dc69ad4409f8",
+                        "name": "first resource category"
+                      }
+                 ]
+                "marketing_campaigns": [
+                      {
+                        "id": "5801b8184189dc69ad4409d3",
+                        "name": "marketing campaign"
+                      },
+                ],
+                "sales_rep": [
+                      {
+                        "id": "5805e3ac6b0bdc09d366df82",
+                        "name": "Nickles Domnick"
+                      },
+                ]
+            }
+        }
+
+
+
 ## Products [/products]
 
 ### Get a list of products [POST /products/products]
