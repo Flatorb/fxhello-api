@@ -2537,10 +2537,13 @@ Allows the user to get details of the marketing resource that belongs to the Org
 Allows the user to create a marketing resource that belongs to the Organization/team. 
 
 + Parameters
-    + category (string)
     + resource (string)
-    + location (optional, string)
-    
+    + location (string)
+    + category (string)
+    + image (file)
+    + latitude (decimal)
+    + longitude (decimal)
+
 + Request
 
     + Headers
@@ -2548,9 +2551,11 @@ Allows the user to create a marketing resource that belongs to the Organization/
             Accept: application/vnd.fxhello.v1+json
     + Body
         {
-            "category": "5801b8184189dc69ad4409f8"
             "resource": "Demo marketing resource"
             "location": "New York"
+            "category": "5801b8184189dc69ad4409f8"
+            "latitude": -6.254585
+            "longitude": 24.5685452
         }
 
 + Response 200 (application/json)
@@ -2558,7 +2563,7 @@ Allows the user to create a marketing resource that belongs to the Organization/
     + Body
        {
           "message": "Data saved successfully!!!",
-          "resource_id": "5832d9c26b0bdc070f6b9702"
+          "id": "5832d9c26b0bdc070f6b9702"
         }
 
 
