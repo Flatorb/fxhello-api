@@ -631,8 +631,6 @@ Allows the user to  update the selected customer under the active Organization/t
 + Parameters
     + customerid (string) 
     + name (string) 
-    + prefix (string)
-    + category (optional, string)
     + email (optional, string)
     + website (optional, string)
     + country (number)
@@ -660,8 +658,6 @@ Allows the user to  update the selected customer under the active Organization/t
         {
             "customerid": "583285a06b0bdc28804587c2"
             "name": "Github demo customer "
-            "prefix": "Mr.""
-            "category": "5801b8184189dc69ad4409e7"
             "email": "git@flatorb.com"
             "website": "www.github.com"
             "country": 232
@@ -1747,7 +1743,7 @@ Allows the authenticated user to clock out if the user is already clocked-in.
     
     + Body
         {
-            "message": "You are not setup as an employee of your organization."
+            "message": "You are not clocked-in at the moment."
         }
 
 
@@ -1795,20 +1791,18 @@ Allows the user to get a list of opportunities that belongs to the Organization/
 
     + Body
        {
-          "payload": {
-            "opportunities": [
-                  {
-                    "id": "58006c356b0bdc042c158284",
-                    "opportunity": "Wesley & Thadeus & DO ",
-                    "customer": "Doe Industries",
-                    "contacts": "-",
-                    "value": "9,000,000.00",
-                    "status": "Decision",
-                    "assignee": "",
-                    "created_on": "2016-10-14 05:25:07"
-                  } 
-              ]
-          }
+          "payload": [
+                 {
+                        "id": "58006c356b0bdc042c158284",
+                        "opportunity": "Wesley & Thadeus & DO ",
+                        "customer": "Morning Industries",
+                        "value": 9000000,
+                        "status": "Decision",
+                        "assignee": "",
+                        "created_at": "2016-10-14 05:25:07",
+                        "updated_at": "2016-11-02 08:22:06"
+                } 
+            ]
         }
 
 
@@ -1976,11 +1970,14 @@ Allows the user to get a list of quotations that belongs to the Organization/tea
           "payload": [
                 {
                   "id": "580084f36b0bdc057904ef12",
-                  "name": "Donnie MIllers",
+                  "name": "Donnie Millers",
                   "items": 2,
-                  "value": "13,375,432.64",
+                  "total": 13375432.6385,
                   "status": "Pending",
-                  "updated": "2016-10-14 07:10:41"
+                  "cuid": 6,
+                  "uuid": 6,
+                  "created_at": "2016-10-14 07:10:41",
+                  "updated_at": "2016-10-14 07:10:41"
                 }
             ]
         }
@@ -2099,10 +2096,12 @@ Allows the user to get a list of customer sales that belongs to the Organization
                     "id": "580ec3528b888048e66070d3",
                     "name": "Elena Gilbert",
                     "items": 2,
-                    "value": "1,152,203.63",
+                    "total": 1152203.62924,
                     "status": "Pending",
-                    "created": "2016-10-25 02:28:34",
-                    "updated": "2016-10-25 02:28:34"
+                    "cuid": 1685,
+                    "uuid": 1685,
+                    "created_at": "2016-10-25 02:28:34",
+                    "updated_at": "2016-10-25 02:28:34"
                   }
               ],
             "dc_sales_orders": []
@@ -2219,13 +2218,15 @@ Allows the user to get a list of invoices that belongs to the Organization/team.
        {
           "payload": [
                 {
-                  "id": "58008b4a6b0bdc06881cfab2",
-                  "name": "Donnie MIllers",
-                  "items": 1,
-                  "value": "8,857,276.08",
-                  "status": "Pending",
-                  "created": "2016-10-14 07:37:46",
-                  "updated": "2016-10-14 07:37:46"
+                    "id": "58008b4a6b0bdc06881cfab2",
+                    "name": "Donnie Millers",
+                    "items": 1,
+                    "total": 8857276.08,
+                    "status": "Pending",
+                    "cuid": 6,
+                    "uuid": 6,
+                    "created_at": "2016-10-14 07:37:46",
+                    "updated_at": "2016-10-14 07:37:46"
                 }
             ]
         }
