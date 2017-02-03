@@ -831,12 +831,12 @@ Allows the user to  saves a contact under the active Organization/team.
 ### Edit contact [POST /crm/contacts/contactEdit]
 Allows the user to get contact details of the selected contact to the edit form, that belongs to the Organization/team. 
 For the prefix :
-                1 = Mr.
-                2 = Mrs.
-                3 = Dr.
-                4 = Rev.
-                5 = Miss.
-                6 = Prof.
+                1 is Mr.,
+                2 is Mrs.,
+                3 is Dr.,
+                4 is Rev.,
+                5 is Miss. &
+                6 is Prof.
 
 + Parameters
     + contactid (string) ... Passing the relavent contactId to return only the relevant contact details.
@@ -921,8 +921,8 @@ Allows the user to  update the selected contact under the active Organization/te
     + Body
         {
             "contactid": "583285a06b0bdc28804587c2"
-            "prefix": "Github demo customer "
-            "firstName": "Mr.""
+            "prefix": "Mr."
+            "firstName": "Github demo customer
             "middleName": "5801b8184189dc69ad4409e7"
             "lastName": "git@flatorb.com"
             "email": "www.github.com"
