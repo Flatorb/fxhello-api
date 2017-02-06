@@ -3131,3 +3131,29 @@ Saves a bulk of data of the health-check pings on in to the database
         {
           "message": "Data save successful."
         }
+
+
+### Save an image [POST /imageSave]
+Saves an image
+
++ Parameters
+    + id (string)
+    + type (int) ... type = 3 for customer & type = 4 for contact
+    + image (file) 
+
++ Request
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "id": "588df3ea4189dceceb412002"
+            "type": 3
+            "image": image.png
+        }
+
++ Response 200 (application/json)
+    + Body
+        {
+          "message": "Image saved successfully!!!"
+        }
