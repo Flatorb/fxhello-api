@@ -2663,41 +2663,339 @@ Allows the user to get a list of products that belongs to the Organization/team.
                 "uuid": 1631,
                 "created_at": "2016-11-29 16:12:07",
                 "updated_at": "2016-11-29 16:12:07"
-            },
-            {
-                "_id": {
-                    "oid": "583da93e58e13f55bc079a82"
-                },
-                "oid": 102,
-                "sku": "demkoSku1",
-                "barcode": "",
-                "name": "Demo Java Pro 2",
-                "category": "5801b8184189dc69ad4409ff",
-                "categoryName": "Demo GPS",
-                "package_id": "",
-                "weight": "",
-                "weightUnit": "10",
-                "meta": "{\"dimensions\":{\"width\":\"1\",\"depth\":\"1\",\"height\":\"1\",\"unit\":\"1\"}}",
-                "manufacturers": "[{\"name\":\"\",\"oid\":0,\"country\":\"1\",\"countryName\":\"Andorra\",\"email\":\"\",\"telephone\":\"\",\"mobile\":\"1\",\"website\":\"1\"}]",
-                "suppliers": "[{\"name\":\"\",\"oid\":0,\"country\":\"1\",\"countryName\":\"Andorra\",\"email\":\"\",\"telephone\":\"\",\"mobile\":\"1\",\"website\":\"\"}]",
-                "productInfo": "",
-                "productUrl": "",
-                "description": "",
-                "brandName": "",
-                "status": 1,
-                "image": "",
-                "price": "",
-                "thresholdPrice": "",
-                "lowestPrice": "",
-                "purchasePrice": "",
-                "creditperiod": "",
-                "cuid": 1631,
-                "uuid": 1631,
-                "created_at": "2016-11-29 16:13:50",
-                "updated_at": "2016-11-29 16:13:50"
-            } 
+            }
         ]
     }
+
+### Product profile [POST /products/products/product]
+Allows the user to edit a product that belongs to the Organization/team. 
+
++ Parameters
+    + id (string)
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+          "payload": {
+            "_id": {
+              "oid": "58999d3c6b0bdc03d85bcf82"
+            },
+            "oid": 102,
+            "sku": "FX213123",
+            "barcode": "234234",
+            "name": "Test product",
+            "category": "5801b8184189dc69ad4409f6",
+            "categoryName": "Cartons",
+            "weight": "23",
+            "weightUnit": "cm",
+            "cost": null,
+            "price": 13000,
+            "thresholdPrice": 12999,
+            "lowestPrice": 12000,
+            "purchasePrice": 12500,
+            "productInfo": "Test Product",
+            "productUrl": "http://www.example.com",
+            "image": "",
+            "description": "Demo Description 123",
+            "manufacturers": [
+              {
+                "name": "Demo Manufcaturer",
+                "oid": null,
+                "country": 232,
+                "countryName": "United States",
+                "email": "manu@flatorb.com",
+                "telephone": "132132",
+                "mobile": "231231",
+                "website": "http://www.manufacturer.com"
+              }
+            ],
+            "suppliers": [
+              {
+                "name": "Demo Supplier",
+                "oid": null,
+                "country": "232",
+                "countryName": "United States",
+                "email": "supplier@flatorb.com",
+                "telephone": "213213",
+                "mobile": "321312",
+                "website": "http://www.supplier.com"
+              }
+            ],
+            "brandName": "Nike",
+            "width": "2",
+            "depth": "2",
+            "height": "2",
+            "lengthUnit": "cm",
+            "meta": "[]",
+            "status": 1,
+            "creditperiod": "2",
+            "cuid": 6,
+            "uuid": 6,
+            "created_at": "2017-02-07 10:10:24",
+            "updated_at": "2017-02-07 10:40:56",
+            "images": [
+              {
+                "profileimage": "https://cdn.fxhello.com/img/imgph300.png",
+                "profileImgStatus": false
+              }
+            ]
+          }
+        }
+
+
+### Create a Product [POST /products/products/product/save]
+Allows the user to create a product that belongs to the Organization/team. 
+
++ Parameters
+    + product_category (string)
+    + manufacturer_country (optional, number)
+    + supplier_country (optional, number)
+    + brand_name (optional, string)
+    + description (optional, string)
+    + product_width (optional, number)
+    + product_depth (optional, number)
+    + product_height (optional, number)
+    + product_length_unit (optional, number)
+    + manufacturer (optional, string)
+    + manufacturer_email (optional, string)
+    + manufacturer_telephone (optional, string)
+    + manufacturer_mobile (optional, string)
+    + manufacturer_website (optional, string)
+    + supplier (optional, string)
+    + supplier_email (optional, string)
+    + supplier_telephone (optional, string)
+    + supplier_mobile (optional, string)
+    + supplier_website (optional, string)
+    + product_sku (string)
+    + product_barcode (optional, string)
+    + product_name (string)
+    + product_package (optional, string)
+    + product_weight (optional, number)
+    + product_weight_unit (optional, number)
+    + product_info (optional, string)
+    + product_url (optional, string)
+    + product_credit_period (string)
+    + product_unit_price (optional, string)
+    + product_threshold_price (optional, string)
+    + product_lowest_price (optional, string)
+    + product_purchase_price (optional, string)
+    + image (optional, file)
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "product_category": "5801b8184189dc69ad4409f6"
+            "manufacturer_country": 232
+            "supplier_country": 232
+            "brand_name": "Nike"
+            "description": "Test description"
+            "product_width": 24
+            "product_depth": 24
+            "product_height": 24
+            "product_length_unit": 2
+            "manufacturer": "Demo Manufacturer"
+            "manufacturer_email": "manu@flatorb.com"
+            "manufacturer_telephone": "2342332434"
+            "manufacturer_mobile": "123123"
+            "manufacturer_website": "http://www.manufacturer.com"
+            "supplier": "Demo Supplier"
+            "supplier_email": "supplier@flatorb.com"
+            "supplier_telephone": "12312321"
+            "supplier_mobile": "13123123"
+            "manufacturer_website": "http://www.supplier.com"
+            "product_sku": "FX122"
+            "product_barcode": "12312323123123"
+            "product_name": "Demo product"
+            "product_package": ""
+            "product_weight": 24
+            "product_weight_unit": 3
+            "product_info": "Demo product"
+            "product_url": "http://www.example.com"
+            "product_credit_period": "34"
+            "product_unit_price": "12300"
+            "product_threshold_price": "12299"
+            "product_lowest_price": "12000"
+            "product_purchase_price": "12500"
+            "image": product.png
+        }
+
++ Response 200 (application/json)
+
+    + Body
+       {
+          "message": "Data saved successfully!!!",
+          "id": "5832d9c26b0bdc070f6b9702"
+        }
+
+### Edit Product [POST /products/products/productEdit]
+Allows the user to edit a product that belongs to the Organization/team. 
+
++ Parameters
+    + productid (string)
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+          "payload": {
+            "_id": {
+              "oid": "58999d3c6b0bdc03d85bcf82"
+            },
+            "oid": 102,
+            "sku": "FX213123",
+            "barcode": "234234",
+            "name": "Test product",
+            "category": "5801b8184189dc69ad4409f6",
+            "categoryName": "Cartons",
+            "weight": "23",
+            "weightUnit": "cm",
+            "cost": null,
+            "price": 13000,
+            "thresholdPrice": 12999,
+            "lowestPrice": 12000,
+            "purchasePrice": 12500,
+            "productInfo": "Test Product",
+            "productUrl": "http://www.example.com",
+            "image": "",
+            "description": "Demo Description",
+            "manufacturers": [
+              {
+                "name": "Demo Manufcaturer",
+                "oid": null,
+                "country": 232,
+                "countryName": "United States",
+                "email": "manu@flatorb.com",
+                "telephone": "132132",
+                "mobile": "231231",
+                "website": "http://www.manufacturer.com"
+              }
+            ],
+            "suppliers": [
+              {
+                "name": "Demo Supplier",
+                "oid": null,
+                "country": "232",
+                "countryName": "United States",
+                "email": "supplier@flatorb.com",
+                "telephone": "213213",
+                "mobile": "321312",
+                "website": "http://www.supplier.com"
+              }
+            ],
+            "brandName": "Nike",
+            "width": "2",
+            "depth": "2",
+            "height": "2",
+            "lengthUnit": "cm",
+            "meta": "[]",
+            "status": 1,
+            "creditperiod": "2",
+            "cuid": 6,
+            "uuid": 6,
+            "created_at": "2017-02-07 10:10:24",
+            "updated_at": "2017-02-07 10:10:24"
+          }
+        }
+
+### Update a Product [POST /products/products/productUpdate]
+Allows the user to update a product that belongs to the Organization/team. 
+
++ Parameters
+    + id (string)
+    + product_category (string)
+    + manufacturer_country (optional, number)
+    + supplier_country (optional, number)
+    + brand_name (optional, string)
+    + description (optional, string)
+    + product_width (optional, number)
+    + product_depth (optional, number)
+    + product_height (optional, number)
+    + product_length_unit (optional, number)
+    + manufacturer (optional, string)
+    + manufacturer_email (optional, string)
+    + manufacturer_telephone (optional, string)
+    + manufacturer_mobile (optional, string)
+    + manufacturer_website (optional, string)
+    + supplier (optional, string)
+    + supplier_email (optional, string)
+    + supplier_telephone (optional, string)
+    + supplier_mobile (optional, string)
+    + supplier_website (optional, string)
+    + product_sku (string)
+    + product_barcode (optional, string)
+    + product_name (string)
+    + product_package (optional, string)
+    + product_weight (optional, number)
+    + product_weight_unit (optional, number)
+    + product_info (optional, string)
+    + product_url (optional, string)
+    + product_credit_period (string)
+    + product_unit_price (optional, string)
+    + product_threshold_price (optional, string)
+    + product_lowest_price (optional, string)
+    + product_purchase_price (optional, string)
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "product_category": "5801b8184189dc69ad4409f6"
+            "manufacturer_country": 232
+            "supplier_country": 232
+            "brand_name": "Nike"
+            "description": "Test description"
+            "product_width": 24
+            "product_depth": 24
+            "product_height": 24
+            "product_length_unit": 2
+            "manufacturer": "Demo Manufacturer"
+            "manufacturer_email": "manu@flatorb.com"
+            "manufacturer_telephone": "2342332434"
+            "manufacturer_mobile": "123123"
+            "manufacturer_website": "http://www.manufacturer.com"
+            "supplier": "Demo Supplier"
+            "supplier_email": "supplier@flatorb.com"
+            "supplier_telephone": "12312321"
+            "supplier_mobile": "13123123"
+            "manufacturer_website": "http://www.supplier.com"
+            "product_sku": "FX122"
+            "product_barcode": "12312323123123"
+            "product_name": "Demo product sku"
+            "product_package": ""
+            "product_weight": 24
+            "product_weight_unit": 3
+            "product_info": "Demo product"
+            "product_url": "http://www.example.com"
+            "product_credit_period": "34"
+            "product_unit_price": "12300"
+            "product_threshold_price": "12299"
+            "product_lowest_price": "12000"
+            "product_purchase_price": "12500"
+            "image": product.png
+        }
+
++ Response 200 (application/json)
+
+    + Body
+       {
+          "product_id": "58999d3c6b0bdc03d85bcf82",
+          "message": "Data updated successfully!!!"
+        }
+
 
 ### Get a product by its RFID [POST /products/productByRFID]
 Allows the user to get the product information by passing the TID and EPC of a RFID tag. 
@@ -3138,7 +3436,7 @@ Saves an image
 
 + Parameters
     + id (string)
-    + type (int) ... type = 3 for customer & type = 4 for contact
+    + type (int) ... type = 3 for customer, type = 4 for contact & type = 15 for product
     + image (file) 
 
 + Request
