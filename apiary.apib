@@ -1893,6 +1893,94 @@ Allows the user to create an opportunity that belongs to the Organization/team.
         }
 
 
+### Edit an opportunity [POST /sales/opportunities/opportunityEdit]
+Allows the user to edit an opportunity that belongs to the Organization/team. 
+
++ Parameters
+    + id (string)
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+          "payload": {
+            "_id": {
+              "oid": "589c4a8658e13f4c126cd872"
+            },
+            "oid": 102,
+            "category": "5801b8184189dc69ad4409e4",
+            "categoryName": "test",
+            "customerType": 3,
+            "customerTypeId": "583e635158e13f323337db02",
+            "customer": "Buddhika",
+            "name": "American opportunity",
+            "productCategories": "[\"5801b8184189dc69ad4409ec\"]",
+            "products": "[\"5804a9216b0bdc092a5452d3\"]",
+            "contacts": "[\"583e63a958e13f31ec502182\"]",
+            "value": "500000",
+            "expectedClose": "2017-02-17",
+            "description": "This should be the opportunity.",
+            "status": "2",
+            "ownerType": 1,
+            "ownerTypeID": 1652,
+            "cuid": 1652,
+            "cuName": "Dulmini Harshani",
+            "uuid": 1652,
+            "uuName": "Dulmini Harshani",
+            "created_at": "2017-02-09 10:55:02",
+            "updated_at": "2017-02-09 10:55:02"
+          }
+        }
+
+
+### Update opportunity [POST /sales/opportunities/opportunityUpdate]
+Allows the user to update opportunity that belongs to the Organization/team. 
+
++ Parameters
+    + id (string)
+    + customer (string)
+    + opportunity (string)
+    + category (optional, string)
+    + product_categories (optional, string)
+    + products (optional, string)
+    + contacts (optional, string)
+    + value (optional, string)
+    + expected_close (optional, string)
+    + description (optional, string)
+    + status (string)
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "id": "589c4a8658e13f4c126cd872"
+            "customer": "581bf7296b0bdc0206307312"
+            "opportunity": "Demo update opportunity"
+            "category": "5801b8184189dc69ad4409e4"
+            "product_categories": "5801b8184189dc69ad4409ec"
+            "products": "5804a9216b0bdc092a5452d3"
+            "contacts": "583e63a958e13f31ec502182"
+            "value": "120000"
+            "expected_close": "2016-11-21"
+            "description": "Demo description"
+            "status": "Negotiation"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "message": "Data updated successfully!!!",
+          "opportunity_id": "589c4a8658e13f4c126cd872"
+        }
+
+
 ### Get vales to the opportunity create form dropdowns [POST /sales/opportunity/dropdowns]
 Allows the user to get a list of products, customer & categories that belongs to the Organization/team.
 
