@@ -197,8 +197,13 @@ Allows the user to get a list of categories and their ID's that belongs to the O
 This allows the user to create a new category for the specified subType.
 
 + Parameters
-    + subType (optional, number) ...  subType = 3 for customers, subType = 4 for contacts, subType = 17 for marketing resources and subType = 32 for marketing campaign. Can keep it as NULL or 0.
+    + subType (number) ...  subType = 3 for customers, subType = 4 for contacts, subType = 17 for marketing resources and subType = 32 for marketing campaign. Can keep it as NULL or 0.
     + category_name (string)
+    + parent (optional, string) ... Only for product category, Pass the id
+    + hexaColor (optional, string) ... Only for product category
+    + rgbColor (optional, string) ... Only for product category
+    + description (optional, string) ... Only for product category
+    + status (optional, number) ... Only for product category
 
 
 + Request
