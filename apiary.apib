@@ -2096,7 +2096,7 @@ Allows the user to display the quotation according to the given quotation ID tha
             Accept: application/vnd.fxhello.v1+json
     + Body
         {
-            "quotationid": "581c19816b0bdc032d468a23"
+            "quotationid": "58a3e8eb6b0bdc04065f4672"
         }
 
 + Response 200 (application/json)
@@ -2105,27 +2105,36 @@ Allows the user to display the quotation according to the given quotation ID tha
        {
           "payload": {
             "0": {
-              "id": "581c19816b0bdc032d468a23",
-              "number": "",
-              "created_at": "2016-11-04 05:15:45",
-              "customername": "Samck Doe",
-              "subtotal": "144",
-              "discount": "",
-              "tax": 19.100736,
-              "grand_total": 182.201472,
+              "id": "58a3e8eb6b0bdc04065f4672",
+              "number": "232",
+              "created_at": "2017-02-15 05:36:40",
+              "customername": "Mac Donalds234",
+              "subtotal": 6290900,
+              "discount": -5990500,
+              "tax": 0,
+              "grand_total": 12281400,
+              "file": "https://s3.amazonaws.com/fxhellouat/data/102/sales/quotation/58a3e8eb6b0bdc04065f4672/1487137003-0hpPU1wxhSXDkoEGV0FG.ppt?X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJUVQVA4VO7WZAOVQ%2F20170215%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20170215T054137Z&X-Amz-SignedHeaders=host&X-Amz-Expires=300&X-Amz-Signature=96ed812e1ab13cf27e1e679d4266bedc2248b2d263d035fb31709afea86c092b",
+              "fileStatus": true,
               "status": "Pending",
               "address1": "",
               "address2": "",
               "city": "",
-              "country": "Cook Islands"
+              "country": "Libya"
             },
             "products": [
               {
+                "product_name": "HTC 10",
+                "qty": "3",
+                "unitprice": "10",
+                "discount": null,
+                "linetotal": "30"
+              },
+              {
                 "product_name": "Mac Book",
-                "qty": "12",
-                "unitprice": "12",
-                "discount": "",
-                "linetotal": "144"
+                "qty": "5",
+                "unitprice": "10",
+                "discount": null,
+                "linetotal": "50"
               }
             ]
           }
@@ -2142,11 +2151,13 @@ Allows the user to create a quotation that belongs to the Organization/team.
     + orderdate (optional, string)
     + validtill (string)
     + creditperiod (optional, string)
-    + product_id (string)
-    + qty (string)
-    + unitprice (string)
-    + discount (string)
-    + linetotal (string)
+    + product_id (array) ...Multile products can added
+    + qty (array) ...Multile products can added
+    + unitprice (array) ...Multile products can added
+    + discount (array) ...Multile products can added
+    + linetotal (array) ...Multile products can added
+    + productDescription (array) ...Multile products can added
+    + file (optional, file)
     
 + Request
 
@@ -2161,11 +2172,12 @@ Allows the user to create a quotation that belongs to the Organization/team.
             "orderdate": "2016-11-21"
             "validtill": "2016-11-23"
             "creditperiod": "1"
-            "product_id": "580083186b0bdc05ff588792"
-            "qty": "2"
-            "unitprice": "1000"
-            "discount": "100"
-            "linetotal": "1900"
+            "product_id": ["583e363358e13f091610e542", "580083186b0bdc05ff588792"]
+            "qty": ["3", "5"]
+            "unitprice": ["10", "10"]
+            "discount": ""
+            "linetotal": ["30", "50"]
+            "productDescription" : ["test", "test"]
         }
 
 + Response 200 (application/json)
