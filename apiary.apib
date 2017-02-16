@@ -2508,6 +2508,89 @@ Allows the user to create work order that belongs to the Organization/team.
         }       
 
 
+### Get values to the dropdowns in workorder create form [POST /sales/workorders/dropdowns]
+Returns the full list of the customers of the active organization of the user
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+      {
+          "payload": {
+            "customers": [
+                  {
+                    "id": "57ff51896b0bdc0747634a73",
+                    "name": "Francisca Industries PVT LTD"
+                  }
+             ]
+          }
+      }
+
+
+### Get values for the sales orders and invoices in work order create form [POST /sales/workorders/getSalesOrderInvoices]
+Returns the full list of the sales orders and invoices of the selected customer of the active organization of the user
+
++ Parameters
+    + customerid (string)
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "customerid": "581318f36b0bdc06a0028042"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "payload": {
+            "salesOrders": [
+              {
+                "id": "5816dc9c58e13f106b773f12",
+                "customerName": "Morning Industries",
+                "orderDate": "2016-10-31",
+                "total": 1393166065.11
+              }
+            ],
+            "invoices": [
+              {
+                "id": "5816ddff58e13f0acc163de2",
+                "customerName": "Morning Industries",
+                "createdDate": "2016-10-31 06:00:31",
+                "total": 2593754.76
+              },
+              {
+                "id": "581ae39258e13f4fac652d62",
+                "customerName": "Morning Industries",
+                "createdDate": "2016-11-03 07:13:22",
+                "total": 1393166065.11
+              },
+              {
+                "id": "581ae54a58e13f519011d5b2",
+                "customerName": "Morning Industries",
+                "createdDate": "2016-11-03 07:20:42",
+                "total": 1393166065.11
+              },
+              {
+                "id": "582a82ad58e13f5653719982",
+                "customerName": "Morning Industries",
+                "createdDate": "2016-11-15 03:36:13",
+                "total": 1393166065.11
+              }
+            ]
+          }
+        }  
+
+
 ### Get values to the dropdowns in quotation, sales order and invoice create forms [POST /sales/products/dropdowns]
 Allows the user to get values to the dropdowns in quotation, sales order and invoice create forms that belongs to the Organization/team.
     
