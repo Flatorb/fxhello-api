@@ -1370,18 +1370,14 @@ Allows the user to get a list of employees and their information that belongs to
 
     + Body
         {
-          "payload": [
-                {
-                  "id": "5805a3536b0bdc039843aff2",
-                  "name": "Nickles Domnick",
-                  "contact": "23423412312 , 23423",
-                  "email": "chamal@flatorb.com",
-                  "title": "IT",
-                  "department": "Finance"
-                }
-            ]
+          "id": "123",
+          "name": "Chaya Ranatunga",
+          "contact": "23423 , 2342",
+          "email": "chaya@flatorb.com",
+          "empType": "Supervisor",
+          "title": "Manager ",
+          "department": "Sales and Marketing"
         }
-
 
 ### Display employee profile [POST /hr/employees/employee]
 Allows the user to get employee details of the selected employee that belongs to the Organization/team. 
@@ -1552,47 +1548,81 @@ Allows the user to get employee details of the selected employee to the edit for
         {
           "payload": [
             {
-              "id": "5832bb016b0bdc05cf54b892",
-              "firstname": "Demo",
-              "middlename": "",
-              "lastname": "Sam",
+              "employeeDetails": {
+                "_id": "58a13e8358e13f760e738993",
+                "oid": 102,
+                "hrid": "58a13e8358e13f760e738992",
+                "employeeTypeId": "58059b156b0bdc03976f93d2",
+                "employeeTypeName": "Permenant",
+                "employeeid": "43654768795086012",
+                "jobtitle": "Developer ",
+                "filenumber": "8989889",
+                "start": "2017-02-13",
+                "end": null,
+                "reportsto": null,
+                "status": 1,
+                "cuid": 1652,
+                "uuid": 1652,
+                "cuName": "Dulmini Harshani",
+                "uuName": "Dulmini Harshani",
+                "created_at": "2017-02-13 05:05:07",
+                "updated_at": "2017-02-13 05:05:07",
+                "employee": {
+                  "_id": "58a13e8358e13f760e738992",
+                  "uid": 1652,
+                  "prefix": "2",
+                  "firstname": "Amana",
+                  "middlename": "Vikris",
+                  "lastname": "Maglond",
+                  "addresses": "{\"main\":{\"address1\":\"123 Main Street\",\"address2\":\"Unit 8\",\"city\":\"New York\",\"state\":\"\",\"stateID\":null,\"zip\":\"10601\",\"country\":\"United States\",\"countryID\":\"232\",\"description\":\"\",\"status\":1,\"cuid\":1652,\"uuid\":1652,\"created_at\":\"2017-02-13 05:05:07\",\"updated_at\":\"2017-02-13 05:05:07\"}}",
+                  "telephone": "",
+                  "description": "Aliquam id eros efficitur lectus malesuada condimentum. Morbi aliquam est eu dolor faucibus lobortis. Phasellus a lacus vel arcu cursus consequat et non enim. Mauris varius lacus sed nisl faucibus bibendum. Suspendisse potenti. Cras nec auctor elit. Phasellus a interdum nisl, et varius nunc. Aenean ullamcorper est quis ultricies sodales. Nunc sed cursus nulla, in tincidunt nibh. Suspendisse et rutrum sem. Curabitur congue imperdiet sapien, id vulputate tortor volutpat et. In hac habitasse platea dictumst. Fusce et urna id nisl maximus consectetur.",
+                  "depID": "5801cb7c4189dc6a806791d1",
+                  "depName": "Legal",
+                  "mobile": "",
+                  "email": "Amana@flatorb.com",
+                  "countryid": "232",
+                  "dob": "02/24/1975",
+                  "emergencyContacts": null,
+                  "references": null,
+                  "image": "",
+                  "uploads": "",
+                  "meta": "{\"nationality\":\"American\",\"ssn\":\"2334354gg\",\"birthPlace\":\"gen hopital chili\",\"materialStatus\":\"married\",\"religion\":\"\",\"gender\":\"female\",\"immigrationStatus\":\"American\",\"description\":\"Aliquam id eros efficitur lectus malesuada condimentum. Morbi aliquam est eu dolor faucibus lobortis. Phasellus a lacus vel arcu cursus consequat et non enim. Mauris varius lacus sed nisl faucibus bibendum. Suspendisse potenti. Cras nec auctor elit. Phasellus a interdum nisl, et varius nunc. Aenean ullamcorper est quis ultricies sodales. Nunc sed cursus nulla, in tincidunt nibh. Suspendisse et rutrum sem. Curabitur congue imperdiet sapien, id vulputate tortor volutpat et. In hac habitasse platea dictumst. Fusce et urna id nisl maximus consectetur.\",\"telephone2\":\"\"}",
+                  "status": 1,
+                  "uuid": 1652,
+                  "created_at": "2017-02-13 05:05:07",
+                  "updated_at": "2017-02-13 05:05:07"
+                }
+              },
               "addresses": {
                 "main": {
                   "address1": "123 Main Street",
                   "address2": "Unit 8",
                   "city": "New York",
-                  "state": "New York",
-                  "stateID": "NY",
+                  "state": "",
+                  "stateID": null,
                   "zip": "10601",
                   "country": "United States",
                   "countryID": "232",
                   "description": "",
                   "status": 1,
-                  "cuid": 1679,
-                  "uuid": 1679,
-                  "created_at": "2016-11-21 09:14:39",
-                  "updated_at": "2016-11-21 09:14:39"
+                  "cuid": 1652,
+                  "uuid": 1652,
+                  "created_at": "2017-02-13 05:05:07",
+                  "updated_at": "2017-02-13 05:05:07"
                 }
               },
               "meta": {
-                "nationality": "",
-                "ssn": "",
-                "birthPlace": "",
-                "materialStatus": "",
-                "religion": "",
-                "gender": "Male",
-                "immigrationStatus": "",
-                "description": "",
-                "telephone2": "022 2222222"
-              },
-              "telephone1": "011 1111111",
-              "mobile": "077 7777777",
-              "status": 1,
-              "email": "git@flatorb.com",
-              "description": "",
-              "countryID": "Bouvet Island",
-              "created_at": "2016-11-21 09:14:39",
-              "updated_at": "2016-11-21 09:14:39"
+                "nationality": "American",
+                "ssn": "2334354gg",
+                "birthPlace": "gen hopital chili",
+                "materialStatus": "married",
+                "religion": "Muslim",
+                "gender": "female",
+                "immigrationStatus": "American",
+                "description": "Aliquam id eros efficitur lectus malesuada condimentum. Morbi aliquam est eu dolor faucibus lobortis. Phasellus a lacus vel arcu cursus consequat et non enim. Mauris varius lacus sed nisl faucibus bibendum. Suspendisse potenti. Cras nec auctor elit. Phasellus a interdum nisl, et varius nunc. Aenean ullamcorper est quis ultricies sodales. Nunc sed cursus nulla, in tincidunt nibh. Suspendisse et rutrum sem. Curabitur congue imperdiet sapien, id vulputate tortor volutpat et. In hac habitasse platea dictumst. Fusce et urna id nisl maximus consectetur.",
+                "telephone2": ""
+              }
             }
           ]
         }
@@ -1931,7 +1961,7 @@ Allows the user to edit an opportunity that belongs to the Organization/team.
             "status": "2",
             "ownerType": 1,
             "ownerTypeID": 1652,
-            "cuid": 1652,
+            "cuid": 1652,@
             "cuName": "Dulmini Harshani",
             "uuid": 1652,
             "uuName": "Dulmini Harshani",
@@ -2854,6 +2884,9 @@ Allows the user to get a list of values for the drop downs resource categories, 
 ### Get a list of products [POST /products/products]
 Allows the user to get a list of products that belongs to the Organization/team. 
 
++ Parameters
+    + sendImage (optional, string) ...If the image needs to display pass this parameter as TRUE
+
 + Request
 
     + Headers
@@ -3557,7 +3590,9 @@ Returns user details of the active organization of the user
         "last_read_announcements_at": null,
         "created_at": "2015-10-01 02:51:39",
         "updated_at": "2016-12-02 05:43:44"
-      }
+      },
+       "currencyCode": "USD"
+   }
 
 ### Get a list of countries [POST /countries]
 Allows the user to get a list of countries that belongs to the Organization/team. 
