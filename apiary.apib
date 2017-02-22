@@ -452,7 +452,7 @@ Allows the user to get customer details of the selected customer that belongs to
             Accept: application/vnd.fxhello.v1+json
     + Body
         {
-            "customerid": 5806d9fe6b0bdc0209217585
+            "customerid": 581318f36b0bdc06a0028042
         }
 
 + Response 200 (application/json)
@@ -461,8 +461,8 @@ Allows the user to get customer details of the selected customer that belongs to
         {
           "payload": [
             {
-              "id": "5806d9fe6b0bdc0209217585",
-              "name": "Aileen Annie",
+              "id": "581318f36b0bdc06a0028042",
+              "name": "MorningStar Industries",
               "addresses": {
                 "address1": "123 Main Street",
                 "address2": "Unit 8",
@@ -497,8 +497,75 @@ Allows the user to get customer details of the selected customer that belongs to
               "uuName": "Keshani",
               "updated_at": "2016-10-19 02:27:07"
             }
-          ]
-        }
+        ],
+        "notes": [],
+        "contacts": [
+            {
+              "name": "Meck ",
+              "telephone": null,
+              "email": "melissa@flatorb.com",
+              "position": null
+            }
+        ],
+        "distributionCenterAssociate": [
+            {
+              "id": "5806e00b6b0bdc06a44009e2",
+              "distributor": "Steel Distribution centers"
+            }
+        ],
+        "salesForceResourceAssociate": [
+            {
+              "id": "5805e3ac6b0bdc09d366df82",
+              "distributor": "Nickles Domnick"
+            }
+        ],
+        "invoices": [
+            {
+              "id": "5816ddff58e13f0acc163de2",
+              "date": "2016-10-31",
+              "value": 2593754.76,
+              "status": "Pending"
+            }
+        ],
+        "opportunities": [
+            {
+              "id": "58006c356b0bdc042c158284",
+              "opportunity": "Wesley & Thadeus & DO ",
+              "value": 9000000,
+              "status": "Decision",
+              "assignee": null,
+              "createdOn": "2016-10-14"
+            }
+        ],
+        "workorders": [
+            {
+              "id": "5816df1058e13f0c573a3424",
+              "appointment": "2016-11-04",
+              "name": "Morning work order",
+              "customerName": "Morning Industries",
+              "assignedTo": null,
+              "status": 1
+            }
+        ],
+        "salesorders": [
+            {
+              "id": "5816dc9c58e13f106b773f12",
+              "date": "2016-10-31",
+              "value": 1393166065.11,
+              "items": 1,
+              "status": "Invoiced"
+            }
+        ],
+        "quotations": [
+            {
+              "id": "5816dbcb58e13f0a1f040452",
+              "value": 1486159.18206,
+              "items": 2,
+              "status": "Pending",
+              "updated_at": "2016-10-31"
+            }
+        ]
+    }
 
 
 ### Create a customer [POST /crm/customers/customerCreate]
@@ -3705,7 +3772,7 @@ Saves a bulk of data of the health-check pings on in to the database
 Saves an image
 
 + Parameters
-    + id (string)
+    + id (string) ... The relevant id of the record that the image need to be saveds
     + type (int) ... type = 3 for customer, type = 4 for contact & type = 15 for product
     + image (file) ... Images should pass as an array if adding multiple images and certificates
     + count (optional, number) ...Pass this parameter only if adding multiple images and certificates to a product 
