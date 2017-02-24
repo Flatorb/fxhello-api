@@ -579,7 +579,7 @@ Allows the user to  saves a customer under the active Organization/team.
     + industries (optional, string)
     + email (optional, string)
     + website (optional, string)
-    + country (number)
+    + country (optional, number)
     + address1 (optional, string)
     + address2 (optional, string)
     + city (optional, string)
@@ -587,10 +587,10 @@ Allows the user to  saves a customer under the active Organization/team.
     + state (optional, string)
     + telephone1 (optional, string)
     + telephone2 (optional, string)
-    + mobile (string)
+    + mobile (optional, string)
     + fax (optional, string)
-    + status (int)
-    + leadsource (string)
+    + status (optional, int)
+    + leadsource (optional, string)
     + customer_since (optional, string)
     + description (optional, string)
     + designation (optional, string) ... This field should be empty for Companies
@@ -1019,6 +1019,35 @@ Allows the user to  update the selected contact under the active Organization/te
         }
 
 
+### Create an associate to a customer [POST /crm/customers/associateCreate]
+Save associate to a customer with a distribution center and with a sales force resource to the Organization/team. 
+
++ Parameters
+    + customer (string) ... Customer ID
+    + associateType (number) ... If associating the customer with a distribution certer associateType = 8 or with a sales force resource associateType = 10
+    + associateId (string) ... Associate ID
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "customer": "58abc2a26b0bdc0208221002"
+            "associateType": 10
+            "associateId": "581b02cf58e13f5b131505d2"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "message": "Associate saved successfully!!!"
+        }
+
+
+
 ### Get values for the customer create from dropdowns [POST /crm/customer/dropdowns]
 Allows the user to get a list of values for the drop downs countries, customer status, lead source and industries that belongs to the Organization/team. 
 
@@ -1083,8 +1112,8 @@ Allows the user to get a list of values for the drop downs countries, customers 
           "payload": {
                 "countries": [
                   {
-                    "id": 3,
-                    "country": "Afghanistan"
+                    "id": 234,
+                    "country": "United States"
                   }
                 ],
                 "customers": [
@@ -1098,6 +1127,42 @@ Allows the user to get a list of values for the drop downs countries, customers 
                     "id": "57fcd93e4189dc6a846be182",
                     "source": "Skype"
                   },
+                ]
+            }
+        }
+
+
+### Get values for the associate from dropdowns [POST /crm/associate/dropdowns]
+Allows the user to get a list of values for the drop downs customers, distribution center and sales force resources that belongs to the Organization/team. 
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "payload": {
+                "customers": [
+                  {
+                    "id": "57ff51896b0bdc0747634a73",
+                    "name": "Francisca Industries PVT LTD"
+                  }
+                ],
+                "distributionCenters": [
+                  {
+                    "id": "5806e00b6b0bdc06a44009e2",
+                    "name": "Steel Distribution centers"
+                  },
+                ]
+                 "salesForceResources": [
+                  {
+                    "id": "5836774e58e13f028f5b9973",
+                    "name": "Sam Doe"
+                  }
                 ]
             }
         }
