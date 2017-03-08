@@ -2302,41 +2302,48 @@ Allows the user to display the quotation according to the given quotation ID tha
 
     + Body
        {
-          "payload": {
-            "0": {
-              "id": "58a3e8eb6b0bdc04065f4672",
-              "number": "232",
-              "created_at": "2017-02-15 05:36:40",
-              "customername": "Mac Donalds234",
-              "subtotal": 6290900,
-              "discount": -5990500,
+          "payload": [
+            {
+              "id": "58bfda5a58e13f5c936cf6e2",
+              "number": "2468",
+              "created_at": "2017-03-08 10:18:02",
+              "customername": "Cyrus Cooporation",
+              "subtotal": 650776,
+              "discount": 11624,
               "tax": 0,
-              "grand_total": 12281400,
-              "file": "https://s3.amazonaws.com/fxhellouat/data/102/sales/quotation/58a3e8eb6b0bdc04065f4672/1487137003-0hpPU1wxhSXDkoEGV0FG.ppt?X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJUVQVA4VO7WZAOVQ%2F20170215%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20170215T054137Z&X-Amz-SignedHeaders=host&X-Amz-Expires=300&X-Amz-Signature=96ed812e1ab13cf27e1e679d4266bedc2248b2d263d035fb31709afea86c092b",
-              "fileStatus": true,
+              "grand_total": 639152,
+              "file": "https://cdn.fxhello.com/img/imgph300.png",
+              "fileStatus": false,
               "status": "Pending",
-              "address1": "",
-              "address2": "",
-              "city": "",
-              "country": "Libya"
+              "address1": "123 Main Street",
+              "address2": "Unit 8",
+              "city": "New York",
+              "country": "United States"
+            }
+          ],
+          "products": [
+            {
+              "product_name": "MacBook Pro",
+              "qty": 2,
+              "unitprice": "230000",
+              "discount": 2500,
+              "linetotal": 457500
             },
-            "products": [
-              {
-                "product_name": "HTC 10",
-                "qty": "3",
-                "unitprice": "10",
-                "discount": null,
-                "linetotal": "30"
-              },
-              {
-                "product_name": "Mac Book",
-                "qty": "5",
-                "unitprice": "10",
-                "discount": null,
-                "linetotal": "50"
-              }
-            ]
-          }
+            {
+              "product_name": "Books",
+              "qty": 2,
+              "unitprice": "100000",
+              "discount": 8555,
+              "linetotal": 191445
+            },
+            {
+              "product_name": "Demo 09-11",
+              "qty": 2,
+              "unitprice": "1200",
+              "discount": 569,
+              "linetotal": 1831
+            }
+          ]
         }
 
 
@@ -2440,32 +2447,33 @@ Allows the user to display the sales order according to the given sales order ID
 
     + Body
        {
-          "payload": {
-            "0": {
+          "payload": [
+            {
               "id": "582be4976b0bdc0e4f706d82",
               "number": "5345",
               "created_at": "2016-11-16 04:46:14",
               "customername": "Cass Industries",
               "subtotal": 4500000,
-              "discount": 0,
+              "discount": null,
               "tax": 596898,
               "grand_total": 5693796,
-              "status": "Pending",
-              "address1": "2131",
-              "address2": "Galle Road",
-              "city": "Colombo",
-              "country": "Bolivia"
-            },
-            "products": [
-              {
-                "product_name": "Books",
-                "qty": "45",
-                "unitprice": "100000.00",
-                "discount": "0.00",
-                "linetotal": "4500000.00"
-              }
-            ]
-          }
+              "status": "Error - Unknown Status",
+              "address1": "123 Main Street",
+              "address2": "Unit 8",
+              "city": "New York",
+              "country": "United States"
+            }
+          ],
+          "products": [
+            {
+              "sku": null,
+              "product_name": "Books",
+              "qty": "45",
+              "unitprice": "100000.00",
+              "discount": "0.00",
+              "linetotal": "4500000.00"
+            }
+          ]
         }
 
 
@@ -2563,32 +2571,33 @@ Allows the user to display the invoice according to the given invoice ID that be
 
     + Body
        {
-          "payload": {
-            "0": {
-              "id": "582036996b0bdc14b145f4f2",
-              "number": null,
-              "created_at": "2016-11-07 08:08:57",
-              "customername": "Samck Doe",
-              "subtotal": "144",
-              "discount": null,
-              "tax": 19.100736,
-              "grand_total": 182.201472,
+          "payload": [
+            {
+              "id": "58afb85e58e13f13fe5fb1a5",
+              "number": "",
+              "created_at": "2017-02-24 04:36:46",
+              "customername": "Odiris Pvt Ltd",
+              "subtotal": 147708,
+              "discount": 0,
+              "tax": 19592.579952,
+              "grand_total": 186893.159904,
               "status": "Pending",
-              "address1": "",
-              "address2": "",
-              "city": "",
-              "country": "Cook Islands"
-            },
-            "products": [
-              {
-                "product_name": "Mac Book",
-                "qty": "12",
-                "unitprice": "12",
-                "discount": "",
-                "linetotal": "144"
-              }
-            ]
-          }
+              "address1": "123 Main Street",
+              "address2": "Unit 8",
+              "city": "New York",
+              "country": "United States"
+            }
+          ],
+          "products": [
+            {
+              "sku": "FX09090111",
+              "product_name": "GPS units",
+              "qty": "12",
+              "unitprice": "12309.00",
+              "discount": "0.00",
+              "linetotal": "147708.00"
+            }
+          ]
         }
 
 
