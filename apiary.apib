@@ -810,37 +810,95 @@ Allows the user to get contact details of the selected contact that belongs to t
         {
           "payload": [
             {
-              "id": "57ff61a96b0bdc091d013592",
-              "customerId": null,
+              "id": "58005a096b0bdc042c158282",
+              "customerId": 0,
               "customerName": null,
-              "firstName": "Genevieve",
-              "lastName": "Isabelle",
-              "telephone": "344234",
-              "mobile": "234234",
-              "email": "gene@flatorb.com",
+              "firstName": "Carroll",
+              "lastName": "",
+              "telephone": "23423",
+              "mobile": "423423",
+              "email": "car@flatorb.com",
               "image": "",
-              "position": "HR",
+              "position": "",
               "profileimage": "https://cdn.fxhello.com/img/imgph300.png",
               "profileImgStatus": false,
               "addresses": {
-                "address1": "234 Main Steet",
-                "address2": "Unit 8",
-                "city": "New York",
-                "state": "New York",
-                "stateid": "NY",
-                "zip": "10601",
+                "address1": "",
+                "address2": "",
+                "city": "",
+                "state": "",
+                "stateid": null,
+                "zip": "",
                 "country": "United States",
                 "countryid": "232",
                 "description": "",
                 "status": 1,
                 "cuid": 6,
                 "uuid": 6,
-                "created_at": "2016-10-13 10:27:52",
-                "updated_at": "2016-10-13 10:27:52"
+                "created_at": "2016-10-14 04:07:36",
+                "updated_at": "2016-10-14 04:07:36"
               }
             }
-        ]
-    }
+          ],
+          "notes": [
+            {
+              "_id": "58c219436b0bdc03405ebae2",
+              "oid": 102,
+              "type": 4,
+              "typeid": "58005a096b0bdc042c158282",
+              "comment": "Carrol note",
+              "meta": {
+                "due_date": "2017-03-14",
+                "description": "",
+                "action": null,
+                "visibility": "1",
+                "visibility_customer": "2",
+                "assigner_user_id": null,
+                "note_type": "1"
+              },
+              "status": "1",
+              "uuid": 6,
+              "cuid": 6,
+              "cuName": "Keshani",
+              "uuName": "Keshani",
+              "updated_at": "2017-03-10 03:10:58",
+              "created_at": "2017-03-10 03:10:58"
+            }
+          ],
+          "opportunities": [
+            {
+              "_id": "58c106296b0bdc02102d2433",
+              "oid": 102,
+              "customer": null,
+              "customerType": 4,
+              "customerTypeId": "58005a096b0bdc042c158282",
+              "category": null,
+              "categoryName": null,
+              "name": "Carrol Opp",
+              "productCategories": [
+                "5801b8184189dc69ad4409fc"
+              ],
+              "products": [
+                "581b06f358e13f5bca612dd2"
+              ],
+              "contacts": [
+                "58005a096b0bdc042c158282"
+              ],
+              "value": "3423423",
+              "expectedClose": "2017-03-09",
+              "description": "",
+              "status": "1",
+              "ownerType": 1,
+              "ownerTypeID": 6,
+              "cuid": 6,
+              "cuName": "Keshani",
+              "uuid": 6,
+              "uuName": "Keshani",
+              "created_at": "2017-03-09 07:37:13",
+              "updated_at": "2017-03-09 07:37:13"
+            }
+          ]
+        }
 
 
 ### Create a contact [POST /crm/contacts/contactCreate]
@@ -1873,7 +1931,7 @@ Allows the user to get a list of my time sheets that belongs to the Organization
           "payload": {
             "myTimeSheets": [
                   {
-                    "date": "2016-10-18",
+                    "date": "2016-10-18 07:04:02",
                     "check-in": "12:34:02",
                     "check-out": "12:40:51",
                     "time": "0.11",
