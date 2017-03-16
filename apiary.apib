@@ -2562,6 +2562,7 @@ Allows the user to create a sales order that belongs to the Organization/team.
     + unitprice (array) ...Multile products can added
     + discount (optional, array) ...Multile products can added
     + linetotal (array) ...Multile products can added
+    + productDescription (optional, array) ...Multile products can added
     
 + Request
 
@@ -2576,11 +2577,12 @@ Allows the user to create a sales order that belongs to the Organization/team.
             "description": ""
             "orderdate": "2016-11-21"
             "creditperiod": "1"
-            "product_id": "580083186b0bdc05ff588792"
-            "qty": "2"
-            "unitprice": "1000"
-            "discount": "100"
-            "linetotal": "1900"
+            "product_id": ["583e363358e13f091610e542", "580083186b0bdc05ff588792"]
+            "qty": ["3", "5"]
+            "unitprice": ["10", "10"]
+            "discount": ""
+            "linetotal": ["30", "50"]
+            "productDescription" : ["test", "test"]
         }
 
 + Response 200 (application/json)
@@ -2686,6 +2688,7 @@ Allows the user to create an invoice that belongs to the Organization/team.
     + unitprice (array) ...Multile products can added
     + discount (optional, array) ...Multile products can added
     + linetotal (array) ...Multile products can added
+    + productDescription (optional, array) ...Multile products can added
     
 + Request
 
@@ -2700,11 +2703,12 @@ Allows the user to create an invoice that belongs to the Organization/team.
             "description": ""
             "orderdate": "2016-11-21"
             "creditperiod": "1"
-            "product_id": "580083186b0bdc05ff588792"
-            "qty": "2"
-            "unitprice": "1000"
-            "discount": "100"
-            "linetotal": "1900"
+            "product_id": ["583e363358e13f091610e542", "580083186b0bdc05ff588792"]
+            "qty": ["3", "5"]
+            "unitprice": ["10", "10"]
+            "discount": ""
+            "linetotal": ["30", "50"]
+            "productDescription" : ["test", "test"]
         }
 
 + Response 200 (application/json)
