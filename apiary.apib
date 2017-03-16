@@ -564,7 +564,8 @@ Allows the user to get customer details of the selected customer that belongs to
               "status": "Pending",
               "updated_at": "2016-10-31"
             }
-        ]
+        ],
+        "industries": []
     }
 
 
@@ -3174,7 +3175,7 @@ Allows the user to get a list of products that belongs to the Organization/team.
     }
 
 ### Product profile [POST /products/products/product]
-Allows the user to edit a product that belongs to the Organization/team. 
+Allows the user to view the product that belongs to the Organization/team. 
 
 + Parameters
     + id (string)
@@ -3717,6 +3718,88 @@ Allows the user to get a list of finance sales orders that belongs to the Organi
         }
       }
 
+## Distribution cneters [/distributions/centers]
+
+### Distribution cneter profile [POST /distributions/centers/center]
+Allows the user to view the distribution center details that belongs to the Organization/team. 
+
++ Parameters
+    + id (string)
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+          "payload": {
+            "_id": {
+              "oid": "58999d3c6b0bdc03d85bcf82"
+            },
+            "oid": 102,
+            "sku": "FX213123",
+            "barcode": "234234",
+            "name": "Test product",
+            "category": "5801b8184189dc69ad4409f6",
+            "categoryName": "Cartons",
+            "weight": "23",
+            "weightUnit": "cm",
+            "cost": null,
+            "price": 13000,
+            "thresholdPrice": 12999,
+            "lowestPrice": 12000,
+            "purchasePrice": 12500,
+            "productInfo": "Test Product",
+            "productUrl": "http://www.example.com",
+            "image": "",
+            "description": "Demo Description 123",
+            "manufacturers": [
+              {
+                "name": "Demo Manufcaturer",
+                "oid": null,
+                "country": 232,
+                "countryName": "United States",
+                "email": "manu@flatorb.com",
+                "telephone": "132132",
+                "mobile": "231231",
+                "website": "http://www.manufacturer.com"
+              }
+            ],
+            "suppliers": [
+              {
+                "name": "Demo Supplier",
+                "oid": null,
+                "country": "232",
+                "countryName": "United States",
+                "email": "supplier@flatorb.com",
+                "telephone": "213213",
+                "mobile": "321312",
+                "website": "http://www.supplier.com"
+              }
+            ],
+            "brandName": "Nike",
+            "width": "2",
+            "depth": "2",
+            "height": "2",
+            "lengthUnit": "cm",
+            "meta": "[]",
+            "status": 1,
+            "creditperiod": "2",
+            "cuid": 6,
+            "uuid": 6,
+            "created_at": "2017-02-07 10:10:24",
+            "updated_at": "2017-02-07 10:40:56",
+            "images": [
+              {
+                "profileimage": "https://cdn.fxhello.com/img/imgph300.png",
+                "profileImgStatus": false
+              }
+            ]
+          }
+        }
+
+
 
 ## Sales force [/salesforce]
 
@@ -3750,6 +3833,140 @@ Allows the user to get a list of sales force resources that belongs to the Organ
           ]
         }
       }
+
+
+### Sales force resource profile [POST /salesforce/resources/resource]
+Allows the user to view the sales force details that belongs to the Organization/team.  
+
++ Parameters
+    + salesForceResourceId (string)
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+     {
+      "payload": [
+        {
+          "_id": {
+            "$oid": "589c04c16b0bdc03426fa5e2"
+          },
+          "oid": 102,
+          "meta": "{\"reports_to_id\":\"5891a6ac58e13f28f571ae82\",\"reports_to_name\":\"Mukesh Ambani\",\"description\":\"It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).\",\"category\":\"\"}",
+          "type": 10,
+          "typeid": "5892a8df6b0bdc020b3f0e72",
+          "name": "Anurudhika5 Paranavithana5",
+          "issalesrep": 1,
+          "uuid": 6,
+          "status": "0",
+          "created_at": "2017-02-09 05:57:21",
+          "updated_at": "2017-03-15 10:14:57",
+          "metaNew": {
+            "reports_to_id": "5891a6ac58e13f28f571ae82",
+            "reports_to_name": "Mukesh Ambani",
+            "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
+            "category": ""
+          }
+        }
+      ],
+      "reportsTo": {
+        "_id": {
+          "$oid": "5891a6ac58e13f28f571ae82"
+        },
+        "uid": 1652,
+        "prefix": 3,
+        "firstname": "Mukesh",
+        "middlename": "Thripati",
+        "lastname": "Ambani",
+        "addresses": "{\"main\":{\"address1\":\"Hanumantha strt\",\"address2\":\"Pushkar\",\"city\":\"dhilli\",\"state\":\"\",\"stateID\":null,\"zip\":\"21212\",\"country\":\"India\",\"countryID\":\"105\",\"description\":\"\",\"status\":1,\"cuid\":1652,\"uuid\":1652,\"created_at\":\"2017-02-01 09:13:16\",\"updated_at\":\"2017-02-01 09:13:16\"}}",
+        "telephone": "+91 453635657467",
+        "description": "This is about mukesh ambani.",
+        "depID": "5832ac4d6b0bdc2882135a32",
+        "depName": "Test department",
+        "mobile": "+91 57648635735",
+        "email": "Mukesh@flatorb.com",
+        "countryid": "105",
+        "dob": "02/28/1948",
+        "emergencyContacts": [
+          {
+            "name": "Samola Dencrit",
+            "telephone": "+1 2324343434343",
+            "mobile": "+1 23134314343434",
+            "email": "",
+            "relationship": "American ref"
+          },
+          {
+            "name": "Piyagru Ahamaed",
+            "telephone": "+91 676375374564585",
+            "mobile": "+91 14354264575375376",
+            "email": "piyagru@flatorb.com",
+            "relationship": "Secreatry"
+          }
+        ],
+        "references": [
+          {
+            "name": "Mr. Dase",
+            "company_name": "xyz",
+            "designation": "manager",
+            "mobile": "688920278",
+            "telephone": "24997985",
+            "email": "dase@flatorb.com"
+          }
+        ],
+        "image": "1485943143-PZLTqIKZcgO7AzCysXxP.jpg",
+        "meta": "{\"nationality\":\"Indian\",\"ssn\":\"121324543546\",\"birthPlace\":\"Dhilli\",\"materialStatus\":\"married\",\"religion\":\"Hindu\",\"gender\":\"male\",\"immigrationStatus\":\"permanent\",\"description\":\"This is about mukesh ambani.\",\"telephone2\":\"+91 4657648787875\"}",
+        "status": "0",
+        "uuid": 1632,
+        "created_at": "2017-02-01 09:13:16",
+        "updated_at": "2017-03-15 09:27:44",
+        "uploads": [
+          {
+            "id": "58ae641d6b0bdc03bc5f5672",
+            "filename": "1487823895-ycgrRmYjqq2XVjSEbTGG.jpeg",
+            "originalName": "Profile image"
+          }
+        ]
+      },
+      "distributionCenterAssocs": [
+        {
+          "_id": {
+            "$oid": "58ca193f6b0bdc0306360562"
+          },
+          "oid": 102,
+          "type": 8,
+          "typeid": "583e626f6b0bdc0211125e63",
+          "atype": 10,
+          "atypeid": "589c04c16b0bdc03426fa5e2",
+          "status": 1,
+          "uuid": null,
+          "cuid": null,
+          "created_at": "2017-03-16 04:49:02",
+          "updated_at": "2017-03-16 04:49:02"
+        }
+      ],
+      "customerAssocs": [
+        {
+          "_id": {
+            "$oid": "58ca16c96b0bdc020a494c62"
+          },
+          "oid": 102,
+          "type": 3,
+          "typeid": "581318f36b0bdc06a0028042",
+          "atype": 10,
+          "atypeid": "589c04c16b0bdc03426fa5e2",
+          "status": 1,
+          "uuid": 6,
+          "cuid": 6,
+          "created_at": "2017-03-16 04:38:33",
+          "updated_at": "2017-03-16 04:38:33"
+        }
+      ]
+    }
 
 
 ### Get a list of sales force tasks [POST /salesforce/tasks]
