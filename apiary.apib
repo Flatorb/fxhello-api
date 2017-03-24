@@ -2989,7 +2989,7 @@ Allows the user to create a marketing campaign that belongs to the Organization/
         }
 
 
-### Get a list of marketing resources [POST /marketing/resources]
+### Get a list of marketing resources [POST /marketing/billboards]
 Allows the user to get a list of marketing resources that belongs to the Organization/team. 
 
 + Request
@@ -3004,19 +3004,20 @@ Allows the user to get a list of marketing resources that belongs to the Organiz
       {
           "payload": [
                 {
-                  "id": "58049c806b0bdc0212189813",
-                  "resource": "New marketing 123",
+                  "id": "58bd20f558e13f2bff02b1c2",
+                  "resource": "Primary resource",
                   "location": "New York",
-                  "zone": "",
-                  "category": "580493816b0bdc0530310c32",
-                  "user": "",
-                  "date": "2016-10-17 09:40:15"
+                  "category": "Marketing resources category",
+                  "image": "https://cdn.fxhello.com/img/imgph300.png",
+                  "imgStatus": false,
+                  "created_at": "2017-03-06 08:42:29",
+                  "updated_at": "2017-03-06 08:42:29"
                 }
             ]
         }
 
 
-### Display marketing resource profile [POST /marketing/resources/resource]
+### Display marketing resource profile [POST /marketing/billboards/billboard]
 Allows the user to get details of the marketing resource that belongs to the Organization/team. 
 
 + Parameters
@@ -3053,7 +3054,7 @@ Allows the user to get details of the marketing resource that belongs to the Org
         }
 
 
-### Create a marketing resource [POST /marketing/resources/resourceCreate]
+### Create a marketing resource [POST /marketing/billboards/billboardCreate]
 Allows the user to create a marketing resource that belongs to the Organization/team. 
 
 + Parameters
