@@ -2,10 +2,10 @@ FORMAT: 1A
 
 # FX Hello
 
-# Authentication
+# Authentication [/auth]
 Authentication related operations.
 
-## Login [POST /authenticate]
+## Login [POST /auth/login]
 Allows the user to login using their email address and the password. The API will return a JSON Web Token (JWT) upon successful login. This token needs to be sent in the header of each call of the API.
 
 + Request (application/json)
@@ -24,6 +24,42 @@ Allows the user to login using their email address and the password. The API wil
     + Body
 
             {
+                "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1",
+                "isError": false
+            }
+
+# Authentication [/auth]
+Authentication related operations.
+
+## Register [POST /auth/register]
+Allows user to create an account
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/vnd.fxhello.v1+json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "name": "John",
+                "email": "john@example.com",
+                "password": "Abc@1234",
+                "password_confirmation": "Abc@1234"
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "user": {
+                    "name": "John",
+                    "email": "john@example.com",
+                    "updated_at": "2016-11-21 05:56:03",
+                    "created_at": "2016-11-21 05:56:03",
+                    "id": 1640,
+                    "tax_rate": "0.00"
+                },
                 "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1",
                 "isError": false
             }
