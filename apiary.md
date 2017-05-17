@@ -64,6 +64,22 @@ Allows user to create an account
                 "isError": false
             }
 
+## Refresh token [GET /auth/refreshToken]
+Refreshes the existing token with a new token with a new expiration. The refreshed token will be returned as the response.
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/vnd.fxhello.v1+json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+
++ Response 200 (application/json)
+    + Body
+
+            [
+                "5805a3536b0bdc039843aff2"
+            ]
+
 # Tasks [/tasks]
 Tasks related operations.
 
