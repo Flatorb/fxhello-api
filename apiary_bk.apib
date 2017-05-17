@@ -1,0 +1,4227 @@
+FORMAT: 1A
+HOST: http://uat.fxhello.com/api/
+
+# FX Hello
+
+Polls is a simple API allowing consumers to view polls and vote in them.
+
+IMPORTANT: The API URL is set to UAT server in this documentation. Make sure to change the URL to http://app.fxhello.com to communicate with the Production system.
+
+## Authentication [/authenticate]
+
+### Login [POST]
+Allows the user to login using their email address and the password. The API will return a JSON Web Token (JWT) upon successful login. This token needs to be sent in the header of each call of the API.
+
++ Request
+
+    + Headers
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "email": "user@example.com",
+            "password": "Abc@1234"
+        }
+    
++ Response 200 (application/json)
+
+    + Body
+        {
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1",
+            "isError": false
+        }
+
+### Register [POST /register]
+Allows user to create an account
+
++ Request (application/json)
+
+    + Headers
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "name": "John",
+            "email": "john@example.com",
+            "password": "Abc@1234",
+            "password_confirmation": "Abc@1234"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+            "user": {
+                "name": "TOne",
+                "email": "tone@flatorb.com",
+                "updated_at": "2016-11-21 05:56:03",
+                "created_at": "2016-11-21 05:56:03",
+                "id": 1640,
+                "tax_rate": 0
+            }
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1",
+            "isError": false
+        }
+
+### Get Settings [GET /settings]
+This will return all the settings associated for the user, user's current organization, etc.
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+        {
+            "sendHealthChecks": true,
+            "healthCheckFrequency": 15,
+            "orgSettings": {
+                "modules": {
+                    "crm": true,
+                    "support": true,
+                    "marketing": true,
+                    "sales": true,
+                    "salesForce": true,
+                    "finance": true,
+                    "purchasing": true,
+                    "products": true,
+                    "inventory": true,
+                    "warehouse": true,
+                    "distributionCenters": true,
+                    "productionManagement": true,
+                    "gamification": true,
+                    "fleetManagement": true,
+                    "distribution": true,
+                    "assetManagement": true,
+                    "workflow": true,
+                    "hr": true,
+                    "projectManagement": true,
+                    "lms": true,
+                    "deviceCloud": true
+                },
+                "useTax": false
+            },
+            "userSettings": "",
+            "isError": false
+        }
+
+## Organization [/organization]
+
+### Create Organization [POST /organizationCreate]
+User can create a new organization. The new organization will become the new active organization of the user.
+
++ Parameters
+    + orgName (required) ... This is the name of the organization
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "orgName": "Widget Corp"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+            "orgId": 1624,
+            "message": "Organization created successfully",
+            "isError": false
+        }
+
+### Join an existing organization [POST /organizationJoin]
+A user can join an existing organization by providing an invitation key/token. The API will return whether if the joining the organization was a success
+
++ Parameters
+    + invKey (string) ... This is the invitation key/token that the user is submitting for the purpose of joining an existing organization
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "invKey": "sdfhslkdfhlaa39482bfslkadbflkeb1sdfblskfd0q3"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+            "message": "Joined the organization successfully",
+            "isError": false
+        }
+
+## Categories [/categories]
+
+### Get a list of categories [POST /categories]
+Allows the user to get a list of categories and their ID's that belongs to the Organization/team. 
+
++ Parameters
+    + type (number) ... 0 return all categories. Passing the relavent type return only the applicable categories. (type = 3 for customers, type = 4 for contacts,    type  = 5 for products, type = 17 for marketing resources, type = 21 for opportunities, type = 32 for marketing campaign and type = 35 for lead sources)
+    + subType (optional, number) ... if subType = 2 and type = 5 returns all the categories relevant to xoxo
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "type": 5
+            "subType": 2
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "payload": {
+             "products": {
+                "categories": [
+                    {
+                        "id": "584a377764d40150492aad92",
+                        "name": "Celebration"
+                    },
+                ]
+            }
+        }
+      
+
+### Create category [POST /categoryCreate]
+This allows the user to create a new category for the specified subType.
+
++ Parameters
+    + subType (number) ...  subType = 3 for customers, subType = 4 for contacts, subType = 5 for products, subType = 17 for marketing resources, subType = 21 for opportunities and subType = 32 for marketing campaign. Can keep it as NULL or 0.
+    + category_name (string)
+    + parent (optional, string) ... Only for product category, Pass the id
+    + hexaColor (optional, string) ... Only for product category
+    + rgbColor (optional, string) ... Only for product category
+    + description (optional, string) ... Only for product category
+    + status (optional, number) ... Only for product category
+
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "name": "The new contact category name"
+            "subType": 3
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "message": "Data saved successfully!!!"
+        }
+
+## Background services [/services]
+
+
+## Stores [/stores]
+
+### Get list of stores [POST /stores]
+Get a list of stores (warehouses, store locations, etc.) along with their ID, type.
+
++ Parameters
+    + subType (optional, number) ... NULL or 0 return all stores. Passing the relavent subType return only the applicable stores from the store type.
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "subType": 0
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+           "payload": [
+                {
+                  "id": "5834226c6b0bdc4b0d33ef92",
+                  "storeName": "Demo warehouse"
+                 }
+            ]
+        }
+
+### Create a Store [POST /stores/storeCreate]
+This allows the user to create a new store for the specified type.
+
++ Parameters
+    + name (string) 
+    + location (string)
+    + telephone1 (string)
+    + telephone2 (optional, string)
+    + fax (optional, string)
+    + email (optional, string)
+    + country (number)
+    + description (optional, string)
+    + address1 (optional, string)
+    + address2 (optional, string)
+    + state (optional, string)
+    + zip (optional, string)
+    + city (optional, string)
+
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "name": "Demo warehouse"
+            "location": "New York"
+            "telephone1": "011 11111111"
+            "telephone2": "022 22222222"
+            "fax": "033 33333333"
+            "email": "demo@flatorb.com"
+            "country": 232
+            "description": "Demo description"
+            "address1": "123 Main Street"
+            "address2": "Unit 8"
+            "state": "NY"
+            "zip": "232"
+            "city": "United States"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+       {
+          "message": "Data saved successfully!!!",
+          "store_id": "5834226c6b0bdc4b0d33ef92"
+        }
+
+## Stock [/stock]
+
+### Audit using RFID data [POST /stock/auditRFIDData]
+An defined store can be audied using the RFID data. The RFID data will be matched against the defined store and will return data.
+
++ Parameters
+    + storeId (required, string) ... The ID of the store to be audited
+    + rfidTags (required, string) ... Json string array of RFID tags with their TID and EPC
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "storeId": "18392ac163a",
+            "rfidTags": {
+                {
+                    "tid": "4654323165465FABCE33",
+                    "epc": "4564E536D8FES"
+                },
+                {
+                    "tid": "4654323165465FABCE33",
+                    "epc": "4564E536D8FES"
+                },
+                {
+                    "tid": "4654323165465FABCE33",
+                    "epc": "4564E536D8FES"
+                }
+            }
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+           "payload": [
+                {
+                    "id": "1b897f23ab",
+                    "timestamp": "2016-11-20 16:08:32",
+                    "performedBy": "John",
+                    "storeId": "5834226c6b0bdc4b0d33ef92",
+                    "storeName": "Demo warehouse",
+                    "qtyOnBook": 1300,
+                    "qtyTallying": 1450,
+                    "qtyMissing": 75,
+                    "qtyExcess": 25,
+                    "missing": [
+                        {
+                            "pid": "1793bc23fa33",
+                            "name": "Product name",
+                            "image": "http://www.example.com/img/sample.jpg"
+                        },
+                        {
+                            "pid": "1793bc23fa33",
+                            "name": "Product name",
+                            "image": "http://www.example.com/img/sample.jpg"
+                        },
+                        {
+                            "pid": "1793bc23fa33",
+                            "name": "Product name",
+                            "image": "http://www.example.com/img/sample.jpg"
+                        }
+                    ],
+                    "excess": [
+                        {
+                            "pid": "1793bc23fa33",
+                            "name": "Product name",
+                            "image": "http://www.example.com/img/sample.jpg"
+                        },
+                        {
+                            "pid": "1793bc23fa33",
+                            "name": "Product name",
+                            "image": "http://www.example.com/img/sample.jpg"
+                        },
+                        {
+                            "pid": "1793bc23fa33",
+                            "name": "Product name",
+                            "image": "http://www.example.com/img/sample.jpg"
+                        }
+                    ],
+                    "tallying": [
+                        {
+                            "pid": "1793bc23fa33",
+                            "name": "Product name",
+                            "image": "http://www.example.com/img/sample.jpg"
+                        },
+                        {
+                            "pid": "1793bc23fa33",
+                            "name": "Product name",
+                            "image": "http://www.example.com/img/sample.jpg"
+                        },
+                        {
+                            "pid": "1793bc23fa33",
+                            "name": "Product name",
+                            "image": "http://www.example.com/img/sample.jpg"
+                        }
+                    ]
+                }
+            ]
+        }
+
+## CRM [/crm]
+
+### Get a list of customers [POST /crm/customers]
+Allows the user to get a list of customers and their information that belongs to the Organization/team. 
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+        {
+           "payload": [
+                {
+                  "id": "57ff51896b0bdc0747634a73",
+                  "name": "Francisca Industries PVT LTD",
+                  "status": "Prospect",
+                  "email": "fransis@flatorb.com",
+                  "telephone": "675677 , 234",
+                  "added_by": "Keshani",
+                  "profileimage": "https://cdn.fxhello.com/img/imgph300.png",
+                  "profileImgStatus": false,
+                  "created_on": "2016-10-13 09:19:03"
+                 }
+            ]
+        }
+
+### Display customer profile [POST /crm/customers/customer]
+Allows the user to get customer details of the selected customer that belongs to the Organization/team. 
+
++ Parameters
+    + customerid (string) ... Passing the relavent customerId to return only the relevant customer details.
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "customerid": 581318f36b0bdc06a0028042
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "payload": [
+            {
+              "id": "581318f36b0bdc06a0028042",
+              "name": "MorningStar Industries",
+              "addresses": {
+                "address1": "123 Main Street",
+                "address2": "Unit 8",
+                "city": "New York",
+                "state": "New York",
+                "stateid": "NY",
+                "zip": "10601",
+                "country": "United States",
+                "countryid": "232",
+                "description": "",
+                "status": 1,
+                "cuid": 6,
+                "uuid": 6,
+                "created_at": "2016-10-19 02:27:07",
+                "updated_at": "2016-10-19 02:27:07"
+              },
+              "telephone1": "",
+              "telephone2": null,
+              "mobile": "",
+              "fax": null,
+              "status": "Prospect",
+              "email": "",
+              "website": "",
+              "description": "",
+              "profileimage": "https://cdn.fxhello.com/img/imgph300.png",
+              "profileImgStatus": false,
+              "leadSource": "Lead",
+              "customerSince": "2016-10-19",
+              "creditPeriod": null,
+              "cuName": "Keshani",
+              "created_at": "2016-10-19 02:27:07",
+              "uuName": "Keshani",
+              "updated_at": "2016-10-19 02:27:07"
+            }
+        ],
+        "notes": [],
+        "contacts": [
+            {
+              "name": "Meck ",
+              "telephone": null,
+              "email": "melissa@flatorb.com",
+              "position": null
+            }
+        ],
+        "distributionCenterAssociate": [
+            {
+              "id": "5806e00b6b0bdc06a44009e2",
+              "distributor": "Steel Distribution centers"
+            }
+        ],
+        "salesForceResourceAssociate": [
+            {
+              "id": "5805e3ac6b0bdc09d366df82",
+              "distributor": "Nickles Domnick"
+            }
+        ],
+        "invoices": [
+            {
+              "id": "5816ddff58e13f0acc163de2",
+              "date": "2016-10-31",
+              "value": 2593754.76,
+              "status": "Pending"
+            }
+        ],
+        "opportunities": [
+            {
+              "id": "58006c356b0bdc042c158284",
+              "opportunity": "Wesley & Thadeus & DO ",
+              "value": 9000000,
+              "status": "Decision",
+              "assignee": null,
+              "createdOn": "2016-10-14"
+            }
+        ],
+        "workorders": [
+            {
+              "id": "5816df1058e13f0c573a3424",
+              "appointment": "2016-11-04",
+              "name": "Morning work order",
+              "customerName": "Morning Industries",
+              "assignedTo": null,
+              "status": 1
+            }
+        ],
+        "salesorders": [
+            {
+              "id": "5816dc9c58e13f106b773f12",
+              "date": "2016-10-31",
+              "value": 1393166065.11,
+              "items": 1,
+              "status": "Invoiced"
+            }
+        ],
+        "quotations": [
+            {
+              "id": "5816dbcb58e13f0a1f040452",
+              "value": 1486159.18206,
+              "items": 2,
+              "status": "Pending",
+              "updated_at": "2016-10-31"
+            }
+        ],
+        "industries": []
+    }
+
+
+### Create a customer [POST /crm/customers/customerCreate]
+Allows the user to  saves a customer under the active Organization/team. 
+
++ Parameters
+    + subType (int) ... If the subType = 1 then it is a Company and if the subType = 2 it is an Individual Customer 
+    + name (string) ... For Individual Customers the fisrt name & the last name should concatanate and assign it to here
+    + prefix (optional, string) ... This field should be empty for Companies but for Individual Customers this field should be filled out
+    + category (optional, array)
+    + industries (optional, array)
+    + email (optional, string)
+    + website (optional, string)
+    + country (optional, number)
+    + address1 (optional, string)
+    + address2 (optional, string)
+    + city (optional, string)
+    + zip (optional, string)
+    + state (optional, string)
+    + telephone1 (optional, string)
+    + telephone2 (optional, string)
+    + mobile (optional, string)
+    + fax (optional, string)
+    + status (optional, int)
+    + leadsource (optional, string)
+    + customer_since (optional, string)
+    + description (optional, string)
+    + designation (optional, string) ... This field should be empty for Companies
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "subType": 2
+            "name": "Github test customer"
+            "prefix": "Mr.""
+            "category": "5801b8184189dc69ad4409e7"
+            "industries": "5801b8184189dc69ad4409e7"
+            "email": "git@flatorb.com"
+            "website": "www.github.com"
+            "country": 232
+            "address1": "123 Main Street"
+            "address2": "Unit 8"
+            "city": "New York"
+            "zip": "10601"
+            "state": "NY"
+            "telephone1": "011 11111111"
+            "telephone2": "022 22222222"
+            "mobile": "077 7777777"
+            "fax": "011 1111111"
+            "status": 3
+            "leadsource": "581ab6a058e13f4536380912"
+            "customer_since": "2016-11-13"
+            "description": "Test Customer"
+            "designation": "Developer"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "message": "Data saved successfully!!!",
+          "customer_id": "583285a06b0bdc28804587c2"
+        }
+
+
+### Edit customer [POST /crm/customers/customerEdit]
+Allows the user to get customer details of the selected customer to the edit form, that belongs to the Organization/team. 
+
++ Parameters
+    + customerid (string) ... Passing the relavent customerId to return only the relevant customer details.
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "customerid": "583285a06b0bdc28804587c2"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "payload": [
+            {
+              "id": "583285a06b0bdc28804587c2",
+              "name": "Github test customer",
+              "addresses": {
+                "address1": "123 Main Street",
+                "address2": "Unit 8",
+                "city": "New York",
+                "state": "New York",
+                "stateid": "NY",
+                "zip": "10601",
+                "country": "United States",
+                "countryid": "232",
+                "description": "",
+                "status": 1,
+                "cuid": 1679,
+                "uuid": 1679,
+                "created_at": "2016-11-21 05:26:51",
+                "updated_at": "2016-11-21 05:26:51"
+              },
+              "telephone1": "45345",
+              "telephone2": "435345",
+              "mobile": "34534",
+              "fax": "345345",
+              "statusID": "3",
+              "status": "Lead",
+              "email": "git@flatorb.com",
+              "website": "",
+              "description": "",
+              "countryID": "232",
+              "leadSourceID": "581ab6a058e13f4536380912",
+              "leadSource": "Mailed",
+              "customerSince": "1970-01-01",
+              "cuName": "Keshani",
+              "created_at": "2016-11-21 05:26:51",
+              "uuName": "Keshani",
+              "updated_at": "2016-11-21 05:26:51"
+            }
+          ]
+        }
+
+
+### Update customer [POST /crm/customers/customerUpdate]
+Allows the user to  update the selected customer under the active Organization/team. 
+
++ Parameters
+    + customerid (string) 
+    + name (string) 
+    + email (optional, string)
+    + website (optional, string)
+    + country (number)
+    + address1 (optional, string)
+    + address2 (optional, string)
+    + city (optional, string)
+    + zip (optional, string)
+    + state (optional, string)
+    + telephone1 (optional, string)
+    + telephone2 (optional, string)
+    + mobile (string)
+    + fax (optional, string)
+    + status (int)
+    + leadsource (string)
+    + customer_since (optional, string)
+    + description (optional, string)
+    + designation (optional, string)
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "customerid": "583285a06b0bdc28804587c2"
+            "name": "Github demo customer "
+            "email": "git@flatorb.com"
+            "website": "www.github.com"
+            "country": 232
+            "address1": "123 Main Street"
+            "address2": "Unit 8"
+            "city": "New York"
+            "zip": "10601"
+            "state": "NY"
+            "telephone1": "011 11111111"
+            "telephone2": "022 22222222"
+            "mobile": "077 7777777"
+            "fax": "011 1111111"
+            "status": 3
+            "leadsource": "581ab6a058e13f4536380912"
+            "customer_since": "2016-11-13"
+            "description": "Test Customer"
+            "designation": "Developer"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "message": "Data updated successfully!!!",
+          "code": 200
+        }
+
+
+### Get a list of contacts [POST /crm/contacts]
+Allows the user to get a list of contacts and their information that belongs to the Organization/team. 
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+        {
+           "payload": [
+                {
+                    "id": "57ff61a96b0bdc091d013592",
+                    "name": "Genevieve Isabelle",
+                    "company": null,
+                    "position": "HR",
+                    "telephone": "344234 , 234234",
+                    "email": "gene@flatorb.com",
+                    "added_by": "Keshani",
+                    "profileimage": "https://cdn.fxhello.com/img/imgph300.png",
+                    "profileImgStatus": false,
+                    "created_on": "2016-10-13 10:27:52"
+                }
+                ]
+        }
+
+
+### Display contact profile [POST /crm/contacts/contact]
+Allows the user to get contact details of the selected contact that belongs to the Organization/team. 
+
++ Parameters
+    + contactid (string) ... Passing the relavent contactId to return only the relevant contact details.
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "contactid": 5806d9fe6b0bdc0209217585
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "payload": [
+            {
+              "id": "58005a096b0bdc042c158282",
+              "customerId": 0,
+              "customerName": null,
+              "firstName": "Carroll",
+              "lastName": "",
+              "telephone": "23423",
+              "mobile": "423423",
+              "email": "car@flatorb.com",
+              "image": "",
+              "position": "",
+              "profileimage": "https://cdn.fxhello.com/img/imgph300.png",
+              "profileImgStatus": false,
+              "addresses": {
+                "address1": "",
+                "address2": "",
+                "city": "",
+                "state": "",
+                "stateid": null,
+                "zip": "",
+                "country": "United States",
+                "countryid": "232",
+                "description": "",
+                "status": 1,
+                "cuid": 6,
+                "uuid": 6,
+                "created_at": "2016-10-14 04:07:36",
+                "updated_at": "2016-10-14 04:07:36"
+              }
+            }
+          ],
+          "notes": [
+            {
+              "_id": "58c219436b0bdc03405ebae2",
+              "oid": 102,
+              "type": 4,
+              "typeid": "58005a096b0bdc042c158282",
+              "comment": "Carrol note",
+              "meta": {
+                "due_date": "2017-03-14",
+                "description": "",
+                "action": null,
+                "visibility": "1",
+                "visibility_customer": "2",
+                "assigner_user_id": null,
+                "note_type": "1"
+              },
+              "status": "1",
+              "uuid": 6,
+              "cuid": 6,
+              "cuName": "Keshani",
+              "uuName": "Keshani",
+              "updated_at": "2017-03-10 03:10:58",
+              "created_at": "2017-03-10 03:10:58"
+            }
+          ],
+          "opportunities": [
+            {
+              "_id": "58c106296b0bdc02102d2433",
+              "oid": 102,
+              "customer": null,
+              "customerType": 4,
+              "customerTypeId": "58005a096b0bdc042c158282",
+              "category": null,
+              "categoryName": null,
+              "name": "Carrol Opp",
+              "productCategories": [
+                "5801b8184189dc69ad4409fc"
+              ],
+              "products": [
+                "581b06f358e13f5bca612dd2"
+              ],
+              "contacts": [
+                "58005a096b0bdc042c158282"
+              ],
+              "value": 3423423,
+              "expectedClose": "2017-03-09",
+              "description": "",
+              "status": "1",
+              "ownerType": 1,
+              "ownerTypeID": 6,
+              "cuid": 6,
+              "cuName": "Keshani",
+              "uuid": 6,
+              "uuName": "Keshani",
+              "created_at": "2017-03-09 07:37:13",
+              "updated_at": "2017-03-09 07:37:13"
+            }
+          ]
+        }
+
+
+### Create a contact [POST /crm/contacts/contactCreate]
+Allows the user to  saves a contact under the active Organization/team. 
+
++ Parameters
+    + customer (optional, string) 
+    + prefix (string)
+    + firstName (string)
+    + middleName (optional, string)
+    + lastName (optional, string)
+    + email (optional, string)
+    + leadSource (optional, string)  
+    + country (number)
+    + position (optional, string)
+    + department (optional, string)
+    + contact_type (optional, string)
+    + telephone (optional, string)
+    + mobile (string)
+    + address1 (optional, string)
+    + address2 (optional, string)
+    + city (optional, string)
+    + post_code (optional, string)
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "customer": "583285a06b0bdc28804587c2"
+            "prefix": "Mr.""
+            "firstName": "Git"
+            "middleName": "Contact"
+            "lastName": "Demo"
+            "email": "git@flatorb.com"
+            "country": "232"
+            "position": "Trainee Developer"
+            "department": "IT"
+            "leadSource": "581ae6b958e13f52df053082"
+            "contact_type": ""
+            "telephone": "011 1111111"
+            "mobile": "077 7777777"
+            "address1": "123 Main Street"
+            "address2": "Unit 8"
+            "city": "New York"
+            "post_code": "10601"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+    {
+        "message": "Data saved successfully!!!",
+        "contact_id": "58329bf16b0bdc244f367da3"
+    }
+
+
+### Edit contact [POST /crm/contacts/contactEdit]
+Allows the user to get contact details of the selected contact to the edit form, that belongs to the Organization/team. 
+For the prefix :
+                1 is Mr.,
+                2 is Mrs.,
+                3 is Dr.,
+                4 is Rev.,
+                5 is Miss. &
+                6 is Prof.
+
++ Parameters
+    + contactid (string) ... Passing the relavent contactId to return only the relevant contact details.
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "contactid": "58329bf16b0bdc244f367da3"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "payload": [
+            {
+              "id": "58329bf16b0bdc244f367da3",
+              "cutomerName": "Github demo customer ",
+              "firstName": "Git",
+              "middleName": "Contact",
+              "lastName": "Demo",
+              "telephone": "011 1111111",
+              "mobile": "077 7777777",
+              "email": "git@flatorb.com",
+              "title": "Trainee Developer",
+              "image": "",
+              "department": "IT",
+              "leadSourceID" : "581ae6b958e13f52df053082",
+              "leadSource" : "Skype",
+              "contact_type": "",
+              "addresses": {
+                "address1": "123 Main Street",
+                "address2": "Unit 8",
+                "city": "New York",
+                "state": "New York",
+                "zip": "10601",
+                "country": "United States",
+                "countryid": "232",
+                "description": "",
+                "status": 1,
+                "cuid": 1679,
+                "uuid": 1679,
+                "created_at": "2016-11-21 07:02:07",
+                "updated_at": "2016-11-21 07:02:07"
+              }
+            }
+          ]
+        }
+
+
+### Update contact [POST /crm/contacts/contactUpdate]
+Allows the user to  update the selected contact under the active Organization/team. 
+
++ Parameters
+    + contactid (string) 
+    + prefix (string) 
+    + firstName (string)
+    + middleName (optional, string)
+    + lastName (optional, string)
+    + email (optional, string)
+    + leadSource (optional, string) 
+    + country (number)
+    + position (optional, string)
+    + department (optional, string)
+    + contact_type (optional, string)
+    + telephone (optional, string)
+    + mobile (string)
+    + address1 (optional, string)
+    + address2 (optional, string)
+    + city (optional, string)
+    + post_code (optional, string)
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "contactid": "583285a06b0bdc28804587c2"
+            "prefix": "Mr."
+            "firstName": "Github demo customer
+            "middleName": "5801b8184189dc69ad4409e7"
+            "lastName": "git@flatorb.com"
+            "email": "www.github.com"
+            "leadSource" : "581ae6b958e13f52df053082"
+            "country": 23
+            "position": "123"
+            "department": "Galle Road"
+            "contact_type": "Colombo"
+            "telephone": "0"
+            "mobile": "0"
+            "address1": "011 11111111"
+            "address2": "022 22222222"
+            "city": "077 7777777"
+            "post_code": "011 1111111"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "message": "Data updated successfully!!!"
+        }
+
+
+### Create an associate to a customer [POST /crm/customers/associateCreate]
+Save associate to a customer with a distribution center and with a sales force resource to the Organization/team. 
+
++ Parameters
+    + customer (string) ... Customer ID
+    + associateType (number) ... If associating the customer with a distribution certer associateType = 8 or with a sales force resource associateType = 10
+    + associateId (string) ... Associate ID
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "customer": "58abc2a26b0bdc0208221002"
+            "associateType": 10
+            "associateId": "581b02cf58e13f5b131505d2"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "message": "Associate saved successfully!!!"
+        }
+
+
+
+### Get values for the customer create from dropdowns [POST /crm/customer/dropdowns]
+Allows the user to get a list of values for the drop downs countries, customer status, lead source and industries that belongs to the Organization/team. 
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "payload": {
+                "countries": [
+                  {
+                    "id": 3,
+                    "country": "Afghanistan"
+                  }
+                ],
+                "customerStatuses": [
+                  {
+                    "id": 1,
+                    "status": "Customer"
+                  },
+                ],
+                "leadSources": [
+                  {
+                    "id": "57fcd93e4189dc6a846be182",
+                    "source": "This is test"
+                  },
+                ],
+                "categories": [
+                 {
+                    "id": "57fdc2c06b0bdc7ee01a59d2",
+                    "name": "New Customer category"
+                  },
+                ]
+                 "industries": [
+                 {
+                    "id": 1,
+                    "description": "Agriculture, forestry and fishing"
+                  },
+                ]
+            }
+        }
+
+
+### Get values for the contact create from dropdowns [POST /crm/contact/dropdowns]
+Allows the user to get a list of values for the drop downs countries, customers and lead sources that belongs to the Organization/team. 
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "payload": {
+                "countries": [
+                  {
+                    "id": 234,
+                    "country": "United States"
+                  }
+                ],
+                "customers": [
+                  {
+                    "id": "57ff51896b0bdc0747634a73",
+                    "name": "Francisca Industries PVT LTD"
+                  },
+                ]
+                 "leadSources": [
+                  {
+                    "id": "57fcd93e4189dc6a846be182",
+                    "source": "Skype"
+                  },
+                ]
+            }
+        }
+
+
+### Get values for the associate from dropdowns [POST /crm/associate/dropdowns]
+Allows the user to get a list of values for the drop downs customers, distribution center and sales force resources that belongs to the Organization/team. 
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "payload": {
+                "customers": [
+                  {
+                    "id": "57ff51896b0bdc0747634a73",
+                    "name": "Francisca Industries PVT LTD"
+                  }
+                ],
+                "distributionCenters": [
+                  {
+                    "id": "5806e00b6b0bdc06a44009e2",
+                    "name": "Steel Distribution centers"
+                  },
+                ]
+                 "salesForceResources": [
+                  {
+                    "id": "5836774e58e13f028f5b9973",
+                    "name": "Sam Doe"
+                  }
+                ]
+            }
+        }
+
+
+## Support [/support]
+
+### Get a list of supoort tickets [POST /support/tickets]
+Allows the user to get a list of support tickets and their information that belongs to the Organization/team. 
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "payload": [
+              {
+                "id": "58084d976b0bdc04741a55a2",
+                "subject": "Test cases",
+                "priority": "",
+                "customer": "Toy Pvt Ltd",
+                "last_modified": "2016-10-20 04:52:38",
+                "assignees": "Nickles"
+              }
+            ]
+        }
+
+### Display support ticket profile [POST /support/tickets/ticket]
+Allows the user to get support ticket details of the selected support ticket that belongs to the Organization/team. 
+
++ Parameters
+    + ticketid (string) ... Passing the relavent ticketId to return only the relevant support ticket details.
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "ticketid": 588719a258e13f71ee073622
+        }
+
++ Response 200 (application/json)
+
+    + Body
+      {
+          "payload": [
+            {
+              "id": "588719a258e13f71ee073622",
+              "customerName": "Barrett",
+              "subject": "ios testing",
+              "description": "testin testing ",
+              "priorityName": "Very high",
+              "assigneeName": "Andrea",
+              "status": "581ac70258e13f47f338e144",
+              "statusName": "In Progress",
+              "meta": {
+                "support": {
+                  "time_estimate": "",
+                  "billing_rate": "",
+                  "total_cap": "",
+                  "currency": "5",
+                  "contact_name": "Danish",
+                  "due_date": "2030-08-24",
+                  "report_date": "2017-10-24"
+                }
+              },
+              "created_by": "Damith Amarasinghe",
+              "created_at": "2017-01-24 09:08:50"
+            }
+          ],
+          "ticket_comments": [
+            {
+              "id": "58a1217258e13f4af620e282",
+              "comment": "Ticket creating is successfull\r\n",
+              "cuName": "Dulmini Harshani",
+              "uuName": "Dulmini Harshani",
+              "created_at": "2017-02-13 03:01:06",
+              "updated_at": "2017-02-13 03:01:06"
+            },
+            {
+              "id": "58b696206b0bdc35ba771c92",
+              "comment": "test",
+              "cuName": "Keshani",
+              "uuName": "Keshani",
+              "created_at": "2017-03-01 09:36:31",
+              "updated_at": "2017-03-01 09:36:31"
+            }
+          ]
+        }
+
+
+### Create a support ticket [POST /support/tickets/ticketCreate]
+Allows the user to  saves a support ticket under the active Organization/team. 
+
++ Parameters
+    + customer (string) 
+    + contact_name (optional, string)
+    + reported_date (optional, string)
+    + due_date (optional, string)
+    + assign_to (string)
+    + priorityName (string)
+    + subject (string)
+    + description (optional, string)
+    + time_estimate (optional, string)
+    + billing_rate (optional, string)
+    + total_cap (optional, string)
+    + currency (optional, string)
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "customer": "581bf7296b0bdc0206307312"
+            "contact_name": "Sam""
+            "reported_date": "2016-11-22"
+            "due_date": "2016-11-22"
+            "assign_to": "5821771c6b0bdc037a1be432"
+            "priorityName": "High"
+            "subject": "Create Ticket"
+            "description": "Test the ticket"
+            "time_estimate": ""
+            "billing_rate": ""
+            "total_cap": ""
+            "currency": ""
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "message": "Data saved successfully!!!",
+          "ticket_id": "5833fe7f6b0bdc03d0103b52"
+        }
+
+
+### Get vales to the supoort ticket create form dropdowns [POST /support/tickets/dropdowns]
+Allows the user to get a list of customers, currency and assignees that belongs to the Organization/team.
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+       {
+        "payload": {
+          "customers": [
+              {
+                "id": "57ff51896b0bdc0747634a73",
+                "name": "Francisca Industries PVT LTD"
+              }
+            ],
+          "assignees": [
+            {
+              "id": "5805a3536b0bdc039843aff2",
+              "name": "Nickles Domnick"
+            }
+          ],
+          "currency": [
+            {
+              "id": 3,
+              "country": "Afghanistan",
+              "currency": "AFN"
+            }
+          ]
+        }
+      }
+
+
+
+## HR [/hr]
+
+### Get a list of departments [POST /hr/departments]
+Allows the user to get a list of departments and their ID's that belongs to the Organization/team. 
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+       {
+          "payload": [
+            {
+              "id": "5801b8184189dc69ad440a11",
+              "name": "Legal"
+            }
+          ]
+        }
+
+
+### Create a department [POST /hr/departmentCreate]
+Allows the user to  saves a department under the active Organization/team. 
+
++ Parameters
+    + dep_name (string) 
+    + parent (optional, string)
+    + description (optional, string)
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "dep_name": "Demo department"
+            "parent": ""
+            "description": "Testing"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "message": "Data saved successfully!!!"
+        }
+
+
+### Edit a department [POST /hr/departmentEdit]
+Allows the user to edit the details of the selected department under the active Organization/team. 
+
++ Parameters
+    + dep_id (string) 
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "dep_id": "5832ac4d6b0bdc2882135a32"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "payload": [
+            {
+              "id": "5832ac4d6b0bdc2882135a32",
+              "name": "Demo department"
+            }
+          ]
+        }
+
+
+### Update department [POST /hr/departmentUpdate]
+Allows the user to update the details of the selected department under the active Organization/team. 
+
++ Parameters
+    + dep_id (string) 
+    + dep_name (string) 
+    + parent (optional, string) 
+    + description (optional, string) 
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "dep_id": "5832ac4d6b0bdc2882135a32"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "message": "Data updated successfully!!!"
+        }
+
+
+### Get a list of employment types [POST /hr/employee-types]
+Allows the user to get a list of employment types and their ID's that belongs to the Organization/team. 
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+    {
+        "payload": [
+            {
+              "id": "5801b8184189dc69ad4409d2",
+              "name": "Internship"
+            }
+        ]
+    }  
+
+
+### Create employment type [POST /hr/employee-typeCreate]
+Allows the user to create an employment type under to the Organization/team. 
+
++ Parameters
+    + emp_type (string) 
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "emp_type": "Part time"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "message": "Data saved successfully!!!"
+        }
+
+
+### Get a list of employees [POST /hr/employees]
+Allows the user to get a list of employees and their information that belongs to the Organization/team. 
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "id": "123",
+          "name": "Chaya Ranatunga",
+          "contact": "23423 , 2342",
+          "email": "chaya@flatorb.com",
+          "empType": "Supervisor",
+          "title": "Manager ",
+          "department": "Sales and Marketing"
+        }
+
+### Display employee profile [POST /hr/employees/employee]
+Allows the user to get employee details of the selected employee that belongs to the Organization/team. 
+
++ Parameters
+    + employeeid (string) ... Passing the relavent empId to return only the relevant empId details.
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "employeeid": 5806d9fe6b0bdc0209217585
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "payload": [
+            {
+              "id": "581fef8c6b0bdc02094d57a2",
+              "name": "Sam Doe",
+              "addresses": {
+                "address1": "123 Main Street",
+                "address2": "Unit 8",
+                "city": "New York",
+                "state": "New York",
+                "stateID": "NY",
+                "zip": "10601",
+                "country": "United States",
+                "countryID": "232",
+                "description": "",
+                "status": 1,
+                "cuid": 6,
+                "uuid": 6,
+                "created_at": "2016-11-07 03:05:46",
+                "updated_at": "2016-11-07 03:05:46"
+              },
+              "telephone1": "",
+              "telephone2": "",
+              "mobile": "",
+              "depName": "Postman",
+              "description": "",
+              "email": "sam@flatorb.com",
+              "jobtitle": "Developer",
+              "profileimage": "https://cdn.fxhello.com/img/imgph300.png",
+              "profileImgStatus": false,
+              "created_at": "2016-11-07 03:05:46",
+              "updated_at": "2016-11-07 03:05:46"
+            }
+          ]
+        }
+
+
+### Create an employee [POST /hr/employees/employeeCreate]
+Allows the user to  saves an employee under the active Organization/team. 
+
++ Parameters
+    + emp_id (string) 
+    + file_no (optional, string)
+    + email (string)
+    + country (number)
+    + prefix (string)
+    + firstname (string)
+    + middlename (optional, number)
+    + lastname (string)
+    + address1 (optional, string)
+    + address2 (optional, string)
+    + city (optional, string)
+    + zip (optional, string)
+    + state (optional, string)
+    + telephone1 (optional, string)
+    + telephone2 (optional, string)
+    + mobile (string)
+    + nationality (optional, string)
+    + ssn (optional, string)
+    + birth_place (optional, string)
+    + marital_status (optional, string)
+    + religion (optional, string)
+    + gender (optional, string)
+    + immigration_status (optional, string)
+    + description (optional, string)
+    + emp_description (optional, string)
+    + emp_type (string)
+    + department (string)
+    + job_title (string)
+    + join_date (optional, string)
+    + termination_date (optional, string)
+    + birth_date (optional, string)
+    + user (optional, string)
+    + password (optional, string)
+    + confirm_password (optional, string)
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "emp_id": "423423123"
+            "file_no": "FX0092"
+            "email": "git@flatorb.com"
+            "country": 232
+            "prefix": "Mr."
+            "firstname": "Demo"
+            "middlename": ""
+            "lastname": "Sam"
+            "address1": "123 Main Street"
+            "address2": "Unit 8"
+            "city": "New York"
+            "zip": "10601"
+            "state": "New York"
+            "telephone1": "011 1111111"
+            "telephone2": "022 2222222"
+            "mobile": "077 7777777"
+            "nationality": '"
+            "ssn": '"
+            "birth_place": '"
+            "marital_status": '"
+            "religion": '"
+            "gender": "Male"
+            "immigration_status": '"
+            "description": '"
+            "emp_description": '"
+            "emp_type": "581c346d6b0bdc020671e1c2"
+            "department": "581c28b16b0bdc02047fcaa3"
+            "job_title": "Developer"
+            "join_date": '"
+            "termination_date": '"
+            "birth_date": '"
+            "user": '"
+            "password": '"
+            "confirm_password": '"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+    {
+      "message": "Data saved successfully!!!",
+      "employee_id": "5832bb016b0bdc05cf54b892"
+    }
+
+
+### Edit employee [POST /hr/employees/employeeEdit]
+Allows the user to get employee details of the selected employee to the edit form, that belongs to the Organization/team. 
+
++ Parameters
+    + employeeid (string) ... Passing the relavent employeeId to return only the relevant employee details.
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "employeeid": "5832bb016b0bdc05cf54b892"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "payload": [
+            {
+              "employeeDetails": {
+                "_id": "58a13e8358e13f760e738993",
+                "oid": 102,
+                "hrid": "58a13e8358e13f760e738992",
+                "employeeTypeId": "58059b156b0bdc03976f93d2",
+                "employeeTypeName": "Permenant",
+                "employeeid": "43654768795086012",
+                "jobtitle": "Developer ",
+                "filenumber": "8989889",
+                "start": "2017-02-13",
+                "end": null,
+                "reportsto": null,
+                "status": 1,
+                "cuid": 1652,
+                "uuid": 1652,
+                "cuName": "Dulmini Harshani",
+                "uuName": "Dulmini Harshani",
+                "created_at": "2017-02-13 05:05:07",
+                "updated_at": "2017-02-13 05:05:07",
+                "employee": {
+                  "_id": "58a13e8358e13f760e738992",
+                  "uid": 1652,
+                  "prefix": "2",
+                  "firstname": "Amana",
+                  "middlename": "Vikris",
+                  "lastname": "Maglond",
+                  "addresses": "{\"main\":{\"address1\":\"123 Main Street\",\"address2\":\"Unit 8\",\"city\":\"New York\",\"state\":\"\",\"stateID\":null,\"zip\":\"10601\",\"country\":\"United States\",\"countryID\":\"232\",\"description\":\"\",\"status\":1,\"cuid\":1652,\"uuid\":1652,\"created_at\":\"2017-02-13 05:05:07\",\"updated_at\":\"2017-02-13 05:05:07\"}}",
+                  "telephone": "",
+                  "description": "Aliquam id eros efficitur lectus malesuada condimentum. Morbi aliquam est eu dolor faucibus lobortis. Phasellus a lacus vel arcu cursus consequat et non enim. Mauris varius lacus sed nisl faucibus bibendum. Suspendisse potenti. Cras nec auctor elit. Phasellus a interdum nisl, et varius nunc. Aenean ullamcorper est quis ultricies sodales. Nunc sed cursus nulla, in tincidunt nibh. Suspendisse et rutrum sem. Curabitur congue imperdiet sapien, id vulputate tortor volutpat et. In hac habitasse platea dictumst. Fusce et urna id nisl maximus consectetur.",
+                  "depID": "5801cb7c4189dc6a806791d1",
+                  "depName": "Legal",
+                  "mobile": "",
+                  "email": "Amana@flatorb.com",
+                  "countryid": "232",
+                  "dob": "02/24/1975",
+                  "emergencyContacts": null,
+                  "references": null,
+                  "image": "",
+                  "uploads": "",
+                  "meta": "{\"nationality\":\"American\",\"ssn\":\"2334354gg\",\"birthPlace\":\"gen hopital chili\",\"materialStatus\":\"married\",\"religion\":\"\",\"gender\":\"female\",\"immigrationStatus\":\"American\",\"description\":\"Aliquam id eros efficitur lectus malesuada condimentum. Morbi aliquam est eu dolor faucibus lobortis. Phasellus a lacus vel arcu cursus consequat et non enim. Mauris varius lacus sed nisl faucibus bibendum. Suspendisse potenti. Cras nec auctor elit. Phasellus a interdum nisl, et varius nunc. Aenean ullamcorper est quis ultricies sodales. Nunc sed cursus nulla, in tincidunt nibh. Suspendisse et rutrum sem. Curabitur congue imperdiet sapien, id vulputate tortor volutpat et. In hac habitasse platea dictumst. Fusce et urna id nisl maximus consectetur.\",\"telephone2\":\"\"}",
+                  "status": 1,
+                  "uuid": 1652,
+                  "created_at": "2017-02-13 05:05:07",
+                  "updated_at": "2017-02-13 05:05:07"
+                }
+              },
+              "addresses": {
+                "main": {
+                  "address1": "123 Main Street",
+                  "address2": "Unit 8",
+                  "city": "New York",
+                  "state": "",
+                  "stateID": null,
+                  "zip": "10601",
+                  "country": "United States",
+                  "countryID": "232",
+                  "description": "",
+                  "status": 1,
+                  "cuid": 1652,
+                  "uuid": 1652,
+                  "created_at": "2017-02-13 05:05:07",
+                  "updated_at": "2017-02-13 05:05:07"
+                }
+              },
+              "meta": {
+                "nationality": "American",
+                "ssn": "2334354gg",
+                "birthPlace": "gen hopital chili",
+                "materialStatus": "married",
+                "religion": "Muslim",
+                "gender": "female",
+                "immigrationStatus": "American",
+                "description": "Aliquam id eros efficitur lectus malesuada condimentum. Morbi aliquam est eu dolor faucibus lobortis. Phasellus a lacus vel arcu cursus consequat et non enim. Mauris varius lacus sed nisl faucibus bibendum. Suspendisse potenti. Cras nec auctor elit. Phasellus a interdum nisl, et varius nunc. Aenean ullamcorper est quis ultricies sodales. Nunc sed cursus nulla, in tincidunt nibh. Suspendisse et rutrum sem. Curabitur congue imperdiet sapien, id vulputate tortor volutpat et. In hac habitasse platea dictumst. Fusce et urna id nisl maximus consectetur.",
+                "telephone2": ""
+              }
+            }
+          ]
+        }
+
+
+### Update employee [POST /hr/employees/employeeUpdate]
+Allows the user to  update the selected employee under the active Organization/team. 
+
++ Parameters
+    + employeeid (string) 
+    + emp_id (string) 
+    + file_no (optional, string)
+    + email (string)
+    + country (number)
+    + prefix (string)
+    + firstname (string)
+    + middlename (optional, number)
+    + lastname (string)
+    + address1 (optional, string)
+    + address2 (optional, string)
+    + city (optional, string)
+    + zip (optional, string)
+    + state (optional, string)
+    + telephone1 (optional, string)
+    + telephone2 (optional, string)
+    + mobile (string)
+    + nationality (optional, string)
+    + ssn (optional, string)
+    + birth_place (optional, string)
+    + marital_status (optional, string)
+    + religion (optional, string)
+    + gender (optional, string)
+    + immigration_status (optional, string)
+    + description (optional, string)
+    + emp_description (optional, string)
+    + emp_type (string)
+    + department (string)
+    + job_title (string)
+    + join_date (optional, string)
+    + termination_date (optional, string)
+    + birth_date (optional, string)
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "employeeid": "5832bb016b0bdc05cf54b892"
+            "emp_id": "423423123"
+            "file_no": "FX0092"
+            "email": "git@flatorb.com"
+            "country": 34
+            "prefix": "Mr."
+            "firstname": "Testing"
+            "middlename": ""
+            "lastname": "Sam"
+            "address1": "123 Main Street"
+            "address2": "Unit 8"
+            "city": "New York"
+            "zip": "10601"
+            "state": "New York"
+            "telephone1": "011 1111111"
+            "telephone2": "022 2222222"
+            "mobile": "077 7777777"
+            "nationality": '"
+            "ssn": '"
+            "birth_place": '"
+            "marital_status": '"
+            "religion": '"
+            "gender": "Male"
+            "immigration_status": '"
+            "description": '"
+            "emp_description": '"
+            "emp_type": "581c346d6b0bdc020671e1c2"
+            "department": "581c28b16b0bdc02047fcaa3"
+            "job_title": "Developer"
+            "join_date": '"
+            "termination_date": '"
+            "birth_date": '"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "message": "Data updated successfully!!!"
+        }
+
+
+### Get a list of my time sheets [POST /hr/mytimesheets]
+Allows the user to get a list of my time sheets that belongs to the Organization/team. 
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "payload": {
+            "myTimeSheets": [
+                  {
+                    "date": "2016-10-18 07:04:02",
+                    "check-in": "12:34:02",
+                    "check-out": "12:40:51",
+                    "time": "0.11",
+                    "warnings": null
+                  }
+            ],
+            "clockedIn": false
+          }
+        }
+
+
+### Clock-in [POST /hr/clock-in]
+Allows the authenticated user to clock in.
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+    
+    + Body
+        {
+            "message": "Clock-in successful"
+        }
+
++ Response 403 (application/json)
+    
+    + Body
+        {
+            "message": "You are not setup as an employee of your organization."
+        }
+
+### Clock-out [POST /hr/clock-out]
+Allows the authenticated user to clock out if the user is already clocked-in.
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+    
+    + Body
+        {
+            "message": "Clock-in successful"
+        }
+
++ Response 403 (application/json)
+    
+    + Body
+        {
+            "message": "You are not clocked-in at the moment."
+        }
+
+
+## Sales [/sales]
+
+### Get a list of sales overview [POST /sales/overview]
+Allows the user to get a list of sales overview that belongs to the Organization/team. 
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "payload": {
+            "customer_sales_orders": [
+                  {
+                    "id": "580ec3528b888048e66070d3",
+                    "name": "Elena Gilbert",
+                    "items": 2,
+                    "value": "1,152,203.63",
+                    "status": "Pending",
+                    "created": "2016-10-25 02:28:34",
+                    "updated": "2016-10-25 02:28:34"
+                  } 
+              ]
+          }
+        }
+
+
+### Get a list of opportunities [POST /sales/opportunities]
+Allows the user to get a list of opportunities that belongs to the Organization/team. 
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+       {
+          "payload": [
+                 {
+                        "id": "58006c356b0bdc042c158284",
+                        "opportunity": "Wesley & Thadeus & DO ",
+                        "customer": "Morning Industries",
+                        "value": 9000000,
+                        "status": "Decision",
+                        "assignee": "",
+                        "created_at": "2016-10-14 05:25:07",
+                        "updated_at": "2016-11-02 08:22:06"
+                } 
+            ]
+        }
+
+
+### Display opportunity profile [POST /sales/opportunities/opportunity]
+Allows the user to display the opportunity according to the given opportunity ID that belongs to the Organization/team. 
+
++ Parameters
+    + opportunityid (string)
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "opportunityid": "58b0045358e13f0cb46f6db2"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+       {
+          "payload": [
+            {
+              "id": "58b0045358e13f0cb46f6db2",
+              "customerId": "58afb3fc58e13f13fe5fb1a3",
+              "customerName": "Odiris Pvt Ltd",
+              "opportunity": "Demo Op Feb24/03",
+              "value": "",
+              "status": "New",
+              "expectedClose": "2017-02-24",
+              "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in ex in massa accumsan fermentum. Cras egestas nunc leo, non ultricies urna ullamcorper et. Fusce sit amet magna leo. Aenean mi mauris, congue ac vehicula et, mollis rhoncus ante. Vivamus eget orci nunc. Aliquam erat volutpat. Vestibulum tempor eleifend velit. Phasellus eleifend at lectus eu tincidunt.",
+              "profileimage": "https://cdn.fxhello.com/img/imgph300.png",
+              "profileImgStatus": false
+            }
+          ],
+          "products": [
+            {
+              "product_id": "5804a9216b0bdc092a5452d3",
+              "name": "GPS units",
+              "price": "12,309.00"
+            }
+          ],
+          "comments": [
+            {
+              "id": "58b691ad6b0bdc308a02a4d2",
+              "comment": "Test comment",
+              "todo": 1,
+              "date": null,
+              "reminder": 1,
+              "cuName": "Keshani",
+              "uuName": "Keshani",
+              "created_at": "2017-03-01 09:17:33",
+              "updated_at": "2017-03-01 09:17:33"
+            }
+          ]
+        }
+
+
+### Create an opportunity [POST /sales/opportunities/opportunityCreate]
+Allows the user to create an opportunity that belongs to the Organization/team. 
+
++ Parameters
+    + customer (string)
+    + opportunity (string)
+    + category (optional, string)
+    + product_categories (optional, string)
+    + products (optional, string)
+    + contacts (optional, string)
+    + value (optional, string)
+    + expected_close (optional, string)
+    + description (optional, string)
+    + status (string)
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "customer": "583285a06b0bdc28804587c2"
+            "opportunity": "Demo opportunity"
+            "category": ""
+            "product_categories": ""
+            "products": ""
+            "contacts": ""
+            "value": "120000"
+            "expected_close": "2016-11-21"
+            "description": "Demo description"
+            "status": "New"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "message": "Data saved successfully!!!",
+          "opportunity_id": "5832cc506b0bdc28804587c4"
+        }
+
+
+### Edit an opportunity [POST /sales/opportunities/opportunityEdit]
+Allows the user to edit an opportunity that belongs to the Organization/team. 
+
++ Parameters
+    + id (string)
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+          "payload": {
+            "_id": {
+              "$oid": "58c1024d6b0bdc03f26dbdc2"
+            },
+            "oid": 102,
+            "customer": "Godzilla Industries",
+            "customerType": 3,
+            "customerTypeId": "58b9473a6b0bdc020e42e2c3",
+            "category": "5801b8184189dc69ad4409e4",
+            "categoryName": "test",
+            "name": "Godzilla opportunity",
+            "productCategories": "[\"5801b8184189dc69ad4409ec\"]",
+            "products": "[\"5804a9216b0bdc092a5452d3\"]",
+            "contacts": "[\"58c0f6f66b0bdc02e11e1593\"]",
+            "value": "12000",
+            "expectedClose": "2017-03-09",
+            "description": "",
+            "status": "1",
+            "ownerType": 1,
+            "ownerTypeID": 6,
+            "cuid": 6,
+            "cuName": "Keshani",
+            "uuid": 6,
+            "uuName": "Keshani",
+            "created_at": "2017-03-09 07:20:44",
+            "updated_at": "2017-03-09 07:20:44",
+            "productCategoriesNew": [
+              "5801b8184189dc69ad4409ec"
+            ],
+            "productsNew": [
+              "5804a9216b0bdc092a5452d3"
+            ],
+            "contactsNew": [
+              "58c0f6f66b0bdc02e11e1593"
+            ],
+            "statusNew": "New"
+          }
+        }
+
+
+### Update opportunity [POST /sales/opportunities/opportunityUpdate]
+Allows the user to update opportunity that belongs to the Organization/team. 
+
++ Parameters
+    + id (string)
+    + customer (string)
+    + opportunity (string)
+    + category (optional, string)
+    + product_categories (optional, string)
+    + products (optional, string)
+    + contacts (optional, string)
+    + value (optional, string)
+    + expected_close (optional, string)
+    + description (optional, string)
+    + status (string)
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "id": "589c4a8658e13f4c126cd872"
+            "customer": "581bf7296b0bdc0206307312"
+            "opportunity": "Demo update opportunity"
+            "category": "5801b8184189dc69ad4409e4"
+            "product_categories": "5801b8184189dc69ad4409ec"
+            "products": "5804a9216b0bdc092a5452d3"
+            "contacts": "583e63a958e13f31ec502182"
+            "value": "120000"
+            "expected_close": "2016-11-21"
+            "description": "Demo description"
+            "status": "Negotiation"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "message": "Data updated successfully!!!",
+          "opportunity_id": "589c4a8658e13f4c126cd872"
+        }
+
+
+### Get vales to the opportunity create form dropdowns [POST /sales/opportunity/dropdowns]
+Allows the user to get a list of products, customer & categories that belongs to the Organization/team.
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+       {
+          "payload": {
+                "products": [
+                      {
+                        "id": "580083186b0bdc05ff588792",
+                        "name": "Mac Book",
+                        "price": "2300"
+                      }
+                  ],
+                "customers": [
+                      {
+                        "id": "57ff51896b0bdc0747634a73",
+                        "name": "Francisca Industries PVT LTD"
+                      },
+                  ],
+                "productCategories": [
+                      {
+                        "id": "5801b8184189dc69ad4409d9",
+                        "name": "GPS"
+                      } 
+                  ],
+
+                "opportunityCategories": [
+                  {
+                    "id": "5801b8184189dc69ad4409ed",
+                    "name": "Demo my opportunity "
+                  }
+                ]
+          }
+        }
+
+
+### Get the contacts according to the selected customer [POST /sales/opportunities/contacts]
+Allows the user to get contacts according to the selected customer that belongs to the Organization/team.
+
++ Parameters
+    + customerid (string) 
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "customerid": "5800a25a6b0bdc06a814c743"
+        }
+
+
++ Response 200 (application/json)
+
+    + Body
+       {
+          "payload": {
+            "contacts": [
+              {
+                "id": "5800a2026b0bdc063e70f1a3",
+                "contact": "Shelley "
+              }
+            ]
+          }
+        }
+
+### Get a list of quotations [POST /sales/quotations]
+Allows the user to get a list of quotations that belongs to the Organization/team. 
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+       {
+          "payload": [
+                {
+                  "id": "580084f36b0bdc057904ef12",
+                  "name": "Donnie Millers",
+                  "items": 2,
+                  "total": 13375432.6385,
+                  "status": "Pending",
+                  "cuid": 6,
+                  "uuid": 6,
+                  "created_at": "2016-10-14 07:10:41",
+                  "updated_at": "2016-10-14 07:10:41"
+                }
+            ]
+        }
+
+
+### Display quotation profile [POST /sales/quotations/quotation]
+Allows the user to display the quotation according to the given quotation ID that belongs to the Organization/team. 
+
++ Parameters
+    + quotationid (string)
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "quotationid": "58a3e8eb6b0bdc04065f4672"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+       {
+          "payload": [
+            {
+              "id": "58bfda5a58e13f5c936cf6e2",
+              "number": "2468",
+              "created_at": "2017-03-08 10:18:02",
+              "customername": "Cyrus Cooporation",
+              "subtotal": 650776,
+              "discount": 11624,
+              "tax": 0,
+              "grand_total": 639152,
+              "file": "https://cdn.fxhello.com/img/imgph300.png",
+              "fileStatus": false,
+              "status": "Pending",
+              "address1": "123 Main Street",
+              "address2": "Unit 8",
+              "city": "New York",
+              "country": "United States"
+            }
+          ],
+          "products": [
+            {
+              "product_name": "MacBook Pro",
+              "qty": 2,
+              "unitprice": "230000",
+              "discount": 2500,
+              "linetotal": 457500
+            },
+            {
+              "product_name": "Books",
+              "qty": 2,
+              "unitprice": "100000",
+              "discount": 8555,
+              "linetotal": 191445
+            },
+            {
+              "product_name": "Demo 09-11",
+              "qty": 2,
+              "unitprice": "1200",
+              "discount": 569,
+              "linetotal": 1831
+            }
+          ]
+        }
+
+
+### Create quotation [POST /sales/quotations/quotationCreate]
+Allows the user to create a quotation that belongs to the Organization/team. 
+
++ Parameters
+    + customer (string)
+    + number (optional, string)
+    + description (optional, string)
+    + orderdate (optional, string)
+    + validtill (optional, string)
+    + creditperiod (optional, string)
+    + product_id (array) ...Multile products can added
+    + qty (array) ...Multile products can added
+    + unitprice (array) ...Multile products can added
+    + discount (optional, array) ...Multile products can added
+    + linetotal (array) ...Multile products can added
+    + productDescription (optional, array) ...Multile products can added
+    + file (optional, file)
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "customer": "583285a06b0bdc28804587c2"
+            "number": "212312"
+            "description": ""
+            "orderdate": "2016-11-21"
+            "validtill": "2016-11-23"
+            "creditperiod": "1"
+            "product_id": ["583e363358e13f091610e542", "580083186b0bdc05ff588792"]
+            "qty": ["3", "5"]
+            "unitprice": ["10", "10"]
+            "discount": ""
+            "linetotal": ["30", "50"]
+            "productDescription" : ["test", "test"]
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "message": "Data saved successfully!!!",
+          "quote_id": "5832c7376b0bdc05ce4573b4"
+        }
+
+
+### Get a list of customer sales order [POST /sales/salesorders]
+Allows the user to get a list of customer sales that belongs to the Organization/team. 
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+       {
+          "payload": {
+            "customer_sales_orders": [
+                  {
+                    "id": "580ec3528b888048e66070d3",
+                    "name": "Elena Gilbert",
+                    "items": 2,
+                    "total": 1152203.62924,
+                    "status": "Pending",
+                    "cuid": 1685,
+                    "uuid": 1685,
+                    "created_at": "2016-10-25 02:28:34",
+                    "updated_at": "2016-10-25 02:28:34"
+                  }
+              ],
+            "dc_sales_orders": []
+          }
+        }
+
+
+### Display sales order profile [POST /sales/salesorders/salesorder]
+Allows the user to display the sales order according to the given sales order ID that belongs to the Organization/team. 
+
++ Parameters
+    + salesorder_id (string)
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "salesorder_id": "582be4976b0bdc0e4f706d82"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+       {
+          "payload": [
+            {
+              "id": "582be4976b0bdc0e4f706d82",
+              "number": "5345",
+              "created_at": "2016-11-16 04:46:14",
+              "customername": "Cass Industries",
+              "subtotal": 4500000,
+              "discount": null,
+              "tax": 596898,
+              "grand_total": 5693796,
+              "status": "Error - Unknown Status",
+              "address1": "123 Main Street",
+              "address2": "Unit 8",
+              "city": "New York",
+              "country": "United States"
+            }
+          ],
+          "products": [
+            {
+              "sku": null,
+              "product_name": "Books",
+              "qty": "45",
+              "unitprice": "100000.00",
+              "discount": "0.00",
+              "linetotal": "4500000.00"
+            }
+          ]
+        }
+
+
+### Create sales order [POST /sales/salesorders/salesorderCreate]
+Allows the user to create a sales order that belongs to the Organization/team. 
+
++ Parameters
+    + customer (string)
+    + quotenumber (optional, string)
+    + sonumber (optional, string)
+    + description (optional, string)
+    + orderdate (optional, string)
+    + creditperiod (optional, string)
+    + product_id (array) ...Multile products can added
+    + qty (array) ...Multile products can added
+    + unitprice (array) ...Multile products can added
+    + discount (optional, array) ...Multile products can added
+    + linetotal (array) ...Multile products can added
+    + productDescription (optional, array) ...Multile products can added
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "customer": "583285a06b0bdc28804587c2"
+            "quotenumber": "212312"
+            "sonumber": "213123"
+            "description": ""
+            "orderdate": "2016-11-21"
+            "creditperiod": "1"
+            "product_id": ["583e363358e13f091610e542", "580083186b0bdc05ff588792"]
+            "qty": ["3", "5"]
+            "unitprice": ["10", "10"]
+            "discount": ""
+            "linetotal": ["30", "50"]
+            "productDescription" : ["test", "test"]
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "message": "Data saved successfully!!!",
+          "sales_order_id": "5832c4af6b0bdc05cd7f9e32"
+        }
+
+
+### Get a list of invoices [POST /sales/invoices]
+Allows the user to get a list of invoices that belongs to the Organization/team. 
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+       {
+          "payload": [
+                {
+                    "id": "58008b4a6b0bdc06881cfab2",
+                    "name": "Donnie Millers",
+                    "items": 1,
+                    "total": 8857276.08,
+                    "status": "Pending",
+                    "cuid": 6,
+                    "uuid": 6,
+                    "created_at": "2016-10-14 07:37:46",
+                    "updated_at": "2016-10-14 07:37:46"
+                }
+            ]
+        }
+
+
+### Display invoice profile [POST /sales/invoices/invoice]
+Allows the user to display the invoice according to the given invoice ID that belongs to the Organization/team. 
+
++ Parameters
+    + invoiceid (string)
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "invoiceid": "582be4976b0bdc0e4f706d82"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+       {
+          "payload": [
+            {
+              "id": "58afb85e58e13f13fe5fb1a5",
+              "number": "",
+              "created_at": "2017-02-24 04:36:46",
+              "customername": "Odiris Pvt Ltd",
+              "subtotal": 147708,
+              "discount": 0,
+              "tax": 19592.579952,
+              "grand_total": 186893.159904,
+              "status": "Pending",
+              "address1": "123 Main Street",
+              "address2": "Unit 8",
+              "city": "New York",
+              "country": "United States"
+            }
+          ],
+          "products": [
+            {
+              "sku": "FX09090111",
+              "product_name": "GPS units",
+              "qty": "12",
+              "unitprice": "12309.00",
+              "discount": "0.00",
+              "linetotal": "147708.00"
+            }
+          ]
+        }
+
+
+### Create an invoice [POST /sales/invoices/invoiceCreate]
+Allows the user to create an invoice that belongs to the Organization/team. 
+
++ Parameters
+    + customer (string)
+    + quotenumber (optional, string)
+    + sonumber (optional, string)
+    + description (optional, string)
+    + orderdate (optional, string)
+    + creditperiod (optional, string)
+    + product_id (array) ...Multile products can added
+    + qty (array) ...Multile products can added
+    + unitprice (array) ...Multile products can added
+    + discount (optional, array) ...Multile products can added
+    + linetotal (array) ...Multile products can added
+    + productDescription (optional, array) ...Multile products can added
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "customer": "583285a06b0bdc28804587c2"
+            "quotenumber": "212312"
+            "sonumber": "213123"
+            "description": ""
+            "orderdate": "2016-11-21"
+            "creditperiod": "1"
+            "product_id": ["583e363358e13f091610e542", "580083186b0bdc05ff588792"]
+            "qty": ["3", "5"]
+            "unitprice": ["10", "10"]
+            "discount": ""
+            "linetotal": ["30", "50"]
+            "productDescription" : ["test", "test"]
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "message": "Data saved successfully!!!",
+          "invoice_id": "5832c8e56b0bdc05ce4573b5"
+        }
+
+
+### Get a list of workorders [POST /sales/workorders]
+Allows the user to get a list of work orders that belongs to the Organization/team. 
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+       {
+          "payload": [
+                {
+                  "id": "57ff36816b0bdc06f947f0f2",
+                  "appointment": "2016-10-26",
+                  "name": "Clive workorder",
+                  "customer_name": "Clive Industries",
+                  "status": 1,
+                  "cuid": 6,
+                  "uuid": 6,
+                  "created_at": "2016-10-13 07:23:43",
+                  "updated_at": "2016-10-13 07:23:43"
+                }
+            ]
+        }
+
+### Create workorder [POST /sales/workorderCreate]
+Allows the user to create work order that belongs to the Organization/team. 
+
++ Parameters
+    + customer (string)
+    + sales (optional, string)
+    + invoice (optional, string)
+    + name (optional, string)
+    + appointment (string)
+    + description (optional, string)
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "customer": "583fb7c258e13f470455dba3"
+            "sales": "58a405ec6b0bdc0212156182"
+            "invoice": "58a41d7b6b0bdc020e01cdc2"
+            "name": "Test work order"
+            "appointment": "2016-11-21"
+            "description": "Test description"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "message": "Data saved successfully!!!",
+          "id": "58a424e36b0bdc020220e635"
+        }       
+
+
+### Get values to the dropdowns in workorder create form [POST /sales/workorders/dropdowns]
+Returns the full list of the customers of the active organization of the user
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+      {
+          "payload": {
+            "customers": [
+                  {
+                    "id": "57ff51896b0bdc0747634a73",
+                    "name": "Francisca Industries PVT LTD"
+                  }
+             ]
+          }
+      }
+
+
+### Get values for the sales orders and invoices in work order create form [POST /sales/workorders/getSalesOrderInvoices]
+Returns the full list of the sales orders and invoices of the selected customer of the active organization of the user
+
++ Parameters
+    + customerid (string)
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "customerid": "581318f36b0bdc06a0028042"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "payload": {
+            "salesOrders": [
+              {
+                "id": "5816dc9c58e13f106b773f12",
+                "customerName": "Morning Industries",
+                "orderDate": "2016-10-31",
+                "total": 1393166065.11
+              }
+            ],
+            "invoices": [
+              {
+                "id": "5816ddff58e13f0acc163de2",
+                "customerName": "Morning Industries",
+                "createdDate": "2016-10-31 06:00:31",
+                "total": 2593754.76
+              },
+              {
+                "id": "581ae39258e13f4fac652d62",
+                "customerName": "Morning Industries",
+                "createdDate": "2016-11-03 07:13:22",
+                "total": 1393166065.11
+              },
+              {
+                "id": "581ae54a58e13f519011d5b2",
+                "customerName": "Morning Industries",
+                "createdDate": "2016-11-03 07:20:42",
+                "total": 1393166065.11
+              },
+              {
+                "id": "582a82ad58e13f5653719982",
+                "customerName": "Morning Industries",
+                "createdDate": "2016-11-15 03:36:13",
+                "total": 1393166065.11
+              }
+            ]
+          }
+        }  
+
+
+### Get values to the dropdowns in quotation, sales order and invoice create forms [POST /sales/products/dropdowns]
+Allows the user to get values to the dropdowns in quotation, sales order and invoice create forms that belongs to the Organization/team.
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+      {
+          "payload": {
+            "products": [
+                  {
+                    "id": "580083186b0bdc05ff588792",
+                    "name": "Mac Book",
+                    "price": "2300"
+                  } 
+              ],
+            "customers": [
+                  {
+                    "id": "57ff51896b0bdc0747634a73",
+                    "name": "Francisca Industries PVT LTD"
+                  }, 
+              ]
+          }
+        }
+
+
+### Get the product price [POST /sales/products/product/price]
+Allows the user to get the product price that belongs to the Organization/team.
+
++ Parameters
+    + productid (string) 
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "productid": "580083186b0bdc05ff588792"
+        }
+
+
++ Response 200 (application/json)
+
+    + Body
+      {
+          "payload": [
+            {
+              "id": "580083186b0bdc05ff588792",
+              "price": "2300"
+            }
+          ]
+        }
+
+
+## Marketing [/marketing]
+
+### Get a list of marketing campaigns [POST /marketing/campaigns]
+Allows the user to get a list of marketing campaigns that belongs to the Organization/team. 
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+      {
+          "payload": [
+                {
+                  "id": "580494806b0bdc02f42265a2",
+                  "campaign": "New marketing campaign"
+                } 
+            ]
+        }
+
+
+### Create a marketing campaign [POST /marketing/campaigns/campaignCreate]
+Allows the user to create a marketing campaign that belongs to the Organization/team. 
+
++ Parameters
+    + category (string)
+    + campaign (string)
+    + location (optional, string)
+    + assign_to (optional, string)
+    + description (optional, string)
+    + budget_allocation (optional, string)
+    + start_date (optional, string)
+    + end_date (optional, string)
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "category": "5801b8184189dc69ad4409ea"
+            "campaign": "Demo campaign"
+            "location": "New York"
+            "assign_to": ""
+            "description": "Demo"
+            "budget_allocation": "12000"
+            "start_date": "2016-09-26"
+            "end_date": "2016-11-26"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+       {
+          "message": "Data saved successfully!!!"
+        }
+
+
+### Get a list of marketing resources [POST /marketing/billboards]
+Allows the user to get a list of marketing resources that belongs to the Organization/team. 
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+      {
+          "payload": [
+                {
+                  "id": "58bd20f558e13f2bff02b1c2",
+                  "resource": "Primary resource",
+                  "location": "New York",
+                  "category": "Marketing resources category",
+                  "image": "https://cdn.fxhello.com/img/imgph300.png",
+                  "imgStatus": false,
+                  "created_at": "2017-03-06 08:42:29",
+                  "updated_at": "2017-03-06 08:42:29"
+                }
+            ]
+        }
+
+
+### Display marketing resource profile [POST /marketing/billboards/billboard]
+Allows the user to get details of the marketing resource that belongs to the Organization/team. 
+
++ Parameters
+    + resourceid (string) 
+    
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "resourceid": "58219ae758e13f3933622853"
+        }
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "payload": [
+            {
+              "id": "58219ae758e13f3933622853",
+              "name": "Demo M Resource 08",
+              "categoryName": "first resource category",
+              "location": "New York",
+              "profileimage": "https://cdn.fxhello.com/img/imgph300.png",
+              "profileImgStatus": false,
+              "cuid": 1679,
+              "uuid": 1679,
+              "created_at": "2016-11-08 09:29:11",
+              "updated_at": "2016-11-08 09:29:11"
+            }
+          ]
+        }
+
+
+### Create a marketing resource [POST /marketing/billboards/billboardCreate]
+Allows the user to create a marketing resource that belongs to the Organization/team. 
+
++ Parameters
+    + resource (string)
+    + location (string)
+    + category (string)
+    + image (file)
+    + latitude (decimal)
+    + longitude (decimal)
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "resource": "Demo marketing resource"
+            "location": "New York"
+            "category": "5801b8184189dc69ad4409f8"
+            "latitude": -6.254585
+            "longitude": 24.5685452
+        }
+
++ Response 200 (application/json)
+
+    + Body
+       {
+          "message": "Data saved successfully!!!",
+          "id": "5832d9c26b0bdc070f6b9702"
+        }
+
+
+### Get values for the marketing dropdowns [POST /marketing/dropdowns]
+Allows the user to get a list of values for the drop downs resource categories, campaign categories and employees that belongs to the Organization/team. 
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+        {
+          "payload": {
+                 "marketing_resources": [
+                      {
+                        "id": "5801b8184189dc69ad4409f8",
+                        "name": "first resource category"
+                      }
+                 ]
+                "marketing_campaigns": [
+                      {
+                        "id": "5801b8184189dc69ad4409d3",
+                        "name": "marketing campaign"
+                      },
+                ],
+                "sales_rep": [
+                      {
+                        "id": "5805e3ac6b0bdc09d366df82",
+                        "name": "Nickles Domnick"
+                      },
+                ]
+            }
+        }
+
+
+
+## Products [/products]
+
+### Get a list of products [POST /products/products]
+Allows the user to get a list of products that belongs to the Organization/team. 
+
++ Parameters
+    + sendImage (optional, string) ...If the image needs to display pass this parameter as TRUE
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+      {
+        "payload": [
+            {
+                "_id": {
+                    "oid": "583da8d758e13f563a618f72"
+                },
+                "oid": 102,
+                "sku": "demkoSku1",
+                "barcode": "",
+                "name": "Demo Java Pro1",
+                "category": "5801b8184189dc69ad4409ff",
+                "categoryName": "Demo GPS",
+                "package_id": "",
+                "weight": "",
+                "weightUnit": "10",
+                "meta": "{\"dimensions\":{\"width\":\"12\",\"depth\":\"21\",\"height\":\"1\",\"unit\":\"9\"}}",
+                "manufacturers": "[{\"name\":\"\",\"oid\":0,\"country\":\"1\",\"countryName\":\"Andorra\",\"email\":\"\",\"telephone\":\"\",\"mobile\":\"9\",\"website\":\"9\"}]",
+                "suppliers": "[{\"name\":\"\",\"oid\":0,\"country\":\"1\",\"countryName\":\"Andorra\",\"email\":\"\",\"telephone\":\"\",\"mobile\":\"9\",\"website\":\"\"}]",
+                "productInfo": "",
+                "productUrl": "",
+                "description": "",
+                "brandName": "",
+                "status": 1,
+                "image": "",
+                "price": "",
+                "thresholdPrice": "",
+                "lowestPrice": "",
+                "purchasePrice": "",
+                "creditperiod": "",
+                "cuid": 1631,
+                "uuid": 1631,
+                "created_at": "2016-11-29 16:12:07",
+                "updated_at": "2016-11-29 16:12:07"
+            }
+        ]
+    }
+
+### Product profile [POST /products/products/product]
+Allows the user to view the product that belongs to the Organization/team. 
+
++ Parameters
+    + id (string)
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+          "payload": {
+            "_id": {
+              "oid": "58999d3c6b0bdc03d85bcf82"
+            },
+            "oid": 102,
+            "sku": "FX213123",
+            "barcode": "234234",
+            "name": "Test product",
+            "category": "5801b8184189dc69ad4409f6",
+            "categoryName": "Cartons",
+            "weight": "23",
+            "weightUnit": "cm",
+            "cost": null,
+            "price": 13000,
+            "thresholdPrice": 12999,
+            "lowestPrice": 12000,
+            "purchasePrice": 12500,
+            "productInfo": "Test Product",
+            "productUrl": "http://www.example.com",
+            "image": "",
+            "description": "Demo Description 123",
+            "manufacturers": [
+              {
+                "name": "Demo Manufcaturer",
+                "oid": null,
+                "country": 232,
+                "countryName": "United States",
+                "email": "manu@flatorb.com",
+                "telephone": "132132",
+                "mobile": "231231",
+                "website": "http://www.manufacturer.com"
+              }
+            ],
+            "suppliers": [
+              {
+                "name": "Demo Supplier",
+                "oid": null,
+                "country": "232",
+                "countryName": "United States",
+                "email": "supplier@flatorb.com",
+                "telephone": "213213",
+                "mobile": "321312",
+                "website": "http://www.supplier.com"
+              }
+            ],
+            "brandName": "Nike",
+            "width": "2",
+            "depth": "2",
+            "height": "2",
+            "lengthUnit": "cm",
+            "meta": "[]",
+            "status": 1,
+            "creditperiod": "2",
+            "cuid": 6,
+            "uuid": 6,
+            "created_at": "2017-02-07 10:10:24",
+            "updated_at": "2017-02-07 10:40:56",
+            "images": [
+              {
+                "profileimage": "https://cdn.fxhello.com/img/imgph300.png",
+                "profileImgStatus": false
+              }
+            ]
+          }
+        }
+
+
+### Create a Product [POST /products/products/product/save]
+Allows the user to create a product that belongs to the Organization/team. 
+
++ Parameters
+    + product_category (string)
+    + manufacturer_country (optional, number)
+    + supplier_country (optional, number)
+    + brand_name (optional, string)
+    + description (optional, string)
+    + product_width (optional, number)
+    + product_depth (optional, number)
+    + product_height (optional, number)
+    + product_length_unit (optional, number)
+    + manufacturer (optional, string)
+    + manufacturer_email (optional, string)
+    + manufacturer_telephone (optional, string)
+    + manufacturer_mobile (optional, string)
+    + manufacturer_website (optional, string)
+    + supplier (optional, string)
+    + supplier_email (optional, string)
+    + supplier_telephone (optional, string)
+    + supplier_mobile (optional, string)
+    + supplier_website (optional, string)
+    + product_sku (string)
+    + product_barcode (optional, string)
+    + product_name (string)
+    + product_package (optional, string)
+    + product_weight (optional, number)
+    + product_weight_unit (optional, number)
+    + product_info (optional, string)
+    + product_url (optional, string)
+    + product_credit_period (string)
+    + product_unit_price (optional, string)
+    + product_threshold_price (optional, string)
+    + product_lowest_price (optional, string)
+    + product_purchase_price (optional, string)
+    + priceCode (optional, string)
+    + image (optional, file)
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "product_category": "5801b8184189dc69ad4409f6"
+            "manufacturer_country": 232
+            "supplier_country": 232
+            "brand_name": "Nike"
+            "description": "Test description"
+            "product_width": 24
+            "product_depth": 24
+            "product_height": 24
+            "product_length_unit": 2
+            "manufacturer": "Demo Manufacturer"
+            "manufacturer_email": "manu@flatorb.com"
+            "manufacturer_telephone": "2342332434"
+            "manufacturer_mobile": "123123"
+            "manufacturer_website": "http://www.manufacturer.com"
+            "supplier": "Demo Supplier"
+            "supplier_email": "supplier@flatorb.com"
+            "supplier_telephone": "12312321"
+            "supplier_mobile": "13123123"
+            "manufacturer_website": "http://www.supplier.com"
+            "product_sku": "FX122"
+            "product_barcode": "12312323123123"
+            "product_name": "Demo product"
+            "product_package": ""
+            "product_weight": 24
+            "product_weight_unit": 3
+            "product_info": "Demo product"
+            "product_url": "http://www.example.com"
+            "product_credit_period": "34"
+            "product_unit_price": "12300"
+            "product_threshold_price": "12299"
+            "product_lowest_price": "12000"
+            "product_purchase_price": "12500"
+            "priceCode": "Test 333"
+            "image": product.png
+        }
+
++ Response 200 (application/json)
+
+    + Body
+       {
+          "message": "Data saved successfully!!!",
+          "id": "5832d9c26b0bdc070f6b9702"
+        }
+
+### Edit Product [POST /products/products/productEdit]
+Allows the user to edit a product that belongs to the Organization/team. 
+
++ Parameters
+    + productid (string)
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+          "payload": {
+            "_id": {
+              "oid": "58999d3c6b0bdc03d85bcf82"
+            },
+            "oid": 102,
+            "sku": "FX213123",
+            "barcode": "234234",
+            "name": "Test product",
+            "category": "5801b8184189dc69ad4409f6",
+            "categoryName": "Cartons",
+            "weight": "23",
+            "weightUnit": "cm",
+            "cost": null,
+            "price": 13000,
+            "thresholdPrice": 12999,
+            "lowestPrice": 12000,
+            "purchasePrice": 12500,
+            "productInfo": "Test Product",
+            "productUrl": "http://www.example.com",
+            "image": "",
+            "description": "Demo Description",
+            "manufacturers": [
+              {
+                "name": "Demo Manufcaturer",
+                "oid": null,
+                "country": 232,
+                "countryName": "United States",
+                "email": "manu@flatorb.com",
+                "telephone": "132132",
+                "mobile": "231231",
+                "website": "http://www.manufacturer.com"
+              }
+            ],
+            "suppliers": [
+              {
+                "name": "Demo Supplier",
+                "oid": null,
+                "country": "232",
+                "countryName": "United States",
+                "email": "supplier@flatorb.com",
+                "telephone": "213213",
+                "mobile": "321312",
+                "website": "http://www.supplier.com"
+              }
+            ],
+            "brandName": "Nike",
+            "width": "2",
+            "depth": "2",
+            "height": "2",
+            "lengthUnit": "cm",
+            "meta": "[]",
+            "status": 1,
+            "creditperiod": "2",
+            "cuid": 6,
+            "uuid": 6,
+            "created_at": "2017-02-07 10:10:24",
+            "updated_at": "2017-02-07 10:10:24"
+          }
+        }
+
+### Update a Product [POST /products/products/productUpdate]
+Allows the user to update a product that belongs to the Organization/team. 
+
++ Parameters
+    + id (string)
+    + product_category (string)
+    + manufacturer_country (optional, number)
+    + supplier_country (optional, number)
+    + brand_name (optional, string)
+    + description (optional, string)
+    + product_width (optional, number)
+    + product_depth (optional, number)
+    + product_height (optional, number)
+    + product_length_unit (optional, number)
+    + manufacturer (optional, string)
+    + manufacturer_email (optional, string)
+    + manufacturer_telephone (optional, string)
+    + manufacturer_mobile (optional, string)
+    + manufacturer_website (optional, string)
+    + supplier (optional, string)
+    + supplier_email (optional, string)
+    + supplier_telephone (optional, string)
+    + supplier_mobile (optional, string)
+    + supplier_website (optional, string)
+    + product_sku (string)
+    + product_barcode (optional, string)
+    + product_name (string)
+    + product_package (optional, string)
+    + product_weight (optional, number)
+    + product_weight_unit (optional, number)
+    + product_info (optional, string)
+    + product_url (optional, string)
+    + product_credit_period (string)
+    + product_unit_price (optional, string)
+    + product_threshold_price (optional, string)
+    + product_lowest_price (optional, string)
+    + product_purchase_price (optional, string)
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "product_category": "5801b8184189dc69ad4409f6"
+            "manufacturer_country": 232
+            "supplier_country": 232
+            "brand_name": "Nike"
+            "description": "Test description"
+            "product_width": 24
+            "product_depth": 24
+            "product_height": 24
+            "product_length_unit": 2
+            "manufacturer": "Demo Manufacturer"
+            "manufacturer_email": "manu@flatorb.com"
+            "manufacturer_telephone": "2342332434"
+            "manufacturer_mobile": "123123"
+            "manufacturer_website": "http://www.manufacturer.com"
+            "supplier": "Demo Supplier"
+            "supplier_email": "supplier@flatorb.com"
+            "supplier_telephone": "12312321"
+            "supplier_mobile": "13123123"
+            "manufacturer_website": "http://www.supplier.com"
+            "product_sku": "FX122"
+            "product_barcode": "12312323123123"
+            "product_name": "Demo product sku"
+            "product_package": ""
+            "product_weight": 24
+            "product_weight_unit": 3
+            "product_info": "Demo product"
+            "product_url": "http://www.example.com"
+            "product_credit_period": "34"
+            "product_unit_price": "12300"
+            "product_threshold_price": "12299"
+            "product_lowest_price": "12000"
+            "product_purchase_price": "12500"
+            "image": product.png
+        }
+
++ Response 200 (application/json)
+
+    + Body
+       {
+          "product_id": "58999d3c6b0bdc03d85bcf82",
+          "message": "Data updated successfully!!!"
+        }
+
+
+### Get a product by its RFID [POST /products/productByRFID]
+Allows the user to get the product information by passing the TID and EPC of a RFID tag. 
+
++ Request
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+      {
+        "tid": "46546813031",
+        "epc": "48631568765131"
+      }        
+
++ Response 200 (application/json)
+
+    + Body
+      {
+        "payload": {
+                "_id": {
+                    "oid": "583da8d758e13f563a618f72"
+                },
+                "oid": 102,
+                "sku": "demkoSku1",
+                "barcode": "",
+                "name": "Demo Java Pro1",
+                "category": "5801b8184189dc69ad4409ff",
+                "categoryName": "Demo GPS",
+                "package_id": "",
+                "weight": "",
+                "weightUnit": "10",
+                "meta": "{\"dimensions\":{\"width\":\"12\",\"depth\":\"21\",\"height\":\"1\",\"unit\":\"9\"}}",
+                "manufacturers": "[{\"name\":\"\",\"oid\":0,\"country\":\"1\",\"countryName\":\"Andorra\",\"email\":\"\",\"telephone\":\"\",\"mobile\":\"9\",\"website\":\"9\"}]",
+                "suppliers": "[{\"name\":\"\",\"oid\":0,\"country\":\"1\",\"countryName\":\"Andorra\",\"email\":\"\",\"telephone\":\"\",\"mobile\":\"9\",\"website\":\"\"}]",
+                "productInfo": "",
+                "productUrl": "",
+                "description": "",
+                "brandName": "",
+                "status": 1,
+                "image": "",
+                "price": "",
+                "thresholdPrice": "",
+                "lowestPrice": "",
+                "purchasePrice": "",
+                "creditperiod": "",
+                "cuid": 1631,
+                "uuid": 1631,
+                "created_at": "2016-11-29 16:12:07",
+                "updated_at": "2016-11-29 16:12:07"
+            } 
+    }
+
+
+### Get a list of weight units [POST /products/products/weight-units]
+Allows the user to get a list of weight units that belongs to the Organization/team. 
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+      {
+        "payload": [
+          {
+            "id": 9,
+            "symbol": "g"
+          },
+          {
+            "id": 10,
+            "symbol": "Kg"
+          },
+          {
+            "id": 11,
+            "symbol": "t"
+          }
+        ]
+      }
+
+
+### Get a list of length units [POST /products/products/length-units]
+Allows the user to get a list of length units that belongs to the Organization/team. 
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+     {
+        "payload": [
+          {
+            "id": 2,
+            "symbol": "cm"
+          },
+          {
+            "id": 6,
+            "symbol": "ft"
+          },
+          {
+            "id": 5,
+            "symbol": "in"
+          },
+          {
+            "id": 4,
+            "symbol": "Km"
+          },
+          {
+            "id": 3,
+            "symbol": "m"
+          },
+          {
+            "id": 8,
+            "symbol": "mi"
+          },
+          {
+            "id": 1,
+            "symbol": "mm"
+          },
+          {
+            "id": 7,
+            "symbol": "yd"
+          }
+        ]
+      }
+
+### Assign a RFID to a product [POST /products/assignRFIDtoProduct]
+Allows the user to assign a RFID to a product that does not have a RFID (EPC and TID). 
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+    {
+        "productId": "ab123123ca2cdf12",
+        "tid": "11282010103fcag",
+        "epc": "973403450fcbf"
+    }
+
++ Response 200 (application/json)
+    + Body
+    {
+        "message": "Successfully assigned RFID to product"    
+    }      
+
+## Finance [/finances]
+
+### Get a list of finance invoices [POST /finances/invoices]
+Allows the user to get a list of finance invoices that belongs to the Organization/team. 
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+     {
+        "payload": {
+          "invoices": [
+            {
+              "id": "58008b4a6b0bdc06881cfab2",
+              "name": "Donnie MIllers",
+              "items": 1,
+              "value": "8,857,276.08",
+              "status": "Pending",
+              "created": "2016-10-14 07:37:46",
+              "updated": "2016-10-14 07:37:46"
+            }
+          ]
+        }
+      }
+
+
+### Get a list of finance sales orders [POST /finances/salesorders]
+Allows the user to get a list of finance sales orders that belongs to the Organization/team. 
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+     {
+        "payload": {
+          "customer_sales_orders": [
+            {
+              "id": "580ec3528b888048e66070d3",
+              "name": "Elena Gilbert",
+              "items": 2,
+              "value": "1,152,203.63",
+              "status": "Pending",
+              "created": "2016-10-25 02:28:34",
+              "updated": "2016-10-25 02:28:34"
+            }
+          ],
+          "dc_sales_orders": []
+        }
+      }
+
+## Distribution cneters [/distributions/centers]
+
+### Distribution cneter profile [POST /distributions/centers/center]
+Allows the user to view the distribution center details that belongs to the Organization/team. 
+
++ Parameters
+    + id (string)
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+          "payload": {
+            "_id": {
+              "oid": "58999d3c6b0bdc03d85bcf82"
+            },
+            "oid": 102,
+            "sku": "FX213123",
+            "barcode": "234234",
+            "name": "Test product",
+            "category": "5801b8184189dc69ad4409f6",
+            "categoryName": "Cartons",
+            "weight": "23",
+            "weightUnit": "cm",
+            "cost": null,
+            "price": 13000,
+            "thresholdPrice": 12999,
+            "lowestPrice": 12000,
+            "purchasePrice": 12500,
+            "productInfo": "Test Product",
+            "productUrl": "http://www.example.com",
+            "image": "",
+            "description": "Demo Description 123",
+            "manufacturers": [
+              {
+                "name": "Demo Manufcaturer",
+                "oid": null,
+                "country": 232,
+                "countryName": "United States",
+                "email": "manu@flatorb.com",
+                "telephone": "132132",
+                "mobile": "231231",
+                "website": "http://www.manufacturer.com"
+              }
+            ],
+            "suppliers": [
+              {
+                "name": "Demo Supplier",
+                "oid": null,
+                "country": "232",
+                "countryName": "United States",
+                "email": "supplier@flatorb.com",
+                "telephone": "213213",
+                "mobile": "321312",
+                "website": "http://www.supplier.com"
+              }
+            ],
+            "brandName": "Nike",
+            "width": "2",
+            "depth": "2",
+            "height": "2",
+            "lengthUnit": "cm",
+            "meta": "[]",
+            "status": 1,
+            "creditperiod": "2",
+            "cuid": 6,
+            "uuid": 6,
+            "created_at": "2017-02-07 10:10:24",
+            "updated_at": "2017-02-07 10:40:56",
+            "images": [
+              {
+                "profileimage": "https://cdn.fxhello.com/img/imgph300.png",
+                "profileImgStatus": false
+              }
+            ]
+          }
+        }
+
+
+
+## Sales force [/salesforce]
+
+### Get a list of sales force resources [POST /salesforce/resources]
+Allows the user to get a list of sales force resources that belongs to the Organization/team. 
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+     {
+        "payload": {
+          "resources": [
+            {
+              "id": "5805e3ac6b0bdc09d366df82",
+              "name": "Nickles Domnick",
+              "performance": "",
+              "goal": ""
+            },
+            {
+              "id": "581b02cf58e13f5b131505d2",
+              "name": "Erwines Genel",
+              "performance": "",
+              "goal": ""
+            }
+          ]
+        }
+      }
+
+
+### Sales force resource profile [POST /salesforce/resources/resource]
+Allows the user to view the sales force details that belongs to the Organization/team.  
+
++ Parameters
+    + salesForceResourceId (string)
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+     {
+      "payload": [
+        {
+          "_id": {
+            "$oid": "589c04c16b0bdc03426fa5e2"
+          },
+          "oid": 102,
+          "meta": "{\"reports_to_id\":\"5891a6ac58e13f28f571ae82\",\"reports_to_name\":\"Sam doe\",\"description\":\"It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).\",\"category\":\"\"}",
+          "type": 10,
+          "typeid": "5892a8df6b0bdc020b3f0e72",
+          "name": "Anurudhika5 Paranavithana",
+          "issalesrep": 1,
+          "uuid": 6,
+          "status": "0",
+          "created_at": "2017-02-09 05:57:21",
+          "updated_at": "2017-03-15 10:14:57",
+          "metaNew": {
+            "reports_to_id": "5891a6ac58e13f28f571ae82",
+            "reports_to_name": "Sam doe",
+            "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
+            "category": ""
+          }
+        }
+      ],
+      "profileImage": {
+        "profileimage": "https://cdn.fxhello.com/img/imgph300.png",
+        "profileImgStatus": false
+      },
+      "reportsTo": {
+        "_id": {
+          "$oid": "5891a6ac58e13f28f571ae82"
+        },
+        "uid": 1652,
+        "prefix": 3,
+        "firstname": "Mukesh",
+        "middlename": "Thripati",
+        "lastname": "Ambani",
+        "addresses": "{\"main\":{\"address1\":\"Hanumantha strt\",\"address2\":\"Pushkar\",\"city\":\"dhilli\",\"state\":\"\",\"stateID\":null,\"zip\":\"21212\",\"country\":\"India\",\"countryID\":\"105\",\"description\":\"\",\"status\":1,\"cuid\":1652,\"uuid\":1652,\"created_at\":\"2017-02-01 09:13:16\",\"updated_at\":\"2017-02-01 09:13:16\"}}",
+        "telephone": "+91 453635657467",
+        "description": "This is about mukesh ambani.",
+        "depID": "5832ac4d6b0bdc2882135a32",
+        "depName": "Test department",
+        "mobile": "+91 57648635735",
+        "email": "Mukesh@flatorb.com",
+        "countryid": "105",
+        "dob": "02/28/1948",
+        "emergencyContacts": [
+          {
+            "name": "Samola Dencrit",
+            "telephone": "+1 2324343434343",
+            "mobile": "+1 23134314343434",
+            "email": "",
+            "relationship": "American ref"
+          },
+          {
+            "name": "Piyagru Ahamaed",
+            "telephone": "+91 676375374564585",
+            "mobile": "+91 14354264575375376",
+            "email": "piyagru@flatorb.com",
+            "relationship": "Secreatry"
+          }
+        ],
+        "references": [
+          {
+            "name": "Mr. Dase",
+            "company_name": "xyz",
+            "designation": "manager",
+            "mobile": "688920278",
+            "telephone": "24997985",
+            "email": "dase@flatorb.com"
+          }
+        ],
+        "image": "1485943143-PZLTqIKZcgO7AzCysXxP.jpg",
+        "meta": "{\"nationality\":\"Indian\",\"ssn\":\"121324543546\",\"birthPlace\":\"Dhilli\",\"materialStatus\":\"married\",\"religion\":\"Hindu\",\"gender\":\"male\",\"immigrationStatus\":\"permanent\",\"description\":\"This is about mukesh ambani.\",\"telephone2\":\"+91 4657648787875\"}",
+        "status": "0",
+        "uuid": 1632,
+        "created_at": "2017-02-01 09:13:16",
+        "updated_at": "2017-03-15 09:27:44",
+        "uploads": [
+          {
+            "id": "58ae641d6b0bdc03bc5f5672",
+            "filename": "1487823895-ycgrRmYjqq2XVjSEbTGG.jpeg",
+            "originalName": "Profile image"
+          }
+        ]
+      },
+      "distributionCenterAssocs": [
+        {
+          "_id": {
+            "$oid": "58ca193f6b0bdc0306360562"
+          },
+          "oid": 102,
+          "type": 8,
+          "typeid": "583e626f6b0bdc0211125e63",
+          "atype": 10,
+          "atypeid": "589c04c16b0bdc03426fa5e2",
+          "status": 1,
+          "uuid": null,
+          "cuid": null,
+          "created_at": "2017-03-16 04:49:02",
+          "updated_at": "2017-03-16 04:49:02"
+        }
+      ],
+      "customerAssocs": [
+        {
+          "_id": {
+            "$oid": "58ca16c96b0bdc020a494c62"
+          },
+          "oid": 102,
+          "type": 3,
+          "typeid": "581318f36b0bdc06a0028042",
+          "atype": 10,
+          "atypeid": "589c04c16b0bdc03426fa5e2",
+          "status": 1,
+          "uuid": 6,
+          "cuid": 6,
+          "created_at": "2017-03-16 04:38:33",
+          "updated_at": "2017-03-16 04:38:33"
+        }
+      ]
+    }
+
+
+### Get a list of sales force tasks [POST /salesforce/tasks]
+Allows the user to get a list of sales force tasks that belongs to the Organization/team. 
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+    {
+      "payload": [
+        {
+          "id": "5821a4506b0bdc02f8023fc2",
+          "title": "First task"
+        }
+      ]
+    }
+
+## General [/]
+
+### Get logged in user details [POST /userProfile]
+Returns user details of the active organization of the user
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+     {
+      "payload": {
+        "id": 1,
+        "firstname": "test",
+        "lastname": "",
+        "name": "test",
+        "mobile": null,
+        "email": "test@flatorb.com",
+        "country": 0,
+        "state": null,
+        "govid": null,
+        "passport": null,
+        "type": 1,
+        "status": 1,
+        "meta": null,
+        "settings": null,
+        "password": "$2y$10$it26XVlx30.2TF9PEdI0UueAPmO2xquVUaEpaWPYuUxxN6ZVKjCm6",
+        "token": null,
+        "remember_token": "sj7RwafsWwaKNITWe3rq9HUi6phjCPzVIX9Kc2veYKI1SpA6MH54sEhByXhK",
+        "photo_url": null,
+        "uses_two_factor_auth": 0,
+        "authy_id": null,
+        "country_code": null,
+        "phone": null,
+        "two_factor_reset_code": null,
+        "current_team_id": 102,
+        "stripe_id": null,
+        "current_billing_plan": null,
+        "card_brand": null,
+        "card_last_four": null,
+        "card_country": null,
+        "billing_address": null,
+        "billing_address_line_2": null,
+        "billing_city": null,
+        "billing_state": null,
+        "billing_zip": null,
+        "billing_country": null,
+        "vat_id": null,
+        "extra_billing_information": null,
+        "trial_ends_at": null,
+        "last_read_announcements_at": null,
+        "created_at": "2015-10-01 02:51:39",
+        "updated_at": "2016-12-02 05:43:44"
+      },
+       "currencyCode": "USD"
+   }
+
+### Get a list of countries [POST /countries]
+Allows the user to get a list of countries that belongs to the Organization/team. 
+
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+
++ Response 200 (application/json)
+
+    + Body
+     {
+        "countries": [
+          {
+            "id": 232,
+            "country": "United States"
+          }
+        ]
+      }
+
+### Health-check pings [POST /health-check-pings]
+Saves the data of the health-check pings on in to the database
+
++ Parameters
+    + gpsOn (boolean) ... TRUE if GPS is on, FALSE if off and NULL if not available
+    + gpsLat (decimal) ... GPS Latitude
+    + gpsLon (decimal) ... GPS Longitude
+
++ Request
+
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "gpsOn": true,
+            "gpsLat": 12.12545,
+            "gpsLon": 64.12487,
+            "gpsSignalStrength": "12dB",
+            "batteryPercentage": 87,
+            "dataOn": true,
+            "dataStrength": "",
+            "gsmOn": true,
+            "gsmStrength": "",
+            "timestamp": "2016-11-23 16:23:52",
+            "macAddress": "1a:2a:c3:94:23:5e"
+        }
+
++ Response 200 (application/json)
+    + Body
+        {
+          "message": "Data save successful."
+        }
+
+### Health-check pings save as a bulk [POST /health-check-pings-bulk]
+Saves a bulk of data of the health-check pings on in to the database
+
++ Parameters
+    + gpsOn (boolean) ... TRUE if GPS is on, FALSE if off and NULL if not available
+    + gpsLat (decimal) ... GPS Latitude
+    + gpsLon (decimal) ... GPS Longitude
+
++ Request
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "payload": [
+                {
+                    "gpsOn": true,
+                    "gpsLat": 12.12545,
+                    "gpsLon": 64.12487,
+                    "gpsSignalStrength": "12dB",
+                    "batteryPercentage": 87,
+                    "dataOn": true,
+                    "dataStrength": "",
+                    "gsmOn": true,
+                    "gsmStrength": "",
+                    "timestamp": "2016-11-23 16:23:52",
+                    "macAddress": "1a:2a:c3:94:23:5e"
+                },
+                {
+                    "gpsOn": true,
+                    "gpsLat": 12.12545,
+                    "gpsLon": 64.12487,
+                    "gpsSignalStrength": "12dB",
+                    "batteryPercentage": 87,
+                    "dataOn": true,
+                    "dataStrength": "",
+                    "gsmOn": true,
+                    "gsmStrength": "",
+                    "timestamp": "2016-11-23 16:23:52",
+                    "macAddress": "1a:2a:c3:94:23:5e"
+                }
+            ]
+        }
+
++ Response 200 (application/json)
+    + Body
+        {
+          "message": "Data save successful."
+        }
+
+
+### Save an image [POST /imageSave]
+Saves an image
+
++ Parameters
+    + id (string) ... The relevant id of the record that the image need to be saveds
+    + type (int) ... type = 3 for customer, type = 4 for contact & type = 15 for product
+    + image (file) ... Images should pass as an array if adding multiple images and certificates
+    + count (optional, number) ...Pass this parameter only if adding multiple images and certificates to a product 
+    + isCertificate (optional, string) ...Pass this parameter as TRUE only if adding product certificates
+
++ Request
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "id": "588df3ea4189dceceb412002"
+            "type": 3
+            "image": image.png
+        }
+
++ Response 200 (application/json)
+    + Body
+        {
+          "message": "Image saved successfully!!!"
+        }
+
+
+### Save a comment [POST /commentSave]
+Save a comment 
+
++ Parameters
+    + type (int) ... For opportunity type = 21 & for support tickets type = 27
+    + typeId (string) ... Id of the relavant profile (opportunity or support tiocket) where the comment needs to be dispalyed
+    + comment (string) ... Comment
+    + date (optional, string) ...Pass this parameter only when adding opportunity comment 
+    + todo (optional, string) ...Pass this parameter only when adding opportunity comment; values = on/off
+    + reminder (optional, string) ...Pass this parameter only when adding opportunity comment; values = on/off
+
++ Request
+    + Headers
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ
+            Accept: application/vnd.fxhello.v1+json
+    + Body
+        {
+            "typeId": "58b52dc158e13f62e274d672"
+            "type": 21
+            "comment": "Test comment"
+            "todo": "on"
+            "reminder": "on"
+            "date": "2017/02/28"
+        }
+
++ Response 200 (application/json)
+    + Body
+        {
+          "message": "Comment saved successfully!!!"
+        }

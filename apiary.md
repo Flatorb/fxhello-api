@@ -1,8 +1,6 @@
 FORMAT: 1A
-HOST: http://uat.fxhello.com/api/
 
-# FX Hello
-IMPORTANT: The API URL is set to UAT server in this documentation. Make sure to change the URL to http://app.fxhello.com to communicate with the Production system.
+# FXHello
 
 # Tasks [/tasks]
 Tasks related operations.
