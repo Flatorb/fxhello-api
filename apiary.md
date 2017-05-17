@@ -1,6 +1,32 @@
 FORMAT: 1A
 
-# FXHello
+# FX Hello
+
+# Authentication
+Authentication related operations.
+
+## Login [POST /authenticate]
+Allows the user to login using their email address and the password. The API will return a JSON Web Token (JWT) upon successful login. This token needs to be sent in the header of each call of the API.
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/vnd.fxhello.v1+json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "email": "user@example.com",
+                "password": "Abc@1234"
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1",
+                "isError": false
+            }
 
 # Tasks [/tasks]
 Tasks related operations.
@@ -29,32 +55,6 @@ Allows the user the create a new task
 
             {
                 "id": "5805a3536b0bdc039843aff2"
-            }
-
-# Authentication
-Authentication related operations.
-
-## Login [POST /authenticate]
-Allows the user to login using their email address and the password. The API will return a JSON Web Token (JWT) upon successful login. This token needs to be sent in the header of each call of the API.
-
-+ Request (application/json)
-    + Headers
-
-            Accept: application/vnd.fxhello.v1+json
-            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
-    + Body
-
-            {
-                "email": "user@example.com",
-                "password": "Abc@1234"
-            }
-
-+ Response 200 (application/json)
-    + Body
-
-            {
-                "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1",
-                "isError": false
             }
 
 # Warehouse [/warehouses]
