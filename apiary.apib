@@ -4,6 +4,8 @@ HOST: http://uat.fxhello.com/api/
 # FX Hello
 IMPORTANT: The API URL is set to UAT server in this documentation. Make sure to change the URL to http://app.fxhello.com to communicate with the Production system.
 
+Data can be sent to the API server as regular HTTP POST objects or as a JSON string based on your preference. If JSON strings are being used, make sure to include the additional header "Content-Type: application/json". If you are using regular HTTP POST methods, make sure to NOT include the "Content-Type: application/json" header.
+
 # Authentication [/auth]
 Authentication related operations.
 
@@ -67,7 +69,7 @@ Allows user to create an account
             }
 
 ## Refresh token [GET /auth/refreshToken]
-Refreshes the existing token with a new token with a new expiration. The refreshed token will be returned as the response.
+Refreshes the existing token with a new token with a new expiration. Token will be returned as the response.
 
 + Request (application/json)
     + Headers
@@ -78,9 +80,9 @@ Refreshes the existing token with a new token with a new expiration. The refresh
 + Response 200 (application/json)
     + Body
 
-            [
-                "5805a3536b0bdc039843aff2"
-            ]
+            {
+                "token": "5805a3536b0bdc039843aff2"
+            }
 
 # Tasks [/tasks]
 Tasks related operations.
@@ -93,15 +95,17 @@ Allows the user the create a new task
 
             Accept: application/vnd.fxhello.v1+json
             Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+            Content-Type: application/json
     + Body
 
             {
-                "name": "This is the task name",
+                "title": "This is the task name",
                 "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.",
                 "dueDate": "2017-10-23 14:23:00",
                 "priority": 3,
                 "type": 17,
-                "typeId": "46ab4658f88e8d8"
+                "typeId": "46ab4658f88e8d8",
+                "subType": 1
             }
 
 + Response 200 (application/json)
