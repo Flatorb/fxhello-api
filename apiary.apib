@@ -173,10 +173,10 @@ Allows the user the create a new task
                 "_id": "591d2b884189dc52725cc042"
             }
 
-# Warehouse [/warehouses]
-Warehouses related operations.
+# Stores [/stores]
+Stores related operations.
 
-## Stores [POST /warehouses/stores]
+## Stores [POST /stores/stores]
 Returns the full list of warehouses
 
 + Parameters
@@ -184,6 +184,57 @@ Returns the full list of warehouses
         + Default: 1
     + limit: (string, optional) - The amount of results per page.
         + Default: 10
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/vnd.fxhello.v1+json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "type": 7
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "_id": "5834226c6b0bdc4b0d33ef92",
+                "oid": 102,
+                "type": 7,
+                "name": "Demo warehouse",
+                "location": "New York",
+                "addresses": {
+                    "main": {
+                        "address1": "123 Main Street",
+                        "address2": "Block D",
+                        "city": "Washington",
+                        "state": "",
+                        "stateid": null,
+                        "zip": "20005",
+                        "country": "United States",
+                        "countryid": "232",
+                        "description": "",
+                        "status": 1,
+                        "cuid": 1,
+                        "uuid": 1,
+                        "created_at": "2017-05-25 09:20:29",
+                        "updated_at": "2017-05-25 09:20:29"
+                    }
+                },
+                "telephone1": "2342",
+                "telephone2": "234234",
+                "fax": "1646542",
+                "email": "demo@flatorb.com",
+                "description": "",
+                "image": "",
+                "status": 1,
+                "cuid": 1679,
+                "uuid": 1679,
+                "created_at": "2016-11-22 10:48:11",
+                "updated_at": "2016-11-22 10:48:11"
+            }
 
 # RFID [/rfid]
 RFID related operations.
