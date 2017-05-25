@@ -1,0 +1,7 @@
+FORMAT: 1A
+HOST: http://uat.fxhello.com/api/
+
+# FX Hello
+IMPORTANT: The API URL is set to UAT server in this documentation. Make sure to change the URL to http://app.fxhello.com to communicate with the Production system.
+
+Data can be sent to the API server as regular HTTP POST objects or as a JSON string based on your preference. If JSON strings are being used, make sure to include the additional header "Content-Type: application/json". If you are using regular HTTP POST methods, make sure to NOT include the "Content-Type: application/json" header.

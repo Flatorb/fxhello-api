@@ -87,6 +87,49 @@ Refreshes the existing token with a new token with a new expiration. Token will 
 # Tasks [/tasks]
 Tasks related operations.
 
+## List of tasks [POST /tasks]
+Retrieve a full or filtered list of tasks. Result may subject to filtration based on user permission.
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/vnd.fxhello.v1+json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+            Content-Type: application/json
+    + Body
+
+            {
+                "title": "This is the task name",
+                "comment": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.",
+                "dueDate": "2017-10-23 14:23:00",
+                "priority": 3,
+                "type": 17,
+                "typeId": "46ab4658f88e8d8",
+                "subType": 1
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "type": 0,
+                "typeid": 0,
+                "subType": 0,
+                "isTask": true,
+                "title": "This is the task name",
+                "comment": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.",
+                "dueDate": null,
+                "priority": 3,
+                "status": 1,
+                "cuid": 1,
+                "cuName": "Anushan",
+                "uuid": 1,
+                "uuName": "Anushan",
+                "updated_at": "2017-05-18 05:05:12",
+                "created_at": "2017-05-18 05:05:12",
+                "_id": "591d2b884189dc52725cc042"
+            }
+
 ## Create a new task [POST /tasks/create]
 Allows the user the create a new task
 
@@ -100,7 +143,7 @@ Allows the user the create a new task
 
             {
                 "title": "This is the task name",
-                "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.",
+                "comment": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.",
                 "dueDate": "2017-10-23 14:23:00",
                 "priority": 3,
                 "type": 17,
@@ -112,7 +155,22 @@ Allows the user the create a new task
     + Body
 
             {
-                "id": "5805a3536b0bdc039843aff2"
+                "type": 0,
+                "typeid": 0,
+                "subType": 0,
+                "isTask": true,
+                "title": "This is the task name",
+                "comment": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.",
+                "dueDate": null,
+                "priority": 3,
+                "status": 1,
+                "cuid": 1,
+                "cuName": "Anushan",
+                "uuid": 1,
+                "uuName": "Anushan",
+                "updated_at": "2017-05-18 05:05:12",
+                "created_at": "2017-05-18 05:05:12",
+                "_id": "591d2b884189dc52725cc042"
             }
 
 # Warehouse [/warehouses]
@@ -121,25 +179,11 @@ Warehouses related operations.
 ## Stores [POST /warehouses/stores]
 Returns the full list of warehouses
 
-+ Request (application/json)
-    + Headers
-
-            Accept: application/vnd.fxhello.v1+json
-            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
-    + Body
-
-            {
-                "type": 17,
-                "typeId": "46ab4658f88e8d8"
-            }
-
-+ Response 200 (application/json)
-    + Body
-
-            {
-                "id": 10,
-                "username": "foo"
-            }
++ Parameters
+    + page: (string, optional) - The page of results to view.
+        + Default: 1
+    + limit: (string, optional) - The amount of results per page.
+        + Default: 10
 
 # RFID [/rfid]
 RFID related operations.
