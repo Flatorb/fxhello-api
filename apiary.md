@@ -176,10 +176,7 @@ Stores related operations.
 Returns the full list of warehouses
 
 + Parameters
-    + page: (string, optional) - The page of results to view.
-        + Default: 1
-    + limit: (string, optional) - The amount of results per page.
-        + Default: 10
+    + type: (string, optional) - The type of store that should be retrieved. If not defined, all stores will be returned.
 
 + Request (application/json)
     + Headers
@@ -230,6 +227,40 @@ Returns the full list of warehouses
                 "uuid": 1679,
                 "created_at": "2016-11-22 10:48:11",
                 "updated_at": "2016-11-22 10:48:11"
+            }
+
+# Stock Transfers [/stock/transfers]
+Stock transfers related operations.
+
+## Transfer between stores [POST /stock/transfers/transfer]
+User can transfer stock between stores.
+
++ Parameters
+    + from: (string, required) - Store id of the store where the items are moving out of.
+    + to: (string, required) - Store id of the store where the items will be transferred to.
+    + method: (string, required) - The method used for transferring. Options: rfid, barcode, id
+        + Default: id
+    + items: (string, required) - Array of item rfid/barcode/id that will be subjected to the transfer.
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/vnd.fxhello.v1+json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "from": "46ab4658f88e312",
+                "to": "46ab4658f88e8d8",
+                "method": "rfid",
+                "items": "{{'epc': '123123123', 'tid': 'cacacacacacac'}, {'epc': '123123123', 'tid': 'cacacacacacac'}, {'epc': '123123123', 'tid': 'cacacacacacac'}}"
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "message": "Successfully transferred the stock."
             }
 
 # RFID [/rfid]
