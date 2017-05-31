@@ -80,6 +80,49 @@ Refreshes the existing token with a new token with a new expiration. Token will 
                 "token": "5805a3536b0bdc039843aff2"
             }
 
+# Categories [/categories]
+Categories related operations.
+
+## Categories [POST /categories]
+Returns the full list of categories
+
++ Parameters
+    + type: (integer, optional) - Type id of the category
+    + type: (integer, optional) - Sub-type id of the category
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/vnd.fxhello.v1+json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "type": 7,
+                "subType": null
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "_id": "5801b8184189dc69ad440a0c",
+                "oldid": "5703128158568448",
+                "oid": 102,
+                "name": "New Raw material",
+                "parent": null,
+                "type": 20,
+                "status": 1,
+                "meta": {
+                    "description": "",
+                    "category_code": ""
+                },
+                "cuid": 6,
+                "uuid": 6,
+                "created_at": "2016-09-15 08:13:49",
+                "updated_at": "2016-09-15 08:13:49"
+            }
+
 # Tasks [/tasks]
 Tasks related operations.
 
