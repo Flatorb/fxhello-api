@@ -92,7 +92,7 @@ Returns the full list of categories
 
 + Parameters
     + type: (integer, optional) - Type id of the category
-    + type: (integer, optional) - Sub-type id of the category
+    + subType: (integer, optional) - Sub-type id of the category
 
 + Request (application/json)
     + Headers
@@ -125,6 +125,157 @@ Returns the full list of categories
                 "uuid": 6,
                 "created_at": "2016-09-15 08:13:49",
                 "updated_at": "2016-09-15 08:13:49"
+            }
+
+## Category [POST /categories/category]
+Returns the information of a category
+
++ Parameters
+    + id: (string, required) - ID of the category that needs to be retrieved.
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/vnd.fxhello.v1+json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "id": "5801b8184189dc69ad440a0c"
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "_id": "5837ed6158e13f6ff6296142",
+                "oid": 102,
+                "type": 20,
+                "parent": "5801c7ed4189dc6a8212d84a",
+                "name": "Demo234",
+                "status": 1,
+                "meta": {
+                    "description": "New material",
+                    "category_code": ""
+                },
+                "cuid": 6,
+                "uuid": 6,
+                "created_at": "2016-11-25 07:50:57",
+                "updated_at": "2016-11-25 07:50:57"
+            }
+
+## Categories by ID's [POST /categories/categories]
+Returns the information of a collection of categories by their IDs
+
++ Parameters
+    + ids: (string, required) - IDs of categories as a comma separated string
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/vnd.fxhello.v1+json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "ids": "5801b8184189dc69ad440a0c, 5837ed6158e13f6ff6296142, 583c083258e13f18660d3732"
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            [
+                {
+                    "_id": "5801b8184189dc69ad440a0c",
+                    "oldid": "5703128158568448",
+                    "oid": 102,
+                    "name": "New Raw material",
+                    "parent": null,
+                    "type": 20,
+                    "status": 1,
+                    "meta": null,
+                    "cuid": 6,
+                    "uuid": 6,
+                    "created_at": "2016-09-15 08:13:49",
+                    "updated_at": "2016-09-15 08:13:49",
+                    "description": null,
+                    "color": null,
+                    "code": null
+                },
+                {
+                    "_id": "5837ed6158e13f6ff6296142",
+                    "oid": 102,
+                    "type": 20,
+                    "parent": "5801c7ed4189dc6a8212d84a",
+                    "name": "Demo234",
+                    "status": 1,
+                    "meta": null,
+                    "cuid": 6,
+                    "uuid": 6,
+                    "created_at": "2016-11-25 07:50:57",
+                    "updated_at": "2016-11-25 07:50:57",
+                    "description": "New material",
+                    "color": null,
+                    "code": null
+                },
+                {
+                    "_id": "583c083258e13f18660d3732",
+                    "oid": 102,
+                    "type": 20,
+                    "parent": "5801c7ed4189dc6a8212d84a",
+                    "name": "BMW car",
+                    "status": 1,
+                    "meta": null,
+                    "cuid": 1652,
+                    "uuid": 1652,
+                    "created_at": "2016-11-28 10:34:26",
+                    "updated_at": "2016-11-28 10:34:26",
+                    "description": null,
+                    "color": null,
+                    "code": "157428df"
+                }
+            ]
+
+## Edit a category [POST /categories/category]
+Allows the user to edit a category
+
++ Parameters
+    + id: (string, required) - ID of the category
+    + name: (string, optional) - Name of the category
+    + key: (string, optional) - Key of the category. Lowercase hyphenated string
+    + description: (string, optional) - Description of the category
+    + color: (string, optional) - Color of the category as a hex string
+    + status: (integer, optional) - Status of the category
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/vnd.fxhello.v1+json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "id": "5801b8184189dc69ad440a0c"
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "_id": "5837ed6158e13f6ff6296142",
+                "oid": 102,
+                "type": 20,
+                "parent": "5801c7ed4189dc6a8212d84a",
+                "name": "Demo234",
+                "status": 1,
+                "meta": {
+                    "description": "New material",
+                    "category_code": ""
+                },
+                "cuid": 6,
+                "uuid": 6,
+                "created_at": "2016-11-25 07:50:57",
+                "updated_at": "2016-11-25 07:50:57"
             }
 
 # Tasks [/tasks]
@@ -308,6 +459,27 @@ User can transfer stock between stores.
 
             {
                 "message": "Successfully transferred the stock."
+            }
+
+# Products [/products]
+Products related operations.
+
+## Products list [POST /products/products]
+Returns a list of products of the organization.
+
++ Parameters
+    + sendImage: (boolean, optional) - Whether a publicly accessible URL needed or not. Link is valid only for 1 Hour.
+        + Default:
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/vnd.fxhello.v1+json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "sendImage": false
             }
 
 # RFID [/rfid]
