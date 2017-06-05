@@ -232,15 +232,61 @@ Returns the information of a collection of categories by their IDs
                 }
             ]
 
-## Edit a category [POST /categories/category]
-Allows the user to edit a category
+## Create a category [POST /categories/categories/create]
+Allows the user to create a category
+
++ Parameters
+    + type: (integer, required) - Type of the category
+    + subType: (integer, optional) - Sub-type of the category
+    + parent: (string, optional) - ID of the parent category
+    + name: (string, required) - Name of the category
+    + key: (string, optional) - Key of the category. Lowercase hyphenated string
+    + description: (string, optional) - Description of the category
+    + color: (string, optional) - Color of the category as a hex string, with hash sign.
+    + status: (integer, optional) - Status of the category
+        + Default: 1
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/vnd.fxhello.v1+json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "name": "Apples 0605",
+                "type": "7",
+                "key": "apples-0605",
+                "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.",
+                "color": "#1a2b3c",
+                "status": "1"
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "_id": "5934da594189dc06385ccb82",
+                "type": 7,
+                "subType": null,
+                "parent": null,
+                "name": "Apples 0605",
+                "key": "apples-0605",
+                "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.",
+                "color": "#1a2b3c",
+                "updated_at": "2017-06-05 04:13:13",
+                "created_at": "2017-06-05 04:13:13"
+            }
+
+## Update a category [POST /categories/categories/update]
+Allows the user to update the existing information of a category
 
 + Parameters
     + id: (string, required) - ID of the category
     + name: (string, optional) - Name of the category
     + key: (string, optional) - Key of the category. Lowercase hyphenated string
     + description: (string, optional) - Description of the category
-    + color: (string, optional) - Color of the category as a hex string
+    + color: (string, optional) - Color of the category as a hex string, with hash sign.
     + status: (integer, optional) - Status of the category
 
 + Request (application/json)
@@ -486,11 +532,10 @@ Update a product by passing in the ID of the product along with the information 
     + sku: (string, optional) - 
     + barcode: (string, optional) - 
     + name: (string, optional) - 
-    + category: (integer, optional) - 
+    + category: (string, optional) - 
     + categoryName: (string, optional) - 
     + weight: (float, optional) - 
     + weightUnit: (string, optional) - 
-    + cost: (float, optional) - 
     + price: (float, optional) - 
     + thresholdPrice: (float, optional) - 
     + lowestPrice: (float, optional) - 
