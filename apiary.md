@@ -258,20 +258,20 @@ Allows the user to edit a category
     + Body
 
             {
-                "_id": "5837ed6158e13f6ff6296142",
+                "_id": "57fdc2006b0bdc7d6809b522",
                 "oid": 102,
-                "type": 20,
-                "parent": "5801c7ed4189dc6a8212d84a",
-                "name": "Demo234",
-                "status": 1,
-                "meta": {
-                    "description": "New material",
-                    "category_code": ""
-                },
+                "type": 4,
+                "name": "New contact cat",
+                "created_at": "2016-10-12 04:54:24",
                 "cuid": 6,
-                "uuid": 6,
-                "created_at": "2016-11-25 07:50:57",
-                "updated_at": "2016-11-25 07:50:57"
+                "uuid": 1,
+                "status": 1,
+                "updated_at": "2017-06-02 10:39:59",
+                "parent": null,
+                "key": null,
+                "description": null,
+                "color": null,
+                "uuName": "John"
             }
 
 # Tasks [/tasks]
@@ -466,6 +466,46 @@ Returns a list of products of the organization.
 + Parameters
     + sendImage: (boolean, optional) - Whether a publicly accessible URL needed or not. Link is valid only for 1 Hour.
         + Default: 
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/vnd.fxhello.v1+json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "sendImage": false
+            }
+
+## Products update [POST /products/products/product/update]
+Update a product by passing in the ID of the product along with the information that is to be updated.
+
++ Parameters
+    + id: (string, required) - Product ID
+    + sku: (string, optional) - 
+    + barcode: (string, optional) - 
+    + name: (string, optional) - 
+    + category: (integer, optional) - 
+    + categoryName: (string, optional) - 
+    + weight: (float, optional) - 
+    + weightUnit: (string, optional) - 
+    + cost: (float, optional) - 
+    + price: (float, optional) - 
+    + thresholdPrice: (float, optional) - 
+    + lowestPrice: (float, optional) - 
+    + purchasePrice: (float, optional) - 
+    + priceCode: (string, optional) - 
+    + productInfo: (string, optional) - 
+    + productUrl: (string, optional) - 
+    + description: (string, optional) - 
+    + brandName: (string, optional) - 
+    + width: (float, optional) - 
+    + depth: (float, optional) - 
+    + height: (float, optional) - 
+    + lengthUnit: (string, optional) - 
+    + lengthUnit: (integer, optional) - 
+    + creditperiod: (integer, optional) - Credit period for the product in number of days
 
 + Request (application/json)
     + Headers
