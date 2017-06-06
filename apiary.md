@@ -232,7 +232,7 @@ Returns the information of a collection of categories by their IDs
                 }
             ]
 
-## Create a category [POST /categories/categories/create]
+## Create a category [POST /categories/create]
 Allows the user to create a category
 
 + Parameters
@@ -266,7 +266,8 @@ Allows the user to create a category
     + Body
 
             {
-                "_id": "5934da594189dc06385ccb82",
+                "_id": "5934e45d4189dc4e1e4f60b2",
+                "oid": 102,
                 "type": 7,
                 "subType": null,
                 "parent": null,
@@ -274,8 +275,13 @@ Allows the user to create a category
                 "key": "apples-0605",
                 "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.",
                 "color": "#1a2b3c",
-                "updated_at": "2017-06-05 04:13:13",
-                "created_at": "2017-06-05 04:13:13"
+                "status": "1",
+                "cuid": 1618,
+                "cuName": "John",
+                "uuid": 1618,
+                "uuName": "John",
+                "updated_at": "2017-06-05 04:55:57",
+                "created_at": "2017-06-05 04:55:57"
             }
 
 ## Update a category [POST /categories/categories/update]
@@ -469,6 +475,79 @@ Returns the full list of warehouses
                 "updated_at": "2016-11-22 10:48:11"
             }
 
+## Create a store [POST /stores/stores/store/create]
+Allows the user to create a category
+
++ Parameters
+    + type: (integer, required) - Type of the store
+    + subType: (integer, optional) - Sub-type of the store
+    + name: (string, required) - Name of the store
+    + location: (string, optional) - Location of the store
+    + address1: (string, optional) - 
+    + address2: (string, optional) - 
+    + city: (string, optional) - 
+    + state: (string, optional) - 
+    + stateid: (string, optional) - 
+    + zip: (string, optional) - 
+    + country: (integer, optional) - 
+    + addressDescription: (string, optional) - 
+    + telephone1: (string, optional) - 
+    + telephone2: (string, optional) - 
+    + fax: (string, optional) - 
+    + email: (string, optional) - 
+    + description: (string, optional) - 
+    + status: (integer, optional) - Status of the store
+        + Default: 1
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/vnd.fxhello.v1+json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "name": "Apples 0605",
+                "type": "7",
+                "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.",
+                "status": "1"
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "oid": 102,
+                "type": "7",
+                "name": "Apples 0605",
+                "location": null,
+                "addresses": {
+                    "main": {
+                        "address1": null,
+                        "address2": null,
+                        "city": null,
+                        "state": null,
+                        "stateid": null,
+                        "zip": null,
+                        "country": null,
+                        "countryid": null,
+                        "description": null,
+                        "status": 1
+                    }
+                },
+                "fax": null,
+                "email": null,
+                "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.",
+                "status": "1",
+                "cuid": 1,
+                "cuName": "John",
+                "uuid": 1,
+                "uuName": "John",
+                "updated_at": "2017-06-05 09:27:27",
+                "created_at": "2017-06-05 09:27:27",
+                "_id": "593523ff4189dc4e1c7d3e52"
+            }
+
 # Stock Transfers [/stock/transfers]
 Stock transfers related operations.
 
@@ -524,6 +603,27 @@ Returns a list of products of the organization.
                 "sendImage": false
             }
 
+## Products update [POST /products/product/remove-rfid]
+Update a product by passing in the ID of the product along with the information that is to be updated.
+
++ Parameters
+    + tid: (string, required) - RFID TID
+    + epc: (string, required) - RFID EPC
+    + confirm: (boolean, optional) - If true, the RFID will be removed from the product. If false the product will be returned.
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/vnd.fxhello.v1+json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "tid": "646131657831354",
+                "epc": "879113468435135",
+                "confirm": false
+            }
+
 ## Products update [POST /products/products/product/update]
 Update a product by passing in the ID of the product along with the information that is to be updated.
 
@@ -533,7 +633,6 @@ Update a product by passing in the ID of the product along with the information 
     + barcode: (string, optional) - 
     + name: (string, optional) - 
     + category: (string, optional) - 
-    + categoryName: (string, optional) - 
     + weight: (float, optional) - 
     + weightUnit: (string, optional) - 
     + price: (float, optional) - 
