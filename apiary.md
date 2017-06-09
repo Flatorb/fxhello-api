@@ -326,6 +326,196 @@ Allows the user to update the existing information of a category
                 "uuName": "John"
             }
 
+# CRM - Customers [/crm/customers]
+CRM related operations for Customers, Contacts, and their groups.
+
+## Customers [POST /crm/customers]
+Returns the full list of customers
+
++ Parameters
+    + sendImage: (boolean, optional) - Whether the server should return the serve-able image URL or not.
+        + Default: 
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/vnd.fxhello.v1+json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "sendImage": false
+            }
+
+## Customer profile [POST /crm/customers/customer]
+Returns the information of a customer
+
++ Parameters
+    + customerId: (string, required) - Whether the server should return the serve-able image URL or not.
+        + Default: 
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/vnd.fxhello.v1+json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "customerId": "546813a68bc6"
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "_id": "57ff51896b0bdc0747634a73",
+                "oid": 102,
+                "subType": 1,
+                "name": "Francisca Industries PVT LTD",
+                "addresses": null,
+                "mobile": "242342",
+                "fax": "42",
+                "image": "",
+                "email": "fransis@flatorb.com",
+                "website": "",
+                "description": "Test 123",
+                "industries": "null",
+                "countryID": 184,
+                "leadSourceID": "57fcd93e4189dc6a846be182",
+                "leadSource": "This is test",
+                "customerSince": "2016-10-13",
+                "creditLimit": "",
+                "creditPeriod": "",
+                "ownerType": 1,
+                "ownerTypeID": 6,
+                "status": 1,
+                "statusName": "Prospect",
+                "categories": null,
+                "meta": {
+                    "prefix": "",
+                    "image": ""
+                },
+                "cuName": "Keshani",
+                "uuName": "Chamal",
+                "cuid": 6,
+                "uuid": 1631,
+                "created_at": "2016-10-13 09:19:03",
+                "updated_at": "2017-02-23 04:56:31",
+                "type": 3,
+                "typeid": "57ff51896b0bdc0747634a73",
+                "typeName": "Francisca Industries PVT LTD",
+                "telephones": []
+            }
+
+## Customer support tickets [POST /crm/customers/customer/support]
+Returns the support tickets that belongs to a provided customer
+
++ Parameters
+    + customerId: (string, required) - Whether the server should return the serve-able image URL or not.
+        + Default: 
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/vnd.fxhello.v1+json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "customerId": "546813a68bc6"
+            }
+
+## Customer notes [POST /crm/customers/customer/notes]
+Returns the notes that belongs to a provided customer
+
++ Parameters
+    + customerId: (string, required) - Whether the server should return the serve-able image URL or not.
+        + Default: 
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/vnd.fxhello.v1+json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "customerId": "546813a68bc6"
+            }
+
+## Customer contacts [POST /crm/customers/customer/contacts]
+Returns the contacts that are associated with the customer
+
++ Parameters
+    + customerId: (string, required) - Whether the server should return the serve-able image URL or not.
+        + Default: 
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/vnd.fxhello.v1+json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "customerId": "546813a68bc6"
+            }
+
+## Customer opportunities [POST /crm/customers/customer/opportunities]
+Returns the opportunities that belongs to a provided customer
+
++ Parameters
+    + customerId: (string, required) - Whether the server should return the serve-able image URL or not.
+        + Default: 
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/vnd.fxhello.v1+json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "customerId": "546813a68bc6"
+            }
+
+## Customer quotations [POST /crm/customers/customer/quotations]
+Returns the quotations that belongs to a provided customer
+
++ Parameters
+    + customerId: (string, required) - Whether the server should return the serve-able image URL or not.
+        + Default: 
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/vnd.fxhello.v1+json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "customerId": "546813a68bc6"
+            }
+
+## Customer invoices [POST /crm/customers/customer/invoices]
+Returns the invoices that belongs to a provided customer
+
++ Parameters
+    + customerId: (string, required) - Whether the server should return the serve-able image URL or not.
+        + Default: 
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/vnd.fxhello.v1+json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "customerId": "546813a68bc6"
+            }
+
 # Tasks [/tasks]
 Tasks related operations.
 
@@ -603,8 +793,8 @@ Returns a list of products of the organization.
                 "sendImage": false
             }
 
-## Products update [POST /products/product/remove-rfid]
-Update a product by passing in the ID of the product along with the information that is to be updated.
+## Remove RFID from product (by RFID) [POST /products/product/remove-rfid]
+Remove the RFID of a product by passing the EPC and TID. If the confirm parameter is sent as true, the EPC and TID will be removed. If confirm parameter is sent as false, the product matching the TID and EPC will be returned and record shall not be affected.
 
 + Parameters
     + tid: (string, required) - RFID TID
