@@ -369,49 +369,6 @@ Returns the information of a customer
                 "customerId": "546813a68bc6"
             }
 
-+ Response 200 (application/json)
-    + Body
-
-            {
-                "_id": "57ff51896b0bdc0747634a73",
-                "oid": 102,
-                "subType": 1,
-                "name": "Francisca Industries PVT LTD",
-                "addresses": null,
-                "mobile": "242342",
-                "fax": "42",
-                "image": "",
-                "email": "fransis@flatorb.com",
-                "website": "",
-                "description": "Test 123",
-                "industries": "null",
-                "countryID": 184,
-                "leadSourceID": "57fcd93e4189dc6a846be182",
-                "leadSource": "This is test",
-                "customerSince": "2016-10-13",
-                "creditLimit": "",
-                "creditPeriod": "",
-                "ownerType": 1,
-                "ownerTypeID": 6,
-                "status": 1,
-                "statusName": "Prospect",
-                "categories": null,
-                "meta": {
-                    "prefix": "",
-                    "image": ""
-                },
-                "cuName": "Keshani",
-                "uuName": "Chamal",
-                "cuid": 6,
-                "uuid": 1631,
-                "created_at": "2016-10-13 09:19:03",
-                "updated_at": "2017-02-23 04:56:31",
-                "type": 3,
-                "typeid": "57ff51896b0bdc0747634a73",
-                "typeName": "Francisca Industries PVT LTD",
-                "telephones": []
-            }
-
 ## Customer support tickets [POST /crm/customers/customer/support]
 Returns the support tickets that belongs to a provided customer
 
@@ -504,6 +461,42 @@ Returns the quotations that belongs to a provided customer
 
 ## Customer invoices [POST /crm/customers/customer/invoices]
 Returns the invoices that belongs to a provided customer
+
++ Parameters
+    + customerId: (string, required) - Whether the server should return the serve-able image URL or not.
+        + Default:
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/vnd.fxhello.v1+json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "customerId": "546813a68bc6"
+            }
+
+## Customer sales orders [POST /crm/customers/customer/sales-orders]
+Returns the sales orders that belongs to a provided customer
+
++ Parameters
+    + customerId: (string, required) - Whether the server should return the serve-able image URL or not.
+        + Default:
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/vnd.fxhello.v1+json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "customerId": "546813a68bc6"
+            }
+
+## Customer work orders [POST /crm/customers/customer/work-orders]
+Returns the work orders that belongs to a provided customer
 
 + Parameters
     + customerId: (string, required) - Whether the server should return the serve-able image URL or not.
@@ -779,6 +772,43 @@ User can transfer stock between stores.
 # Products [/products]
 Products related operations.
 
+## Create product [POST /products/products/product/create]
+Create a new product by posting product information.
+
++ Parameters
+    + sku: (string, optional) - Product SKU
+    + barcode: (string, optional) -
+    + category: (string, optional) - Category ID
+    + weight: (float, optional) -
+    + weightUnit: (string, optional) -
+    + purchasePrice: (float, optional) -
+    + price: (float, optional) -
+    + thresholdPrice: (float, optional) -
+    + lowestPrice: (float, optional) -
+    + priceCode: (string, optional) -
+    + productInfo: (string, optional) -
+    + productUrl: (string, optional) -
+    + description: (string, optional) -
+    + brandName: (string, optional) -
+    + width: (float, optional) -
+    + depth: (float, optional) -
+    + height: (float, optional) -
+    + lengthUnit: (string, optional) -
+    + creditPeriod: (integer, optional) -
+    + status: (integer, optional) -
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/vnd.fxhello.v1+json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "id": "580083186b0bdc05ff588792",
+                "sendImage": false
+            }
+
 ## Products list [POST /products/products]
 Returns a list of products of the organization.
 
@@ -794,6 +824,26 @@ Returns a list of products of the organization.
     + Body
 
             {
+                "sendImage": false
+            }
+
+## Product [POST /products/products/product]
+Returns the data of a product by passing the product ID.
+
++ Parameters
+    + id: (string, required) - Product ID
+    + sendImage: (boolean, optional) - Whether a publicly accessible URL needed or not. Link is valid only for 1 Hour.
+        + Default:
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/vnd.fxhello.v1+json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "id": "580083186b0bdc05ff588792",
                 "sendImage": false
             }
 
@@ -904,6 +954,48 @@ Returns the full list of warehouses
                 "id": 10,
                 "username": "foo"
             }
+
+# Purchase Orders [/purchasing/orders]
+Purchase order related operations.
+
+## Purchase order list [POST /purchasing/orders]
+Returns a list of purchase orders of the organization.
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/vnd.fxhello.v1+json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+
+## Purchase order [POST /purchasing/orders/order]
+Returns a purchase orders of the organization by it's ID.
+
++ Parameters
+    + id: (string, required) - ID of the purchase order
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/vnd.fxhello.v1+json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "id": "1646315684613668"
+            }
+
+## Create purchase order [POST /purchasing/orders/order/create]
+Create a new purchase orders.
+
++ Parameters
+    + sendImage: (boolean, optional) - Whether a publicly accessible URL needed or not. Link is valid only for 1 Hour.
+        + Default:
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/vnd.fxhello.v1+json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
 
 # MAINTENANCE [/maintenances]
 Maintenance related data and information for every place where maintenance records are applicable.
