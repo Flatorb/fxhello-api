@@ -768,43 +768,6 @@ User can transfer stock between stores.
 # Products [/products]
 Products related operations.
 
-## Create product [POST /products/products/product/create]
-Create a new product by posting product information.
-
-+ Parameters
-    + sku: (string, optional) - Product SKU
-    + barcode: (string, optional) - 
-    + category: (string, optional) - Category ID
-    + weight: (float, optional) - 
-    + weightUnit: (string, optional) - 
-    + purchasePrice: (float, optional) - 
-    + price: (float, optional) - 
-    + thresholdPrice: (float, optional) - 
-    + lowestPrice: (float, optional) - 
-    + priceCode: (string, optional) - 
-    + productInfo: (string, optional) - 
-    + productUrl: (string, optional) - 
-    + description: (string, optional) - 
-    + brandName: (string, optional) - 
-    + width: (float, optional) - 
-    + depth: (float, optional) - 
-    + height: (float, optional) - 
-    + lengthUnit: (string, optional) - 
-    + creditPeriod: (integer, optional) - 
-    + status: (integer, optional) - 
-
-+ Request (application/json)
-    + Headers
-
-            Accept: application/vnd.fxhello.v1+json
-            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
-    + Body
-
-            {
-                "id": "580083186b0bdc05ff588792",
-                "sendImage": false
-            }
-
 ## Products list [POST /products/products]
 Returns a list of products of the organization.
 
@@ -842,6 +805,113 @@ Returns the data of a product by passing the product ID.
                 "id": "580083186b0bdc05ff588792",
                 "sendImage": false
             }
+
+## Create product [POST /products/products/product/create]
+Create a new product by posting product information.
+
++ Parameters
+    + sku: (string, optional) - Product SKU
+    + barcode: (string, optional) - 
+    + name: (string, optional) - Product name
+    + category: (string, optional) - Category ID
+    + weight: (float, optional) - 
+    + weightUnit: (string, optional) - 
+    + purchasePrice: (float, optional) - 
+    + price: (float, optional) - 
+    + thresholdPrice: (float, optional) - 
+    + lowestPrice: (float, optional) - 
+    + priceCode: (string, optional) - 
+    + productInfo: (string, optional) - 
+    + productUrl: (string, optional) - 
+    + description: (string, optional) - 
+    + brandName: (string, optional) - 
+    + width: (float, optional) - 
+    + depth: (float, optional) - 
+    + height: (float, optional) - 
+    + lengthUnit: (string, optional) - 
+    + creditPeriod: (integer, optional) - 
+    + status: (integer, optional) - 
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/vnd.fxhello.v1+json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "id": "580083186b0bdc05ff588792",
+                "sendImage": false
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            [
+                {
+                    "_id": "58b8dc1758e13f41fd720352",
+                    "oid": 102,
+                    "sku": "FXH892",
+                    "barcode": "32232",
+                    "name": "Mini pen drive",
+                    "category": "5801b8184189dc69ad4409f6",
+                    "categoryName": "Cartons",
+                    "weight": null,
+                    "weightUnit": null,
+                    "price": 0,
+                    "thresholdPrice": 0,
+                    "lowestPrice": 0,
+                    "purchasePrice": 0,
+                    "priceCode": "-",
+                    "productInfo": "This is the product description",
+                    "productUrl": null,
+                    "image": "",
+                    "description": "This is the product description",
+                    "brandName": "TOshiba",
+                    "width": null,
+                    "depth": null,
+                    "height": null,
+                    "lengthUnit": null,
+                    "status": 1,
+                    "creditperiod": null,
+                    "cuid": 1681,
+                    "uuid": 1681,
+                    "created_at": "2017-03-03 02:59:35",
+                    "updated_at": "2017-03-03 02:59:35"
+                },
+                {
+                    "_id": "58be49b658e13f07784150e2",
+                    "oid": 102,
+                    "sku": "FXH784",
+                    "barcode": "343",
+                    "name": "Blurish bag",
+                    "category": "5801b8184189dc69ad4409fc",
+                    "categoryName": "Sample Category",
+                    "weight": null,
+                    "weightUnit": "Ct",
+                    "cost": null,
+                    "price": 2000,
+                    "thresholdPrice": 1900,
+                    "lowestPrice": 1850,
+                    "purchasePrice": 1800,
+                    "priceCode": "2323",
+                    "productInfo": null,
+                    "productUrl": "http://google.com",
+                    "image": "",
+                    "description": null,
+                    "brandName": "Cabenian",
+                    "width": null,
+                    "depth": null,
+                    "height": null,
+                    "lengthUnit": "cm",
+                    "status": 1,
+                    "creditperiod": "12",
+                    "cuid": 1652,
+                    "uuid": 1652,
+                    "created_at": "2017-03-07 05:48:38",
+                    "updated_at": "2017-03-07 05:48:38"
+                }
+            ]
 
 ## Remove RFID from product (by RFID) [POST /products/product/remove-rfid]
 Remove the RFID of a product by passing the EPC and TID. If the confirm parameter is sent as true, the EPC and TID will be removed. If confirm parameter is sent as false, the product matching the TID and EPC will be returned and record shall not be affected.
