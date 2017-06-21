@@ -1242,6 +1242,78 @@ Create a new purchase orders.
             Accept: application/vnd.fxhello.v1+json
             Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
 
+# Marketing campaigns [/marketing/campaigns]
+Marketing campaigns related operations.
+
+## List of marketing campaigns [POST /marketing/campaigns]
+Returns the full list of marketing campaigns of the organization.
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+
++ Response 200 (application/json)
+    + Body
+
+            [
+                {
+                    "_id": "580494806b0bdc02f42265a2",
+                    "oid": 102,
+                    "category": "5804912b6b0bdc0212189812",
+                    "categoryName": "Test campaign",
+                    "name": "New marketing campaign",
+                    "assignTo": "",
+                    "location": "Colombo",
+                    "description": "",
+                    "budget": "23123",
+                    "startDate": "2016-10-17",
+                    "endDate": "2016-10-17",
+                    "status": 1,
+                    "cuid": 6,
+                    "uuid": 6,
+                    "created_at": "2016-10-17 09:06:07",
+                    "updated_at": "2016-10-17 09:06:07"
+                },
+                {
+                    "_id": "58117e1458e13f768426e152",
+                    "oid": 102,
+                    "category": "5801b8184189dc69ad4409d3",
+                    "categoryName": "marketing campaign",
+                    "name": "Promotional campaign",
+                    "assignTo": "5805e3ac6b0bdc09d366df82",
+                    "location": "Pamankada",
+                    "description": "This is a promotional campaign",
+                    "budget": "100000",
+                    "startDate": "2016-10-27",
+                    "endDate": "2016-10-30",
+                    "status": 1,
+                    "cuid": 1685,
+                    "uuid": 1685,
+                    "created_at": "2016-10-27 04:09:56",
+                    "updated_at": "2016-10-27 04:09:56"
+                },
+                {
+                    "_id": "5816cd3f58e13f0b602a8ac2",
+                    "oid": 102,
+                    "category": "5801b8184189dc69ad440a22",
+                    "categoryName": "Annual category",
+                    "name": "Free give away",
+                    "assignTo": "5805e3ac6b0bdc09d366df82",
+                    "location": "Galleface",
+                    "description": "Yearly giveaways ",
+                    "budget": "100000",
+                    "startDate": "2016-10-31",
+                    "endDate": "2016-11-04",
+                    "status": 1,
+                    "cuid": 1685,
+                    "uuid": 1685,
+                    "created_at": "2016-10-31 04:49:03",
+                    "updated_at": "2016-10-31 04:49:03"
+                }
+            ]
+
 # MAINTENANCE [/maintenances]
 Maintenance related data and information for every place where maintenance records are applicable.
 
