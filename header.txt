@@ -1,5 +1,5 @@
 FORMAT: 1A
-HOST: http://uat.fxhello.com/api/
+HOST: http://uat.fxhello.com/api/v1/
 
 # FX Hello
 IMPORTANT: The API URL is set to UAT server in this documentation. Make sure to change the URL to http://app.fxhello.com to communicate with the Production system.
