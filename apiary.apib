@@ -6,84 +6,6 @@ IMPORTANT: The API URL is set to UAT server in this documentation. Make sure to 
 
 Data can be sent to the API server as regular HTTP POST objects or as a JSON string based on your preference. If JSON strings are being used, make sure to include the additional header "Content-Type: application/json". If you are using regular HTTP POST methods, make sure to NOT include the "Content-Type: application/json" header.
 
-# Authentication [/auth]
-Authentication related operations.
-
-## Login [POST /auth/login]
-Allows the user to login using their email address and the password. The API will return a JSON Web Token (JWT) upon successful login. This token needs to be sent in the header of each call of the API.
-
-+ Request (application/json)
-    + Headers
-
-            Accept: application/vnd.fxhello.v1+json
-            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
-    + Body
-
-            {
-                "email": "user@example.com",
-                "password": "Abc@1234"
-            }
-
-+ Response 200 (application/json)
-    + Body
-
-            {
-                "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1",
-                "isError": false
-            }
-
-# Authentication [/auth]
-Authentication related operations.
-
-## Register [POST /auth/register]
-Allows user to create an account
-
-+ Request (application/json)
-    + Headers
-
-            Accept: application/vnd.fxhello.v1+json
-            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
-    + Body
-
-            {
-                "name": "John",
-                "email": "john@example.com",
-                "password": "Abc@1234",
-                "password_confirmation": "Abc@1234"
-            }
-
-+ Response 200 (application/json)
-    + Body
-
-            {
-                "user": {
-                    "name": "John",
-                    "email": "john@example.com",
-                    "updated_at": "2016-11-21 05:56:03",
-                    "created_at": "2016-11-21 05:56:03",
-                    "id": 1640,
-                    "tax_rate": "0.00"
-                },
-                "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1",
-                "isError": false
-            }
-
-## Refresh token [GET /auth/refreshToken]
-Refreshes the existing token with a new token with a new expiration. Token will be returned as the response.
-
-+ Request (application/json)
-    + Headers
-
-            Accept: application/vnd.fxhello.v1+json
-            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
-
-+ Response 200 (application/json)
-    + Body
-
-            {
-                "token": "5805a3536b0bdc039843aff2"
-            }
-
 # Categories [/categories]
 Categories related operations.
 
@@ -329,6 +251,97 @@ Allows the user to update the existing information of a category
                 "color": null,
                 "uuName": "John"
             }
+
+# SYSTEM [/system]
+Maintenance related data and information for every place where maintenance records are applicable.
+
+## List of types [POST /system/types]
+Returns the full list of "types" of the system.
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/vnd.fxhello.v1+json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "type": 17,
+                "typeId": "46ab4658f88e8d8"
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "1": "User",
+                "2": "Organization",
+                "3": "Customer",
+                "4": "Contact",
+                "5": "Products",
+                "6": "HR",
+                "7": "Warehouse",
+                "8": "Distribution Center"
+            }
+
+# Status [/system/statuses]
+Statuses related operations.
+
+## List of statuses [POST /system/statuses]
+Returns the full list of "statuses" of the system. Type specific statuses can be retrieved by passing the type parameter.
+
++ Parameters
+    + type: (integer, optional) - Type of the status
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "type": 17
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            [
+                {
+                    "id": 1,
+                    "oid": 0,
+                    "type": 0,
+                    "name": "Active",
+                    "status": 1,
+                    "cuid": 0,
+                    "uuid": 0,
+                    "created_at": null,
+                    "updated_at": null
+                },
+                {
+                    "id": 2,
+                    "oid": 0,
+                    "type": 0,
+                    "name": "Inactive",
+                    "status": 1,
+                    "cuid": 0,
+                    "uuid": 0,
+                    "created_at": null,
+                    "updated_at": null
+                },
+                {
+                    "id": 7,
+                    "oid": 0,
+                    "type": 0,
+                    "name": "Pending",
+                    "status": 1,
+                    "cuid": 0,
+                    "uuid": 0,
+                    "created_at": null,
+                    "updated_at": null
+                }
+            ]
 
 # CRM - Customers [/crm/customers]
 CRM related operations for Customers, Contacts, and their groups.
@@ -662,6 +675,63 @@ Returns the full list of warehouses
                 "updated_at": "2016-11-22 10:48:11"
             }
 
+## Store [POST /stores/stores/store]
+Returns the information of a store by passing its ID.
+
++ Parameters
+    + id: (string, required) - Store ID
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/vnd.fxhello.v1+json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "id": "5834226c6b0bdc4b0d33ef92"
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "_id": "5834226c6b0bdc4b0d33ef92",
+                "oid": 102,
+                "type": 7,
+                "name": "Demo warehouse",
+                "location": "New York",
+                "addresses": {
+                    "main": {
+                        "address1": "123 Main Street",
+                        "address2": "Block D",
+                        "city": "Washington",
+                        "state": "",
+                        "stateid": null,
+                        "zip": "20005",
+                        "country": "United States",
+                        "countryid": "232",
+                        "description": "",
+                        "status": 1,
+                        "cuid": 1,
+                        "uuid": 1,
+                        "created_at": "2017-05-25 09:20:29",
+                        "updated_at": "2017-05-25 09:20:29"
+                    }
+                },
+                "telephone1": "2342",
+                "telephone2": "234234",
+                "fax": "1646542",
+                "email": "demo@flatorb.com",
+                "description": "",
+                "image": "",
+                "status": 1,
+                "cuid": 1679,
+                "uuid": 1679,
+                "created_at": "2016-11-22 10:48:11",
+                "updated_at": "2016-11-22 10:48:11"
+            }
+
 ## Create a store [POST /stores/stores/store/create]
 Allows the user to create a category
 
@@ -790,64 +860,6 @@ Returns a list of products of the organization.
                 "sendImage": false
             }
 
-## Product [POST /products/products/product]
-Returns the data of a product by passing the product ID.
-
-+ Parameters
-    + id: (string, required) - Product ID
-    + sendImage: (boolean, optional) - Whether a publicly accessible URL needed or not. Link is valid only for 1 Hour.
-        + Default:
-
-+ Request (application/json)
-    + Headers
-
-            Accept: application/vnd.fxhello.v1+json
-            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
-    + Body
-
-            {
-                "id": "580083186b0bdc05ff588792",
-                "sendImage": false
-            }
-
-## Create product [POST /products/products/product/create]
-Create a new product by posting product information.
-
-+ Parameters
-    + sku: (string, optional) - Product SKU
-    + barcode: (string, optional) -
-    + name: (string, optional) - Product name
-    + category: (string, optional) - Category ID
-    + weight: (float, optional) -
-    + weightUnit: (string, optional) -
-    + purchasePrice: (float, optional) -
-    + price: (float, optional) -
-    + thresholdPrice: (float, optional) -
-    + lowestPrice: (float, optional) -
-    + priceCode: (string, optional) -
-    + productInfo: (string, optional) -
-    + productUrl: (string, optional) -
-    + description: (string, optional) -
-    + brandName: (string, optional) -
-    + width: (float, optional) -
-    + depth: (float, optional) -
-    + height: (float, optional) -
-    + lengthUnit: (string, optional) -
-    + creditPeriod: (integer, optional) -
-    + status: (integer, optional) -
-
-+ Request (application/json)
-    + Headers
-
-            Accept: application/vnd.fxhello.v1+json
-            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
-    + Body
-
-            {
-                "id": "580083186b0bdc05ff588792",
-                "sendImage": false
-            }
-
 + Response 200 (application/json)
     + Body
 
@@ -917,6 +929,134 @@ Create a new product by posting product information.
                 }
             ]
 
+## Product [POST /products/products/product]
+Returns the data of a product by passing the product ID.
+
++ Parameters
+    + id: (string, required) - Product ID
+    + sendImage: (boolean, optional) - Whether a publicly accessible URL needed or not. Link is valid only for 1 Hour.
+        + Default:
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/vnd.fxhello.v1+json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "id": "580083186b0bdc05ff588792",
+                "sendImage": false
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "_id": "58b8dc1758e13f41fd720352",
+                "oid": 102,
+                "sku": "FXH892",
+                "barcode": "32232",
+                "name": "Mini pen drive",
+                "category": "5801b8184189dc69ad4409f6",
+                "categoryName": "Cartons",
+                "weight": null,
+                "weightUnit": null,
+                "price": 0,
+                "thresholdPrice": 0,
+                "lowestPrice": 0,
+                "purchasePrice": 0,
+                "priceCode": "-",
+                "productInfo": "This is the product description",
+                "productUrl": null,
+                "image": "",
+                "description": "This is the product description",
+                "brandName": "TOshiba",
+                "width": null,
+                "depth": null,
+                "height": null,
+                "lengthUnit": null,
+                "status": 1,
+                "creditperiod": null,
+                "cuid": 1681,
+                "uuid": 1681,
+                "created_at": "2017-03-03 02:59:35",
+                "updated_at": "2017-03-03 02:59:35"
+            }
+
+## Create product [POST /products/products/product/create]
+Create a new product by posting product information.
+
++ Parameters
+    + sku: (string, optional) - Product SKU
+    + barcode: (string, optional) -
+    + name: (string, optional) - Product name
+    + category: (string, optional) - Category ID
+    + weight: (float, optional) -
+    + weightUnit: (string, optional) -
+    + purchasePrice: (float, optional) -
+    + price: (float, optional) -
+    + thresholdPrice: (float, optional) -
+    + lowestPrice: (float, optional) -
+    + priceCode: (string, optional) -
+    + productInfo: (string, optional) -
+    + productUrl: (string, optional) -
+    + description: (string, optional) -
+    + brandName: (string, optional) -
+    + width: (float, optional) -
+    + depth: (float, optional) -
+    + height: (float, optional) -
+    + lengthUnit: (string, optional) -
+    + creditPeriod: (integer, optional) -
+    + status: (integer, optional) -
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/vnd.fxhello.v1+json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "id": "580083186b0bdc05ff588792",
+                "sendImage": false
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "_id": "58b8dc1758e13f41fd720352",
+                "oid": 102,
+                "sku": "FXH892",
+                "barcode": "32232",
+                "name": "Mini pen drive",
+                "category": "5801b8184189dc69ad4409f6",
+                "categoryName": "Cartons",
+                "weight": null,
+                "weightUnit": null,
+                "price": 0,
+                "thresholdPrice": 0,
+                "lowestPrice": 0,
+                "purchasePrice": 0,
+                "priceCode": "-",
+                "productInfo": "This is the product description",
+                "productUrl": null,
+                "image": "",
+                "description": "This is the product description",
+                "brandName": "TOshiba",
+                "width": null,
+                "depth": null,
+                "height": null,
+                "lengthUnit": null,
+                "status": 1,
+                "creditperiod": null,
+                "cuid": 1681,
+                "uuid": 1681,
+                "created_at": "2017-03-03 02:59:35",
+                "updated_at": "2017-03-03 02:59:35"
+            }
+
 ## Remove RFID from product (by RFID) [POST /products/product/remove-rfid]
 Remove the RFID of a product by passing the EPC and TID. If the confirm parameter is sent as true, the EPC and TID will be removed. If confirm parameter is sent as false, the product matching the TID and EPC will be returned and record shall not be affected.
 
@@ -963,7 +1103,7 @@ Update a product by passing in the ID of the product along with the information 
     + height: (float, optional) -
     + lengthUnit: (string, optional) -
     + lengthUnit: (integer, optional) -
-    + creditperiod: (integer, optional) - Credit period for the product in number of days
+    + creditPeriod: (integer, optional) - Credit period for the product in number of days
 
 + Request (application/json)
     + Headers
@@ -974,6 +1114,41 @@ Update a product by passing in the ID of the product along with the information 
 
             {
                 "sendImage": false
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "_id": "58b8dc1758e13f41fd720352",
+                "oid": 102,
+                "sku": "FXH892",
+                "barcode": "32232",
+                "name": "Mini pen drive",
+                "category": "5801b8184189dc69ad4409f6",
+                "categoryName": "Cartons",
+                "weight": null,
+                "weightUnit": null,
+                "price": 0,
+                "thresholdPrice": 0,
+                "lowestPrice": 0,
+                "purchasePrice": 0,
+                "priceCode": "-",
+                "productInfo": "This is the product description",
+                "productUrl": null,
+                "image": "",
+                "description": "This is the product description",
+                "brandName": "TOshiba",
+                "width": null,
+                "depth": null,
+                "height": null,
+                "lengthUnit": null,
+                "status": 1,
+                "creditperiod": null,
+                "cuid": 1681,
+                "uuid": 1681,
+                "created_at": "2017-03-03 02:59:35",
+                "updated_at": "2017-03-03 02:59:35"
             }
 
 # RFID [/rfid]
