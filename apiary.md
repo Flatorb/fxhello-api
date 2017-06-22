@@ -378,6 +378,45 @@ Returns the information of a customer
                 "customerId": "546813a68bc6"
             }
 
+## Create customer [POST /crm/customers/customer/create]
+Create a new customer for the organization
+
++ Parameters
+    + subType: (integer, optional) - 1: Company, 2: Individual
+    + name: (string, required) - Whether the server should return the serve-able image URL or not.
+        + Default: 
+    + prefix: (string, optional) - Mr., Mrs., Miss, Dr., etc. Retrieve list from API
+    + telephones: (array, optional) - 
+    + mobile: (string, optional) - 
+    + fax: (string, optional) - 
+    + email: (string, optional) - 
+    + website: (string, optional) - 
+    + address1: (string, optional) - 
+    + address2: (string, optional) - 
+    + city: (string, optional) - 
+    + stateId: (string, optional) - 
+    + zip: (string, optional) - 
+    + countryID: (integer, optional) - 
+    + description: (string, optional) - 
+    + designation: (string, optional) - 
+    + categories: (Date, optional) - 
+    + customerSince: (string, optional) - Date as a string in the format of YYYY-mm-dd
+        + Default: 2017-06-23
+    + leadSourceID: (string, optional) - 
+    + industries: (array, optional) - 
+    + status: (integer, optional) - 
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/vnd.fxhello.v1+json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "customerId": "546813a68bc6"
+            }
+
 ## Customer support tickets [POST /crm/customers/customer/support]
 Returns the support tickets that belongs to a provided customer
 
@@ -1098,7 +1137,6 @@ Update a product by passing in the ID of the product along with the information 
     + depth: (float, optional) - 
     + height: (float, optional) - 
     + lengthUnit: (string, optional) - 
-    + lengthUnit: (integer, optional) - 
     + creditPeriod: (integer, optional) - Credit period for the product in number of days
 
 + Request (application/json)
