@@ -398,16 +398,61 @@ Create a new customer for the organization
     + address1: (string, optional) -
     + address2: (string, optional) -
     + city: (string, optional) -
-    + stateId: (string, optional) -
+    + stateID: (string, optional) -
     + zip: (string, optional) -
     + countryID: (integer, optional) -
     + description: (string, optional) -
     + designation: (string, optional) -
-    + categories: (Date, optional) -
-    + customerSince: (string, optional) - Date as a string in the format of YYYY-mm-dd
+    + categories: (array, optional) -
+    + customerSince: (date, optional) - Date as a string in the format of YYYY-mm-dd
         + Default: 2017-06-23
     + leadSourceID: (string, optional) -
+    + creditLimit: (string, optional) -
+    + creditPeriod: (string, optional) -
     + industries: (array, optional) -
+    + marketingCampaigns: (array, optional) -
+    + status: (integer, optional) -
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/vnd.fxhello.v1+json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "customerId": "546813a68bc6"
+            }
+
+## Edit customer [POST /crm/customers/customer/update]
+Edit/update a customer information.
+
++ Parameters
+    + id: (string, required) - Customer ID
+    + name: (string, required) - Whether the server should return the serve-able image URL or not.
+        + Default:
+    + prefix: (string, optional) - Mr., Mrs., Miss, Dr., etc. Retrieve list from API
+    + telephones: (array, optional) -
+    + mobile: (string, optional) -
+    + fax: (string, optional) -
+    + email: (string, optional) -
+    + website: (string, optional) -
+    + address1: (string, optional) -
+    + address2: (string, optional) -
+    + city: (string, optional) -
+    + stateID: (string, optional) -
+    + zip: (string, optional) -
+    + countryID: (integer, optional) -
+    + description: (string, optional) -
+    + designation: (string, optional) -
+    + categories: (array, optional) -
+    + customerSince: (date, optional) - Date as a string in the format of YYYY-mm-dd
+        + Default: 2017-06-23
+    + leadSourceID: (string, optional) -
+    + creditLimit: (string, optional) -
+    + creditPeriod: (string, optional) -
+    + industries: (array, optional) -
+    + marketingCampaigns: (array, optional) -
     + status: (integer, optional) -
 
 + Request (application/json)
@@ -558,6 +603,132 @@ Returns the work orders that belongs to a provided customer
     + Headers
 
             Accept: application/vnd.fxhello.v1+json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "customerId": "546813a68bc6"
+            }
+
+# CRM - Contacts [/crm/contacts]
+CRM Contacts related operations.
+
+## Contact list (all) [POST /crm/contacts]
+Returns all the contacts of the organization
+
++ Parameters
+    + id: (string, required) - ID of the contact
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "id": "546813a68bc6"
+            }
+
+## Individual contact [POST /crm/contacts/contact]
+Returns the information of a contact by passing the ID
+
++ Parameters
+    + id: (string, required) - ID of the contact
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "id": "546813a68bc6"
+            }
+
+## Create contact [POST /crm/contacts/contact/create]
+Create a new contact
+
++ Parameters
+    + type: (integer, optional) - 3: Belongs to a customer, 4: Individual
+        + Default: 4
+    + typeid: (string, optional) - ID of the above type if applicable
+    + subType: (integer, optional) - 1: General contact, 2: Customer contact
+    + prefix: (string, optional) - Mr., Mrs., Miss, Dr., etc. Retrieve list from API
+    + firstName: (string, optional) -
+        + Default:
+    + middleName: (string, optional) -
+        + Default:
+    + lastName: (string, optional) -
+        + Default:
+    + dob: (date, optional) - Date format YYYY-mm-dd
+    + telephones: (array, optional) -
+    + mobile: (string, optional) -
+    + fax: (string, optional) -
+    + email: (string, optional) -
+    + website: (string, optional) -
+    + address1: (string, optional) -
+    + address2: (string, optional) -
+    + city: (string, optional) -
+    + stateID: (string, optional) -
+    + zip: (string, optional) -
+    + countryID: (integer, optional) -
+    + description: (string, optional) -
+    + title: (string, optional) -
+    + categories: (array, optional) -
+    + leadSourceID: (string, optional) -
+    + department: (string, optional) -
+    + contactType: (string, optional) -
+    + status: (integer, optional) -
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "customerId": "546813a68bc6"
+            }
+
+## Update contact [POST /crm/contacts/contact/create]
+Update a contact
+
++ Parameters
+    + id: (string, required) - ID of the contact that is to be updated
+    + prefix: (string, optional) - Mr., Mrs., Miss, Dr., etc. Retrieve list from API
+    + firstName: (string, optional) -
+        + Default:
+    + middleName: (string, optional) -
+        + Default:
+    + lastName: (string, optional) -
+        + Default:
+    + title: (string, optional) -
+    + dob: (date, optional) - Date format YYYY-mm-dd
+    + telephones: (array, optional) -
+    + mobile: (string, optional) -
+    + fax: (string, optional) -
+    + email: (string, optional) -
+    + website: (string, optional) -
+    + address1: (string, optional) -
+    + address2: (string, optional) -
+    + city: (string, optional) -
+    + stateID: (string, optional) -
+    + zip: (string, optional) -
+    + countryID: (integer, optional) -
+    + description: (string, optional) -
+    + categories: (array, optional) -
+    + leadSourceID: (string, optional) -
+    + department: (string, optional) -
+    + contactType: (string, optional) -
+    + status: (integer, optional) -
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
             Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
     + Body
 
@@ -787,8 +958,80 @@ Allows the user to create a category
     + zip: (string, optional) -
     + country: (integer, optional) -
     + addressDescription: (string, optional) -
-    + telephone1: (string, optional) -
-    + telephone2: (string, optional) -
+    + telephones: (array, optional) -
+    + fax: (string, optional) -
+    + email: (string, optional) -
+    + description: (string, optional) -
+    + status: (integer, optional) - Status of the store
+        + Default: 1
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/vnd.fxhello.v1+json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "name": "Apples 0605",
+                "type": "7",
+                "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.",
+                "status": "1"
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "oid": 102,
+                "type": "7",
+                "name": "Apples 0605",
+                "location": null,
+                "addresses": {
+                    "main": {
+                        "address1": null,
+                        "address2": null,
+                        "city": null,
+                        "state": null,
+                        "stateid": null,
+                        "zip": null,
+                        "country": null,
+                        "countryid": null,
+                        "description": null,
+                        "status": 1
+                    }
+                },
+                "fax": null,
+                "email": null,
+                "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.",
+                "status": "1",
+                "cuid": 1,
+                "cuName": "John",
+                "uuid": 1,
+                "uuName": "John",
+                "updated_at": "2017-06-05 09:27:27",
+                "created_at": "2017-06-05 09:27:27",
+                "_id": "593523ff4189dc4e1c7d3e52"
+            }
+
+## Update a store [POST /stores/stores/store/update]
+Allows the user to update a store
+
++ Parameters
+    + id: (string, required) - ID of the store
+    + type: (integer, required) - Type of the store
+    + subType: (integer, optional) - Sub-type of the store
+    + name: (string, required) - Name of the store
+    + location: (string, optional) - Location of the store
+    + address1: (string, optional) -
+    + address2: (string, optional) -
+    + city: (string, optional) -
+    + state: (string, optional) -
+    + stateid: (string, optional) -
+    + zip: (string, optional) -
+    + country: (integer, optional) -
+    + addressDescription: (string, optional) -
+    + telephones: (array, optional) -
     + fax: (string, optional) -
     + email: (string, optional) -
     + description: (string, optional) -
@@ -1029,24 +1272,29 @@ Create a new product by posting product information.
 + Parameters
     + sku: (string, optional) - Product SKU
     + barcode: (string, optional) -
+    + epc: (string, optional) -
+    + tid: (string, optional) -
     + name: (string, optional) - Product name
     + category: (string, optional) - Category ID
+    + packageId: (string, optional) - Package ID
     + weight: (float, optional) -
     + weightUnit: (string, optional) -
-    + purchasePrice: (float, optional) -
     + price: (float, optional) -
     + thresholdPrice: (float, optional) -
     + lowestPrice: (float, optional) -
+    + purchasePrice: (float, optional) -
     + priceCode: (string, optional) -
-    + productInfo: (string, optional) -
-    + productUrl: (string, optional) -
+    + priceCurrency: (integer, optional) - Country ID of the currency
+    + creditPeriod: (integer, optional) -
     + description: (string, optional) -
+    + productInfo: (string, optional) -
+    + leadTime: (integer, optional) - Lead time in hours to receive/manufacture the product
+    + productUrl: (string, optional) -
     + brandName: (string, optional) -
     + width: (float, optional) -
     + depth: (float, optional) -
     + height: (float, optional) -
     + lengthUnit: (string, optional) -
-    + creditPeriod: (integer, optional) -
     + status: (integer, optional) -
 
 + Request (application/json)
@@ -1124,8 +1372,11 @@ Update a product by passing in the ID of the product along with the information 
     + id: (string, required) - Product ID
     + sku: (string, optional) -
     + barcode: (string, optional) -
+    + epc: (string, optional) -
+    + tid: (string, optional) -
     + name: (string, optional) -
     + category: (string, optional) -
+    + packageId: (string, optional) - Package ID
     + weight: (float, optional) -
     + weightUnit: (string, optional) -
     + price: (float, optional) -
@@ -1133,15 +1384,18 @@ Update a product by passing in the ID of the product along with the information 
     + lowestPrice: (float, optional) -
     + purchasePrice: (float, optional) -
     + priceCode: (string, optional) -
-    + productInfo: (string, optional) -
-    + productUrl: (string, optional) -
+    + priceCurrency: (integer, optional) - Country ID of the currency
+    + creditPeriod: (integer, optional) - Credit period for the product in number of days
     + description: (string, optional) -
+    + productInfo: (string, optional) -
+    + leadTime: (integer, optional) - Lead time in hours to receive/manufacture the product
+    + productUrl: (string, optional) -
     + brandName: (string, optional) -
     + width: (float, optional) -
     + depth: (float, optional) -
     + height: (float, optional) -
     + lengthUnit: (string, optional) -
-    + creditPeriod: (integer, optional) - Credit period for the product in number of days
+    + status: (integer, optional) -
 
 + Request (application/json)
     + Headers
@@ -1188,6 +1442,87 @@ Update a product by passing in the ID of the product along with the information 
                 "created_at": "2017-03-03 02:59:35",
                 "updated_at": "2017-03-03 02:59:35"
             }
+
+# Product Packages [/products/packages]
+Product Packages related operations.
+
+## Product packages list [POST /products/packages]
+Returns a list of product packages of the organization.
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/vnd.fxhello.v1+json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+
++ Response 200 (application/json)
+    + Body
+
+            [
+                {
+                    "_id": "58b8dc1758e13f41fd720352",
+                    "oid": 102,
+                    "sku": "FXH892",
+                    "barcode": "32232",
+                    "name": "Mini pen drive",
+                    "category": "5801b8184189dc69ad4409f6",
+                    "categoryName": "Cartons",
+                    "weight": null,
+                    "weightUnit": null,
+                    "price": 0,
+                    "thresholdPrice": 0,
+                    "lowestPrice": 0,
+                    "purchasePrice": 0,
+                    "priceCode": "-",
+                    "productInfo": "This is the product description",
+                    "productUrl": null,
+                    "image": "",
+                    "description": "This is the product description",
+                    "brandName": "TOshiba",
+                    "width": null,
+                    "depth": null,
+                    "height": null,
+                    "lengthUnit": null,
+                    "status": 1,
+                    "creditperiod": null,
+                    "cuid": 1681,
+                    "uuid": 1681,
+                    "created_at": "2017-03-03 02:59:35",
+                    "updated_at": "2017-03-03 02:59:35"
+                },
+                {
+                    "_id": "58be49b658e13f07784150e2",
+                    "oid": 102,
+                    "sku": "FXH784",
+                    "barcode": "343",
+                    "name": "Blurish bag",
+                    "category": "5801b8184189dc69ad4409fc",
+                    "categoryName": "Sample Category",
+                    "weight": null,
+                    "weightUnit": "Ct",
+                    "cost": null,
+                    "price": 2000,
+                    "thresholdPrice": 1900,
+                    "lowestPrice": 1850,
+                    "purchasePrice": 1800,
+                    "priceCode": "2323",
+                    "productInfo": null,
+                    "productUrl": "http://google.com",
+                    "image": "",
+                    "description": null,
+                    "brandName": "Cabenian",
+                    "width": null,
+                    "depth": null,
+                    "height": null,
+                    "lengthUnit": "cm",
+                    "status": 1,
+                    "creditperiod": "12",
+                    "cuid": 1652,
+                    "uuid": 1652,
+                    "created_at": "2017-03-07 05:48:38",
+                    "updated_at": "2017-03-07 05:48:38"
+                }
+            ]
 
 # RFID [/rfid]
 RFID related operations.
