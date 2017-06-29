@@ -349,10 +349,6 @@ CRM related operations for Customers, Contacts, and their groups.
 ## Customers [POST /crm/customers]
 Returns the full list of customers
 
-+ Parameters
-    + sendImage: (boolean, optional) - Whether the server should return the serve-able image URL or not.
-        + Default:
-
 + Request (application/json)
     + Headers
 
@@ -1782,4 +1778,48 @@ Allows the user to create the "after" part fo a maintenance record for an item f
             {
                 "id": 10,
                 "username": "foo"
+            }
+
+# Uploads of Modules [/files/uploads]
+Module file uploads related operations.
+
+## Uploads [POST /files/uploads]
+Returns the uploaded files of the organization. Results can be filtered by passing in the type and the typeid.
+
++ Parameters
+    + type: (integer, optional) - Type
+        + Default:
+    + typeid: (string, optional) - Type ID
+        + Default:
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/vnd.fxhello.v1+json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "type": 3,
+                "typeid": "5800a25a6b0bdc06a814c743"
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "_id": "5800a64e6b0bdc07300ee8e3",
+                "oid": 102,
+                "type": 3,
+                "typeid": "5800a25a6b0bdc06a814c743",
+                "filename": "1476437576-7xgp4WI3CirnMC9s2H9k.jpeg",
+                "filesize": 4.7,
+                "bucket": "s3",
+                "status": 1,
+                "cuid": 6,
+                "uuid": 6,
+                "created_at": "2016-10-14 09:32:56",
+                "updated_at": "2016-10-14 09:32:56",
+                "imgP": "https:\/\/fxhellouat.s3.amazonaws.com\/data\/102\/customer\/5800a25a6b0bdc06a814c743\/1476437576-7xgp4WI3CirnMC9s2H9k.jpeg?X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJUVQVA4VO7WZAOVQ%2F20170629%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20170629T043224Z&X-Amz-SignedHeaders=host&X-Amz-Expires=604200&X-Amz-Signature=59c48f60a0ac229e977c78c42758b7384256574f9ad5cce664d2781f7be256c1",
+                "imgExpire": 1499240742
             }
