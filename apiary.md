@@ -1119,10 +1119,6 @@ Products related operations.
 ## Products list [POST /products/products]
 Returns a list of products of the organization.
 
-+ Parameters
-    + sendImage: (boolean, optional) - Whether a publicly accessible URL needed or not. Link is valid only for 1 Hour.
-        + Default: 
-
 + Request (application/json)
     + Headers
 
@@ -1208,8 +1204,6 @@ Returns the data of a product by passing the product ID.
 
 + Parameters
     + id: (string, required) - Product ID
-    + sendImage: (boolean, optional) - Whether a publicly accessible URL needed or not. Link is valid only for 1 Hour.
-        + Default: 
 
 + Request (application/json)
     + Headers
@@ -1444,7 +1438,7 @@ Returns a list of product packages of the organization.
 + Request (application/json)
     + Headers
 
-            Accept: application/vnd.fxhello.v1+json
+            Accept: application/json
             Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
 
 + Response 200 (application/json)
@@ -1515,6 +1509,57 @@ Returns a list of product packages of the organization.
                     "updated_at": "2017-03-07 05:48:38"
                 }
             ]
+
+## Product package [POST /products/packages/package]
+Returns the data of a product package.
+
++ Parameters
+    + id: (string, required) - Package ID
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+
++ Response 200 (application/json)
+    + Body
+
+            []
+
+## Create product package [POST /products/packages/package/create]
+Create a product package and returns its data.
+
++ Parameters
+    + id: (string, required) - Package ID
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+
++ Response 200 (application/json)
+    + Body
+
+            []
+
+## Update product package [POST /products/packages/package/update]
+Update the existing info of a product package and returns its new data.
+
++ Parameters
+    + id: (string, required) - Package ID
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+
++ Response 200 (application/json)
+    + Body
+
+            []
 
 # RFID [/rfid]
 RFID related operations.
@@ -1786,6 +1831,49 @@ Returns the uploaded files of the organization. Results can be filtered by passi
     + type: (integer, optional) - Type
         + Default: 
     + typeid: (string, optional) - Type ID
+        + Default: 
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/vnd.fxhello.v1+json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "type": 3,
+                "typeid": "5800a25a6b0bdc06a814c743"
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "_id": "5800a64e6b0bdc07300ee8e3",
+                "oid": 102,
+                "type": 3,
+                "typeid": "5800a25a6b0bdc06a814c743",
+                "filename": "1476437576-7xgp4WI3CirnMC9s2H9k.jpeg",
+                "filesize": 4.7,
+                "bucket": "s3",
+                "status": 1,
+                "cuid": 6,
+                "uuid": 6,
+                "created_at": "2016-10-14 09:32:56",
+                "updated_at": "2016-10-14 09:32:56",
+                "imgP": "https:\/\/fxhellouat.s3.amazonaws.com\/data\/102\/customer\/5800a25a6b0bdc06a814c743\/1476437576-7xgp4WI3CirnMC9s2H9k.jpeg?X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJUVQVA4VO7WZAOVQ%2F20170629%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20170629T043224Z&X-Amz-SignedHeaders=host&X-Amz-Expires=604200&X-Amz-Signature=59c48f60a0ac229e977c78c42758b7384256574f9ad5cce664d2781f7be256c1",
+                "imgExpire": 1499240742
+            }
+
+## Upload profile image [POST /files/uploads/profile]
+Returns the uploaded files of the organization. Results can be filtered by passing in the type and the typeid.
+
++ Parameters
+    + type: (integer, optional) - Type
+        + Default: 
+    + typeid: (string, optional) - Type ID
+        + Default: 
+    + image: (file, required) - Image file in format JPG, JPEG, GIF, PNG
         + Default: 
 
 + Request (application/json)
