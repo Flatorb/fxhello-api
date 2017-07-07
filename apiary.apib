@@ -252,97 +252,6 @@ Allows the user to update the existing information of a category
                 "uuName": "John"
             }
 
-# SYSTEM [/system]
-Maintenance related data and information for every place where maintenance records are applicable.
-
-## List of types [POST /system/types]
-Returns the full list of "types" of the system.
-
-+ Request (application/json)
-    + Headers
-
-            Accept: application/vnd.fxhello.v1+json
-            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
-    + Body
-
-            {
-                "type": 17,
-                "typeId": "46ab4658f88e8d8"
-            }
-
-+ Response 200 (application/json)
-    + Body
-
-            {
-                "1": "User",
-                "2": "Organization",
-                "3": "Customer",
-                "4": "Contact",
-                "5": "Products",
-                "6": "HR",
-                "7": "Warehouse",
-                "8": "Distribution Center"
-            }
-
-# Status [/system/statuses]
-Statuses related operations.
-
-## List of statuses [POST /system/statuses]
-Returns the full list of "statuses" of the system. Type specific statuses can be retrieved by passing the type parameter.
-
-+ Parameters
-    + type: (integer, optional) - Type of the status
-
-+ Request (application/json)
-    + Headers
-
-            Accept: application/json
-            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
-    + Body
-
-            {
-                "type": 17
-            }
-
-+ Response 200 (application/json)
-    + Body
-
-            [
-                {
-                    "id": 1,
-                    "oid": 0,
-                    "type": 0,
-                    "name": "Active",
-                    "status": 1,
-                    "cuid": 0,
-                    "uuid": 0,
-                    "created_at": null,
-                    "updated_at": null
-                },
-                {
-                    "id": 2,
-                    "oid": 0,
-                    "type": 0,
-                    "name": "Inactive",
-                    "status": 1,
-                    "cuid": 0,
-                    "uuid": 0,
-                    "created_at": null,
-                    "updated_at": null
-                },
-                {
-                    "id": 7,
-                    "oid": 0,
-                    "type": 0,
-                    "name": "Pending",
-                    "status": 1,
-                    "cuid": 0,
-                    "uuid": 0,
-                    "created_at": null,
-                    "updated_at": null
-                }
-            ]
-
 # CRM - Customers [/crm/customers]
 CRM related operations for Customers, Contacts, and their groups.
 
@@ -2127,4 +2036,227 @@ Upload multiple attachments to an item by providing its type and typeId
                 "updated_at": "2016-10-14 09:32:56",
                 "imgP": "https:\/\/fxhellouat.s3.amazonaws.com\/data\/102\/customer\/5800a25a6b0bdc06a814c743\/1476437576-7xgp4WI3CirnMC9s2H9k.jpeg?X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJUVQVA4VO7WZAOVQ%2F20170629%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20170629T043224Z&X-Amz-SignedHeaders=host&X-Amz-Expires=604200&X-Amz-Signature=59c48f60a0ac229e977c78c42758b7384256574f9ad5cce664d2781f7be256c1",
                 "imgExpire": 1499240742
+            }
+
+# SYSTEM [/system]
+Maintenance related data and information for every place where maintenance records are applicable.
+
+## List of types [POST /system/types]
+Returns the full list of "types" of the system.
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/vnd.fxhello.v1+json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "type": 17,
+                "typeId": "46ab4658f88e8d8"
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "1": "User",
+                "2": "Organization",
+                "3": "Customer",
+                "4": "Contact",
+                "5": "Products",
+                "6": "HR",
+                "7": "Warehouse",
+                "8": "Distribution Center"
+            }
+
+# Status [/system/statuses]
+Statuses related operations.
+
+## List of statuses [POST /system/statuses]
+Returns the full list of "statuses" of the system. Type specific statuses can be retrieved by passing the type parameter.
+
++ Parameters
+    + type: (integer, optional) - Type of the status
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "type": 17
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            [
+                {
+                    "id": 1,
+                    "oid": 0,
+                    "type": 0,
+                    "name": "Active",
+                    "status": 1,
+                    "cuid": 0,
+                    "uuid": 0,
+                    "created_at": null,
+                    "updated_at": null
+                },
+                {
+                    "id": 2,
+                    "oid": 0,
+                    "type": 0,
+                    "name": "Inactive",
+                    "status": 1,
+                    "cuid": 0,
+                    "uuid": 0,
+                    "created_at": null,
+                    "updated_at": null
+                },
+                {
+                    "id": 7,
+                    "oid": 0,
+                    "type": 0,
+                    "name": "Pending",
+                    "status": 1,
+                    "cuid": 0,
+                    "uuid": 0,
+                    "created_at": null,
+                    "updated_at": null
+                }
+            ]
+
+# CRM - Lead Sources [/system/industries]
+Industries related operations.
+
+## Industries [POST /system/industries]
+Returns the full list of industries, provided by the system as well as owned by the organization
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+
++ Response 200 (application/json)
+    + Body
+
+            [
+                {
+                    "_id": "5810752a6b0bdc094041d6e2",
+                    "oid": 102,
+                    "source": "Email"
+                },
+                {
+                    "_id": "581ab09f58e13f433041dcc2",
+                    "oid": 102,
+                    "source": "Caller"
+                }
+            ]
+
+## Industry (single) [POST /system/industries/industry]
+Returns the information of a industry
+
++ Parameters
+    + id: (string, required) - Industry ID
+        + Default:
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "id": "546813a68bc6"
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "_id": "5810752a6b0bdc094041d6e2",
+                "oid": 102,
+                "source": "Email"
+            }
+
+## Industries by IDs (multiple) [POST /system/industries/industries]
+Returns the information of industries by passing in the Ids
+
++ Parameters
+    + ids: (array, required) - Lead source IDs an an array or a comma seperated list
+        + Default:
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "ids": "546813a68bc6, 1464a135be6, 6846fe65"
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            [
+                {
+                    "_id": "5810752a6b0bdc094041d6e2",
+                    "oid": 102,
+                    "source": "Email"
+                },
+                {
+                    "_id": "581ab09f58e13f433041dcc2",
+                    "oid": 102,
+                    "source": "Caller"
+                }
+            ]
+
+## Create a new industry [POST /system/industries/industry/create]
+Create a new industry for the organization
+
++ Parameters
+    + description: (string, required) - Name of the industry
+        + Default:
+    + isic_r4: (string, optional) -
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "description": "Expo XYZ",
+                "isic_r4": "1"
+            }
+
+## Update an existing industry [POST /system/industries/industry/update]
+Update an existing industry of the organization by passing in the ID of the industry
+
++ Parameters
+    + id: (string, required) - ID of industry to edit
+        + Default:
+    + description: (string, optional) - Name of the industry
+        + Default:
+    + isic_r4: (string, optional) -
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "id": "5810752a6b0bdc094041d6e2",
+                "description": "Expo XYZ",
+                "isic_r4": 1
             }
