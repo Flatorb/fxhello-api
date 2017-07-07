@@ -821,6 +821,49 @@ Returns the information of a lead sources by passing in the Ids
                 }
             ]
 
+## Create customer lead source [POST /crm/lead-sources/lead-source/create]
+Create a new customer lead source for the organization
+
++ Parameters
+    + source: (string, required) - Lead source name
+        + Default:
+    + status: (integer, optional) -
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "source": "Expo XYZ",
+                "status": 1
+            }
+
+## Update customer lead source [POST /crm/lead-sources/lead-source/update]
+Update a customer lead source for the organization by passing in the ID of the lead source
+
++ Parameters
+    + id: (string, required) - Lead source ID
+        + Default:
+    + source: (string, optional) - Lead source name
+        + Default:
+    + status: (integer, optional) -
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "id": "5810752a6b0bdc094041d6e2",
+                "source": "Expo XYZ",
+                "status": 1
+            }
+
 # Tasks [/tasks]
 Tasks related operations.
 
