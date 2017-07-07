@@ -348,7 +348,7 @@ Returns the full list of customers
 + Request (application/json)
     + Headers
 
-            Accept: application/vnd.fxhello.v1+json
+            Accept: application/json
             Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
     + Body
 
@@ -366,7 +366,7 @@ Returns the information of a customer
 + Request (application/json)
     + Headers
 
-            Accept: application/vnd.fxhello.v1+json
+            Accept: application/json
             Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
     + Body
 
@@ -392,7 +392,7 @@ Create a new customer for the organization
     + city: (string, optional) - 
     + stateID: (string, optional) - 
     + zip: (string, optional) - 
-    + countryID: (integer, optional) - 
+    + country: (integer, optional) - 
     + description: (string, optional) - 
     + designation: (string, optional) - 
     + categories: (array, optional) - 
@@ -408,7 +408,7 @@ Create a new customer for the organization
 + Request (application/json)
     + Headers
 
-            Accept: application/vnd.fxhello.v1+json
+            Accept: application/json
             Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
     + Body
 
@@ -450,7 +450,7 @@ Edit/update a customer information.
 + Request (application/json)
     + Headers
 
-            Accept: application/vnd.fxhello.v1+json
+            Accept: application/json
             Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
     + Body
 
@@ -468,7 +468,7 @@ Returns the support tickets that belongs to a provided customer
 + Request (application/json)
     + Headers
 
-            Accept: application/vnd.fxhello.v1+json
+            Accept: application/json
             Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
     + Body
 
@@ -486,7 +486,7 @@ Returns the notes that belongs to a provided customer
 + Request (application/json)
     + Headers
 
-            Accept: application/vnd.fxhello.v1+json
+            Accept: application/json
             Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
     + Body
 
@@ -504,7 +504,7 @@ Returns the contacts that are associated with the customer
 + Request (application/json)
     + Headers
 
-            Accept: application/vnd.fxhello.v1+json
+            Accept: application/json
             Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
     + Body
 
@@ -522,7 +522,7 @@ Returns the opportunities that belongs to a provided customer
 + Request (application/json)
     + Headers
 
-            Accept: application/vnd.fxhello.v1+json
+            Accept: application/json
             Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
     + Body
 
@@ -540,7 +540,7 @@ Returns the quotations that belongs to a provided customer
 + Request (application/json)
     + Headers
 
-            Accept: application/vnd.fxhello.v1+json
+            Accept: application/json
             Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
     + Body
 
@@ -558,7 +558,7 @@ Returns the invoices that belongs to a provided customer
 + Request (application/json)
     + Headers
 
-            Accept: application/vnd.fxhello.v1+json
+            Accept: application/json
             Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
     + Body
 
@@ -576,7 +576,7 @@ Returns the sales orders that belongs to a provided customer
 + Request (application/json)
     + Headers
 
-            Accept: application/vnd.fxhello.v1+json
+            Accept: application/json
             Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
     + Body
 
@@ -594,7 +594,7 @@ Returns the work orders that belongs to a provided customer
 + Request (application/json)
     + Headers
 
-            Accept: application/vnd.fxhello.v1+json
+            Accept: application/json
             Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
     + Body
 
@@ -727,6 +727,95 @@ Update a contact
             {
                 "customerId": "546813a68bc6"
             }
+
+# CRM - Lead Sources [/crm/lead-sources]
+CRM lead sources related operations for Customers, Contacts, and their groups.
+
+## Lead sources [POST /crm/lead-sources]
+Returns the full list of lead sources
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+
++ Response 200 (application/json)
+    + Body
+
+            [
+                {
+                    "_id": "5810752a6b0bdc094041d6e2",
+                    "oid": 102,
+                    "source": "Email"
+                },
+                {
+                    "_id": "581ab09f58e13f433041dcc2",
+                    "oid": 102,
+                    "source": "Caller"
+                }
+            ]
+
+## Lead source (single) [POST /crm/lead-sources/lead-source]
+Returns the information of a lead source
+
++ Parameters
+    + id: (string, required) - Whether the server should return the serve-able image URL or not.
+        + Default: 
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "id": "546813a68bc6"
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "_id": "5810752a6b0bdc094041d6e2",
+                "oid": 102,
+                "source": "Email"
+            }
+
+## Lead sources by IDs (multiple) [POST /crm/lead-sources/lead-sources]
+Returns the information of a lead sources by passing in the Ids
+
++ Parameters
+    + ids: (array, required) - Lead source IDs an an array or a comma seperated list
+        + Default: 
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "ids": "546813a68bc6, 1464a135be6, 6846fe65"
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            [
+                {
+                    "_id": "5810752a6b0bdc094041d6e2",
+                    "oid": 102,
+                    "source": "Email"
+                },
+                {
+                    "_id": "581ab09f58e13f433041dcc2",
+                    "oid": 102,
+                    "source": "Caller"
+                }
+            ]
 
 # Tasks [/tasks]
 Tasks related operations.
@@ -1913,10 +2002,9 @@ Upload a single attachment to an item by providing its type and typeId
 
 + Parameters
     + type: (integer, required) - Type
-        + Default: 
     + typeid: (string, required) - Type ID
-        + Default: 
     + attachment: (file, required) - Attachment with acceptable file extention
+    + isCertificate: (boolean, optional) - Is this a certificate
         + Default: 
 
 + Request (application/json)
