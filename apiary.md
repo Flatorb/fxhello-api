@@ -1765,6 +1765,67 @@ Returns the full list of marketing campaigns of the organization.
                 }
             ]
 
+## Campaign profile (single) [POST /marketing/campaigns/campaign]
+Returns the information of a campaign profile retrieved by the ID
+
++ Parameters
+    + id: (string, required) - Campaign ID
+        + Default: 
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "id": "546813a68bc6"
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "_id": "5810752a6b0bdc094041d6e2",
+                "oid": 102,
+                "source": "Email"
+            }
+
+## Campaigns by IDs (multiple) [POST /marketing/campaigns/campaigns]
+Returns the information of campaigns by passing in the Ids
+
++ Parameters
+    + ids: (array, required) - Campaign IDs as an array or a comma separated list
+        + Default: 
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "ids": "546813a68bc6, 1464a135be6, 6846fe65"
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            [
+                {
+                    "_id": "5810752a6b0bdc094041d6e2",
+                    "oid": 102,
+                    "source": "Email"
+                },
+                {
+                    "_id": "581ab09f58e13f433041dcc2",
+                    "oid": 102,
+                    "source": "Caller"
+                }
+            ]
+
 # MAINTENANCE [/maintenances]
 Maintenance related data and information for every place where maintenance records are applicable.
 
