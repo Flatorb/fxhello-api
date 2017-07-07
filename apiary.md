@@ -2125,7 +2125,7 @@ Returns the full list of "statuses" of the system. Type specific statuses can be
                 }
             ]
 
-# CRM - Lead Sources [/system/industries]
+# Industries [/system/industries]
 Industries related operations.
 
 ## Industries [POST /system/industries]
