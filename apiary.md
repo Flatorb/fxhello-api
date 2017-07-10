@@ -2318,6 +2318,130 @@ Update an existing industry of the organization by passing in the ID of the indu
                 "isic_r4": 1
             }
 
+# Notes [/general/notes]
+Notes related operations.
+
+## Notes [POST /general/notes]
+Returns the full list of notes
+
++ Parameters
+    + type: (integer, optional) - Type id of the category
+    + subType: (integer, optional) - Sub-type id of the category
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "type": 7,
+                "subType": null
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "_id": "5801b8184189dc69ad440a0c",
+                "oldid": "5703128158568448",
+                "oid": 102,
+                "name": "New Raw material",
+                "parent": null,
+                "type": 20,
+                "status": 1,
+                "meta": {
+                    "description": "",
+                    "category_code": ""
+                },
+                "cuid": 6,
+                "uuid": 6,
+                "created_at": "2016-09-15 08:13:49",
+                "updated_at": "2016-09-15 08:13:49"
+            }
+
+## Note [POST /general/notes/note]
+Returns the note information
+
++ Parameters
+    + id: (integer, required) - Note ID
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "id": "5801b8184189dc69ad440a0c"
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "_id": "5801b8184189dc69ad440a0c",
+                "oldid": "5703128158568448",
+                "oid": 102,
+                "name": "New Raw material",
+                "parent": null,
+                "type": 20,
+                "status": 1,
+                "meta": {
+                    "description": "",
+                    "category_code": ""
+                },
+                "cuid": 6,
+                "uuid": 6,
+                "created_at": "2016-09-15 08:13:49",
+                "updated_at": "2016-09-15 08:13:49"
+            }
+
+## Create a note [POST /general/notes/note/create]
+Create a new note
+
++ Parameters
+    + type: (integer, required) - Type
+    + typeid: (string, required) - Type ID
+    + subType: (integer, optional) - Sub type
+    + title: (string, optional) - Title for the note
+    + comment: (string, required) - Comment body and description content
+    + subType: (integer, optional) - Sub type
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "id": "5801b8184189dc69ad440a0c"
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "_id": "5801b8184189dc69ad440a0c",
+                "oldid": "5703128158568448",
+                "oid": 102,
+                "name": "New Raw material",
+                "parent": null,
+                "type": 20,
+                "status": 1,
+                "meta": {
+                    "description": "",
+                    "category_code": ""
+                },
+                "cuid": 6,
+                "uuid": 6,
+                "created_at": "2016-09-15 08:13:49",
+                "updated_at": "2016-09-15 08:13:49"
+            }
+
 # Address [/general/addresses]
 Addresses related operations.
 
