@@ -2325,7 +2325,8 @@ Notes related operations.
 Returns the full list of notes
 
 + Parameters
-    + type: (integer, optional) - Type id of the notes if filtration is required
+    + type: (integer, optional) - Type of the notes if filtration is required
+    + typeid: (string, optional) - Type ID of the notes if filtration is required
 
 + Request (application/json)
     + Headers
@@ -2335,8 +2336,7 @@ Returns the full list of notes
     + Body
 
             {
-                "type": 3,
-                "subType": null
+                "type": 3
             }
 
 + Response 200 (application/json)
