@@ -807,9 +807,9 @@ Retrieve a full or filtered list of tasks. Result may subject to filtration base
                 "priority": 3,
                 "status": 1,
                 "cuid": 1,
-                "cuName": "Anushan",
+                "cuName": "John",
                 "uuid": 1,
-                "uuName": "Anushan",
+                "uuName": "John",
                 "updated_at": "2017-05-18 05:05:12",
                 "created_at": "2017-05-18 05:05:12",
                 "_id": "591d2b884189dc52725cc042"
@@ -850,9 +850,9 @@ Allows the user the create a new task
                 "priority": 3,
                 "status": 1,
                 "cuid": 1,
-                "cuName": "Anushan",
+                "cuName": "John",
                 "uuid": 1,
-                "uuName": "Anushan",
+                "uuName": "John",
                 "updated_at": "2017-05-18 05:05:12",
                 "created_at": "2017-05-18 05:05:12",
                 "_id": "591d2b884189dc52725cc042"
@@ -1923,7 +1923,7 @@ Allows the user to create the "after" part fo a maintenance record for an item f
                 "username": "foo"
             }
 
-# Uploads of Modules [/files/uploads]
+# Uploads of Modules [/files]
 Module file uploads related operations.
 
 ## Uploads [POST /files/uploads]
@@ -1967,7 +1967,7 @@ Returns the uploaded files of the organization. Results can be filtered by passi
                 "imgExpire": 1499240742
             }
 
-## Upload profile image [POST /files/uploads/profile]
+## Upload profile image [POST /files/upload/profile]
 Returns the uploaded files of the organization. Results can be filtered by passing in the type and the typeid.
 
 + Parameters
@@ -2010,7 +2010,7 @@ Returns the uploaded files of the organization. Results can be filtered by passi
                 "imgExpire": 1499240742
             }
 
-## Upload attachment [POST /files/uploads/attach]
+## Upload attachment [POST /files/upload/attach]
 Upload a single attachment to an item by providing its type and typeId
 
 + Parameters
@@ -2052,7 +2052,7 @@ Upload a single attachment to an item by providing its type and typeId
                 "imgExpire": 1499240742
             }
 
-## Upload attachments - multiple [POST /files/uploads/attach-multiple]
+## Upload attachments - multiple [POST /files/upload/attach-multiple]
 Upload multiple attachments to an item by providing its type and typeId
 
 + Parameters
@@ -2325,8 +2325,7 @@ Notes related operations.
 Returns the full list of notes
 
 + Parameters
-    + type: (integer, optional) - Type id of the category
-    + subType: (integer, optional) - Sub-type id of the category
+    + type: (integer, optional) - Type id of the notes if filtration is required
 
 + Request (application/json)
     + Headers
@@ -2336,30 +2335,61 @@ Returns the full list of notes
     + Body
 
             {
-                "type": 7,
+                "type": 3,
                 "subType": null
             }
 
 + Response 200 (application/json)
     + Body
 
-            {
-                "_id": "5801b8184189dc69ad440a0c",
-                "oldid": "5703128158568448",
-                "oid": 102,
-                "name": "New Raw material",
-                "parent": null,
-                "type": 20,
-                "status": 1,
-                "meta": {
-                    "description": "",
-                    "category_code": ""
+            [
+                {
+                    "_id": "59631ae34189dc7ef8349672",
+                    "type": 3,
+                    "typeid": "58005d3d6b0bdc03e27274d4",
+                    "subType": null,
+                    "title": "This is a sample note one",
+                    "comment": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.",
+                    "parent": null,
+                    "priority": null,
+                    "oid": 102,
+                    "isTask": false,
+                    "isNote": true,
+                    "dueDate": null,
+                    "assigneeType": null,
+                    "status": 1,
+                    "statusName": "Active",
+                    "cuid": 1,
+                    "cuName": "John",
+                    "uuid": 1,
+                    "uuName": "John",
+                    "updated_at": "2017-07-10 06:12:51",
+                    "created_at": "2017-07-10 06:12:51"
                 },
-                "cuid": 6,
-                "uuid": 6,
-                "created_at": "2016-09-15 08:13:49",
-                "updated_at": "2016-09-15 08:13:49"
-            }
+                {
+                    "_id": "59631cfc4189dc10a47fede2",
+                    "type": 3,
+                    "typeid": "58005d3d6b0bdc03e27274d4",
+                    "subType": null,
+                    "title": "This is a sample note two",
+                    "comment": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.",
+                    "parent": null,
+                    "priority": null,
+                    "oid": 102,
+                    "isTask": false,
+                    "isNote": true,
+                    "dueDate": null,
+                    "assigneeType": null,
+                    "status": 1,
+                    "statusName": "Active",
+                    "cuid": 1,
+                    "cuName": "John",
+                    "uuid": 1,
+                    "uuName": "John",
+                    "updated_at": "2017-07-10 06:21:48",
+                    "created_at": "2017-07-10 06:21:48"
+                }
+            ]
 
 ## Note [POST /general/notes/note]
 Returns the note information
@@ -2375,28 +2405,34 @@ Returns the note information
     + Body
 
             {
-                "id": "5801b8184189dc69ad440a0c"
+                "id": "59631ae34189dc7ef8349672"
             }
 
 + Response 200 (application/json)
     + Body
 
             {
-                "_id": "5801b8184189dc69ad440a0c",
-                "oldid": "5703128158568448",
-                "oid": 102,
-                "name": "New Raw material",
+                "_id": "59631ae34189dc7ef8349672",
+                "type": 3,
+                "typeid": "58005d3d6b0bdc03e27274d4",
+                "subType": null,
+                "title": "This is a sample note one",
+                "comment": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.",
                 "parent": null,
-                "type": 20,
+                "priority": null,
+                "oid": 102,
+                "isTask": false,
+                "isNote": true,
+                "dueDate": null,
+                "assigneeType": null,
                 "status": 1,
-                "meta": {
-                    "description": "",
-                    "category_code": ""
-                },
-                "cuid": 6,
-                "uuid": 6,
-                "created_at": "2016-09-15 08:13:49",
-                "updated_at": "2016-09-15 08:13:49"
+                "statusName": "Active",
+                "cuid": 1,
+                "cuName": "John",
+                "uuid": 1,
+                "uuName": "John",
+                "updated_at": "2017-07-10 06:12:51",
+                "created_at": "2017-07-10 06:12:51"
             }
 
 ## Create a note [POST /general/notes/note/create]
@@ -2408,38 +2444,42 @@ Create a new note
     + subType: (integer, optional) - Sub type
     + title: (string, optional) - Title for the note
     + comment: (string, required) - Comment body and description content
-    + subType: (integer, optional) - Sub type
+    + parent: (string, optional) - ID of the parent note/comment
+    + priority: (string, optional) - Options: Highest, High, Normal, Low, Lowest
+    + isTask: (bollean, optional) - Is this a task
+        + Default: 
 
 + Request (application/json)
     + Headers
 
             Accept: application/json
             Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
-    + Body
-
-            {
-                "id": "5801b8184189dc69ad440a0c"
-            }
 
 + Response 200 (application/json)
     + Body
 
             {
-                "_id": "5801b8184189dc69ad440a0c",
-                "oldid": "5703128158568448",
-                "oid": 102,
-                "name": "New Raw material",
+                "_id": "59631ae34189dc7ef8349672",
+                "type": 3,
+                "typeid": "58005d3d6b0bdc03e27274d4",
+                "subType": null,
+                "title": "This is a sample note one",
+                "comment": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.",
                 "parent": null,
-                "type": 20,
+                "priority": null,
+                "oid": 102,
+                "isTask": false,
+                "isNote": true,
+                "dueDate": null,
+                "assigneeType": null,
                 "status": 1,
-                "meta": {
-                    "description": "",
-                    "category_code": ""
-                },
-                "cuid": 6,
-                "uuid": 6,
-                "created_at": "2016-09-15 08:13:49",
-                "updated_at": "2016-09-15 08:13:49"
+                "statusName": "Active",
+                "cuid": 1,
+                "cuName": "John",
+                "uuid": 1,
+                "uuName": "John",
+                "updated_at": "2017-07-10 06:12:51",
+                "created_at": "2017-07-10 06:12:51"
             }
 
 # Address [/general/addresses]
