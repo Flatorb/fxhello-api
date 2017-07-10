@@ -2317,3 +2317,73 @@ Update an existing industry of the organization by passing in the ID of the indu
                 "description": "Expo XYZ",
                 "isic_r4": 1
             }
+
+# Address [/general/addresses]
+Addresses related operations.
+
+## Countries [POST /general/addresses/countries]
+Returns the list of countries.
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+
++ Response 200 (application/json)
+    + Body
+
+            [
+                {
+                    "id": 1,
+                    "country": "Andorra",
+                    "code": "AD",
+                    "currency_code": "EUR"
+                },
+                {
+                    "id": 2,
+                    "country": "United Arab Emirates",
+                    "code": "AE",
+                    "currency_code": "AED"
+                },
+                {
+                    "id": 3,
+                    "country": "Afghanistan",
+                    "code": "AF",
+                    "currency_code": "AFN"
+                },
+                {
+                    "id": 4,
+                    "country": "Antigua and Barbuda",
+                    "code": "AG",
+                    "currency_code": "XCD"
+                }
+            ]
+
+## Country [POST /general/addresses/countries/country]
+Returns the country filtered by its ID.
+
++ Parameters
+    + id: (integer, required) - Country ID
+        + Default: 
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "id": 129
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "id": 129,
+                "country": "Sri Lanka",
+                "code": "LK",
+                "currency_code": "LKR"
+            }
