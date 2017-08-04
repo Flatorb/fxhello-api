@@ -1285,6 +1285,63 @@ Stocks information of the organization.
                 "message": "Successfully transferred the stock."
             }
 
+# Fleet - Organization [/fleet/organization]
+Organization fleet related operations.
+
+## Fleet [POST /fleet/organization]
+Fleet of the organization.
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+
++ Response 200 (application/json)
+    + Body
+
+            [
+                {
+                    "_id": "598435593c0d09cfb75abf21",
+                    "oid": 102,
+                    "deviceID": "213GL2015016436",
+                    "vehicleName": "HY-7008"
+                },
+                {
+                    "_id": "5984358d3c0d09cfb75abf36",
+                    "oid": 102,
+                    "deviceID": "213TX2015000524",
+                    "vehicleName": "HY-7007"
+                }
+            ]
+
+## Fleet with GPS device [POST /fleet/organization/gps]
+Fleet of the organization that has GPS devices attached to them.
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+
++ Response 200 (application/json)
+    + Body
+
+            [
+                {
+                    "_id": "598435593c0d09cfb75abf21",
+                    "oid": 102,
+                    "deviceID": "213GL2015016436",
+                    "vehicleName": "HY-7008"
+                },
+                {
+                    "_id": "5984358d3c0d09cfb75abf36",
+                    "oid": 102,
+                    "deviceID": "213TX2015000524",
+                    "vehicleName": "HY-7007"
+                }
+            ]
+
 # Products [/products]
 Products related operations.
 
