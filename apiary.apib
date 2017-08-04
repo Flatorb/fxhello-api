@@ -582,6 +582,7 @@ Create a new contact
     + description: (string, optional) -
     + title: (string, optional) -
     + categories: (array, optional) -
+    + marketingCampaigns: (array, optional) -
     + leadSourceID: (string, optional) -
     + department: (string, optional) -
     + contactType: (string, optional) -
@@ -625,6 +626,7 @@ Update a contact
     + countryID: (integer, optional) -
     + description: (string, optional) -
     + categories: (array, optional) -
+    + marketingCampaigns: (array, optional) -
     + leadSourceID: (string, optional) -
     + department: (string, optional) -
     + contactType: (string, optional) -
@@ -874,7 +876,7 @@ Returns the full list of warehouses
 + Request (application/json)
     + Headers
 
-            Accept: application/vnd.fxhello.v1+json
+            Accept: application/json
             Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
     + Body
 
@@ -931,7 +933,7 @@ Returns the information of a store by passing its ID.
 + Request (application/json)
     + Headers
 
-            Accept: application/vnd.fxhello.v1+json
+            Accept: application/json
             Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
     + Body
 
@@ -1005,7 +1007,7 @@ Allows the user to create a category
 + Request (application/json)
     + Headers
 
-            Accept: application/vnd.fxhello.v1+json
+            Accept: application/json
             Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
     + Body
 
@@ -1078,7 +1080,7 @@ Allows the user to update a store
 + Request (application/json)
     + Headers
 
-            Accept: application/vnd.fxhello.v1+json
+            Accept: application/json
             Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
     + Body
 
@@ -1124,6 +1126,101 @@ Allows the user to update a store
                 "_id": "593523ff4189dc4e1c7d3e52"
             }
 
+# Weigh slip items [/stores/weigh-slips/weigh-slip/items]
+Weigh slip related operations.
+
+## Weigh slip items [POST /stores/weigh-slips/weigh-slip/items]
+Returns the full list of items in a weigh slip byt the weigh slip ID
+
++ Parameters
+    + id: (string, required) - Weigh slip ID
+        + Default:
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "id": "64613a6e13e3153f3f"
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            []
+
+## Weigh slip item [POST /stores/weigh-slips/weigh-slip/items/item]
+Returns an item in a weigh slip by the weigh slip item ID
+
++ Parameters
+    + id: (string, required) - Weigh slip item ID
+        + Default:
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "id": "64613a6e13e3153f3f"
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            []
+
+## Weigh slip item [POST /stores/weigh-slips/weigh-slip/items/create]
+Returns an item in a weigh slip by the weigh slip item ID
+
++ Parameters
+    + id: (string, required) - Weigh slip item ID
+        + Default:
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "id": "64613a6e13e3153f3f"
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            []
+
+## Weigh slip item (bulk) [POST /stores/weigh-slips/weigh-slip/items/create-bulk]
+Returns an item in a weigh slip by the weigh slip item ID
+
++ Parameters
+    + id: (string, required) - Weigh slip item ID
+        + Default:
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "id": "64613a6e13e3153f3f"
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            []
+
 # Stock Transfers [/stock/transfers]
 Stock transfers related operations.
 
@@ -1132,6 +1229,40 @@ User can transfer stock between stores.
 
 + Parameters
     + from: (string, required) - Store id of the store where the items are moving out of.
+    + to: (string, required) - Store id of the store where the items will be transferred to.
+    + txMethod: (string, required) - The method used for transferring. Options: rfid, barcode, id
+        + Default: id
+    + items: (string, required) - Array of item rfid/barcode/id that will be subjected to the transfer.
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/vnd.fxhello.v1+json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "from": "46ab4658f88e312",
+                "to": "46ab4658f88e8d8",
+                "method": "rfid",
+                "items": "{{'epc': '123123123', 'tid': 'cacacacacacac'}, {'epc': '123123123', 'tid': 'cacacacacacac'}, {'epc': '123123123', 'tid': 'cacacacacacac'}}"
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "message": "Successfully transferred the stock."
+            }
+
+# Stock Transfers [/stock/stocks]
+Stocks related operations.
+
+## Stocks [POST /stock/stocks]
+Stocks information of the organization.
+
++ Parameters
+    + storeId: (string, optional) - Store ID to filter by
     + to: (string, required) - Store id of the store where the items will be transferred to.
     + method: (string, required) - The method used for transferring. Options: rfid, barcode, id
         + Default: id
@@ -1301,6 +1432,8 @@ Returns the data of a product by passing the product ID.
 Create a new product by posting product information.
 
 + Parameters
+    + subType: (integer, optional) - 1:Simple, 2:Weight based pieces, 3:Weight based unit
+        + Default: 1
     + sku: (string, optional) - Product SKU
     + barcode: (string, optional) -
     + epc: (string, optional) -
@@ -1664,7 +1797,7 @@ Returns a list of purchase orders of the organization.
 + Request (application/json)
     + Headers
 
-            Accept: application/vnd.fxhello.v1+json
+            Accept: application/json
             Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
 
 ## Purchase order [POST /purchasing/orders/order]
@@ -1676,7 +1809,7 @@ Returns a purchase orders of the organization by it's ID.
 + Request (application/json)
     + Headers
 
-            Accept: application/vnd.fxhello.v1+json
+            Accept: application/json
             Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
     + Body
 
@@ -1694,7 +1827,7 @@ Create a new purchase orders.
 + Request (application/json)
     + Headers
 
-            Accept: application/vnd.fxhello.v1+json
+            Accept: application/json
             Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
 
 # Marketing campaigns [/marketing/campaigns]
