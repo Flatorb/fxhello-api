@@ -1122,6 +1122,37 @@ Allows the user to update a store
                 "_id": "593523ff4189dc4e1c7d3e52"
             }
 
+# GRN [/stores/grns]
+GRN related operations.
+
+## Create GRN [POST /stores/grns/grn/create]
+Stocks information of the organization.
+
+Products array can contain pid, qty, pieces, unitprice, discount, linetotal as keys of the array element
+
++ Parameters
+    + number: (string, optional) - GRN number
+    + storeId: (string, required) - Store id of the store where the GRN is received to.
+    + vendorType: (integer, optional) - Type of vendor. General vendor ID is 38
+        + Default: 38
+    + vendorTypeID: (string, required) - ID of the vendor
+    + poID: (string, optional) - Purchase order ID
+    + description: (string, optional) - 
+    + products: (array, required) - See description for information.
+    + model: (string, optional) - Options: simple, weight, weightAndPieces
+        + Default: simple
+    + grnMethod: (string, optional) - Options: manual
+        + Default: manual
+    + status: (integer, optional) - Status ID
+        + Default: 1
+
++ Request (application/json)
+
++ Response 200 (application/json)
+    + Body
+
+            []
+
 # Weigh slip items [/stores/weigh-slips/weigh-slip/items]
 Weigh slip related operations.
 
@@ -1903,7 +1934,7 @@ Vendors of the organization.
                     "_id": "596b467e4189dce08e1170a2",
                     "name": "Sample vendor one",
                     "email": "sv1@flatorb.com",
-                    "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
+                    "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.",
                     "oid": 102,
                     "addresses": {
                         "main": {
