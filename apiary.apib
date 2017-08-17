@@ -1129,10 +1129,33 @@ Allows the user to update a store
 # GRN [/stores/grns]
 GRN related operations.
 
+## GRNs [POST /stores/grns]
+GRN list of the organization.
+
++ Request (application/json)
+
++ Response 200 (application/json)
+    + Body
+
+            []
+
+## GRN Profile [POST /stores/grns/grn]
+GRN record information.
+
++ Parameters
+    + id: (string, required) - GRN ID
+
++ Request (application/json)
+
++ Response 200 (application/json)
+    + Body
+
+            []
+
 ## Create GRN [POST /stores/grns/grn/create]
 Stocks information of the organization.
 
-Products array can contain pid, qty, pieces, unitprice, discount, linetotal as keys of the array element
+Products array can contain id, qty, pieces, unitPrice, discount, lineTotal as keys of the array element
 
 + Parameters
     + number: (string, optional) - GRN number
@@ -1374,6 +1397,59 @@ Fleet of the organization that has GPS devices attached to them.
                     "oid": 102,
                     "deviceID": "213TX2015000524",
                     "vehicleName": "HY-7007"
+                }
+            ]
+
+# Fleet - Monitor [/fleet/monitor]
+Fleet and devices related monitoring functionality.
+
+## Monitor [POST /fleet/monitor]
+Live monitoring information of the fleet of the organization.
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+
++ Response 200 (application/json)
+    + Body
+
+            [
+                {
+                    "type": "FeatureCollection",
+                    "features": [
+                        {
+                            "type": "Feature",
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": [
+                                    "79.8825016666666700",
+                                    "6.8944916666666660"
+                                ]
+                            },
+                            "properties": {
+                                "id": "213GL2015016436",
+                                "Name": "HY-7008",
+                                "title": "HY-7008"
+                            }
+                        },
+                        {
+                            "type": "Feature",
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": [
+                                    "80.6069800000000000",
+                                    "6.6062416666666670"
+                                ]
+                            },
+                            "properties": {
+                                "id": "213TX2015000524",
+                                "Name": "HY-7007",
+                                "title": "HY-7007"
+                            }
+                        }
+                    ]
                 }
             ]
 
@@ -2257,7 +2333,7 @@ Returns the uploaded files of the organization. Results can be filtered by passi
         + Default:
     + typeid: (string, required) - Type ID
         + Default:
-    + image: (file, required) - Image file in format JPG, JPEG, GIF, PNG
+    + file: (file, required) - Image file in format JPG, JPEG, GIF, PNG
         + Default:
 
 + Request (application/json)
