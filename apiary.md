@@ -1458,7 +1458,7 @@ Returns a list of products of the organization.
 + Request (application/json)
     + Headers
 
-            Accept: application/vnd.fxhello.v1+json
+            Accept: application/json
             Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
     + Body
 
@@ -1544,7 +1544,7 @@ Returns the data of a product by passing the product ID.
 + Request (application/json)
     + Headers
 
-            Accept: application/vnd.fxhello.v1+json
+            Accept: application/json
             Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
     + Body
 
@@ -1619,12 +1619,14 @@ Create a new product by posting product information.
     + depth: (float, optional) - 
     + height: (float, optional) - 
     + lengthUnit: (string, optional) - 
+    + productionMaterial: (boolean, optional) - Whether this is a material used for production or not
+        + Default: 
     + status: (integer, optional) - 
 
 + Request (application/json)
     + Headers
 
-            Accept: application/vnd.fxhello.v1+json
+            Accept: application/json
             Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
     + Body
 
@@ -1679,7 +1681,7 @@ Remove the RFID of a product by passing the EPC and TID. If the confirm paramete
 + Request (application/json)
     + Headers
 
-            Accept: application/vnd.fxhello.v1+json
+            Accept: application/json
             Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
     + Body
 
@@ -1719,12 +1721,14 @@ Update a product by passing in the ID of the product along with the information 
     + depth: (float, optional) - 
     + height: (float, optional) - 
     + lengthUnit: (string, optional) - 
+    + productionMaterial: (boolean, optional) - Whether this is a material used for production or not
+        + Default: 
     + status: (integer, optional) - 
 
 + Request (application/json)
     + Headers
 
-            Accept: application/vnd.fxhello.v1+json
+            Accept: application/json
             Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
     + Body
 
@@ -1946,6 +1950,297 @@ Returns the full list of warehouses
             {
                 "id": 10,
                 "username": "foo"
+            }
+
+# Material for Production [/production/materials]
+Production material related operations.
+
+## Material list [POST /production/materials]
+Returns a list of materials used for production of the organization.
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "sendImage": false
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            [
+                {
+                    "_id": "58b8dc1758e13f41fd720352",
+                    "oid": 102,
+                    "sku": "FXH892",
+                    "barcode": "32232",
+                    "name": "Mini pen drive",
+                    "category": "5801b8184189dc69ad4409f6",
+                    "categoryName": "Cartons",
+                    "weight": null,
+                    "weightUnit": null,
+                    "price": 0,
+                    "thresholdPrice": 0,
+                    "lowestPrice": 0,
+                    "purchasePrice": 0,
+                    "priceCode": "-",
+                    "productInfo": "This is the product description",
+                    "productUrl": null,
+                    "image": "",
+                    "description": "This is the product description",
+                    "brandName": "TOshiba",
+                    "width": null,
+                    "depth": null,
+                    "height": null,
+                    "lengthUnit": null,
+                    "status": 1,
+                    "creditperiod": null,
+                    "cuid": 1681,
+                    "uuid": 1681,
+                    "created_at": "2017-03-03 02:59:35",
+                    "updated_at": "2017-03-03 02:59:35"
+                },
+                {
+                    "_id": "58be49b658e13f07784150e2",
+                    "oid": 102,
+                    "sku": "FXH784",
+                    "barcode": "343",
+                    "name": "Blurish bag",
+                    "category": "5801b8184189dc69ad4409fc",
+                    "categoryName": "Sample Category",
+                    "weight": null,
+                    "weightUnit": "Ct",
+                    "cost": null,
+                    "price": 2000,
+                    "thresholdPrice": 1900,
+                    "lowestPrice": 1850,
+                    "purchasePrice": 1800,
+                    "priceCode": "2323",
+                    "productInfo": null,
+                    "productUrl": "http://google.com",
+                    "image": "",
+                    "description": null,
+                    "brandName": "Cabenian",
+                    "width": null,
+                    "depth": null,
+                    "height": null,
+                    "lengthUnit": "cm",
+                    "status": 1,
+                    "creditperiod": "12",
+                    "cuid": 1652,
+                    "uuid": 1652,
+                    "created_at": "2017-03-07 05:48:38",
+                    "updated_at": "2017-03-07 05:48:38"
+                }
+            ]
+
+## Material [POST /production/materials/material]
+Returns the data of a material by passing the ID.
+
++ Parameters
+    + id: (string, required) - Material/product ID
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "id": "580083186b0bdc05ff588792",
+                "sendImage": false
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "_id": "58b8dc1758e13f41fd720352",
+                "oid": 102,
+                "sku": "FXH892",
+                "barcode": "32232",
+                "name": "Mini pen drive",
+                "category": "5801b8184189dc69ad4409f6",
+                "categoryName": "Cartons",
+                "weight": null,
+                "weightUnit": null,
+                "price": 0,
+                "thresholdPrice": 0,
+                "lowestPrice": 0,
+                "purchasePrice": 0,
+                "priceCode": "-",
+                "productInfo": "This is the product description",
+                "productUrl": null,
+                "image": "",
+                "description": "This is the product description",
+                "brandName": "TOshiba",
+                "width": null,
+                "depth": null,
+                "height": null,
+                "lengthUnit": null,
+                "status": 1,
+                "creditperiod": null,
+                "cuid": 1681,
+                "uuid": 1681,
+                "created_at": "2017-03-03 02:59:35",
+                "updated_at": "2017-03-03 02:59:35"
+            }
+
+## Create material [POST /production/materials/material/create]
+Create a new material by posting material information.
+
++ Parameters
+    + subType: (integer, optional) - 1:Simple, 2:Weight based pieces, 3:Weight based unit
+        + Default: 1
+    + sku: (string, optional) - Material SKU
+    + barcode: (string, optional) - 
+    + epc: (string, optional) - 
+    + tid: (string, optional) - 
+    + name: (string, optional) - Material name
+    + commonName: (string, optional) - Common name known by
+    + category: (string, optional) - Category ID
+    + packageId: (string, optional) - Package ID
+    + weight: (float, optional) - 
+    + weightUnit: (string, optional) - 
+    + description: (string, optional) - 
+    + handlingInstructions: (string, optional) - 
+    + warnings: (string, optional) - 
+    + leadTime: (integer, optional) - Lead time in hours to receive/manufacture the material
+    + productUrl: (string, optional) - 
+    + brandName: (string, optional) - 
+    + width: (float, optional) - 
+    + depth: (float, optional) - 
+    + height: (float, optional) - 
+    + lengthUnit: (string, optional) - 
+    + productionMaterial: (boolean, optional) - Whether this is a material used for production or not
+        + Default: 1
+    + status: (integer, optional) - 
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "id": "580083186b0bdc05ff588792",
+                "sendImage": false
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "_id": "58b8dc1758e13f41fd720352",
+                "oid": 102,
+                "sku": "FXH892",
+                "barcode": "32232",
+                "name": "Mini pen drive",
+                "category": "5801b8184189dc69ad4409f6",
+                "categoryName": "Cartons",
+                "weight": null,
+                "weightUnit": null,
+                "price": 0,
+                "thresholdPrice": 0,
+                "lowestPrice": 0,
+                "purchasePrice": 0,
+                "priceCode": "-",
+                "productInfo": "This is the product description",
+                "productUrl": null,
+                "image": "",
+                "description": "This is the product description",
+                "brandName": "TOshiba",
+                "width": null,
+                "depth": null,
+                "height": null,
+                "lengthUnit": null,
+                "status": 1,
+                "creditperiod": null,
+                "cuid": 1681,
+                "uuid": 1681,
+                "created_at": "2017-03-03 02:59:35",
+                "updated_at": "2017-03-03 02:59:35"
+            }
+
+## Material update [POST /production/materials/product/update]
+Update a material by passing in the ID of the material along with the information that is to be updated.
+
++ Parameters
+    + id: (string, required) - Material ID
+    + sku: (string, optional) - 
+    + barcode: (string, optional) - 
+    + epc: (string, optional) - 
+    + tid: (string, optional) - 
+    + name: (string, optional) - 
+    + commonName: (string, optional) - Common name known by
+    + category: (string, optional) - 
+    + packageId: (string, optional) - Package ID
+    + weight: (float, optional) - 
+    + weightUnit: (string, optional) - 
+    + description: (string, optional) - 
+    + handlingInstructions: (string, optional) - 
+    + warnings: (string, optional) - 
+    + leadTime: (integer, optional) - Lead time in hours to receive/manufacture the product
+    + productUrl: (string, optional) - 
+    + brandName: (string, optional) - 
+    + width: (float, optional) - 
+    + depth: (float, optional) - 
+    + height: (float, optional) - 
+    + lengthUnit: (string, optional) - 
+    + productionMaterial: (boolean, optional) - Whether this is a material used for production or not
+        + Default: 1
+    + status: (integer, optional) - 
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "sendImage": false
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "_id": "58b8dc1758e13f41fd720352",
+                "oid": 102,
+                "sku": "FXH892",
+                "barcode": "32232",
+                "name": "Mini pen drive",
+                "category": "5801b8184189dc69ad4409f6",
+                "categoryName": "Cartons",
+                "weight": null,
+                "weightUnit": null,
+                "price": 0,
+                "thresholdPrice": 0,
+                "lowestPrice": 0,
+                "purchasePrice": 0,
+                "priceCode": "-",
+                "productInfo": "This is the product description",
+                "productUrl": null,
+                "image": "",
+                "description": "This is the product description",
+                "brandName": "TOshiba",
+                "width": null,
+                "depth": null,
+                "height": null,
+                "lengthUnit": null,
+                "status": 1,
+                "creditperiod": null,
+                "cuid": 1681,
+                "uuid": 1681,
+                "created_at": "2017-03-03 02:59:35",
+                "updated_at": "2017-03-03 02:59:35"
             }
 
 # Purchase Orders [/purchasing/orders]
