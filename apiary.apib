@@ -1453,6 +1453,27 @@ Live monitoring information of the fleet of the organization.
                 }
             ]
 
+# Fleet - Alarms [/fleet/alarms]
+Alarms of fleet and devices.
+
+## Alarms [POST /fleet/alarms]
+Returns all alarm information for all the vehicles of the organization.
+
++ Parameters
+    + onlyLatest: (boolean, optional) - Whether to send only the latest 50 alarm records of the fleet
+        + Default:
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+
++ Response 200 (application/json)
+    + Body
+
+            []
+
 # Products [/products]
 Products related operations.
 
