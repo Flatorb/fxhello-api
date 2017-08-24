@@ -1343,6 +1343,22 @@ Stocks information of the organization.
                 "message": "Successfully transferred the stock."
             }
 
+# Stock Out [/stock/stocks/out]
+Stock out related operations.
+
+## Stock-out with barcode [POST /stock/stocks/out/barcode]
+Make the existing stock 0 using the barcodes
+
++ Parameters
+    + items: (array, required) - List of barcodes to be processed on stocks to make the stock count as 0
+
++ Request (application/json)
+
++ Response 200 (application/json)
+    + Body
+
+            []
+
 # Fleet - Organization [/fleet/organization]
 Organization fleet related operations.
 
