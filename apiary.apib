@@ -1275,6 +1275,53 @@ Returns an item in a weigh slip by the weigh slip item ID
 
             []
 
+# Stores - Audit [/stores/audits]
+Stores audit related operations.
+
+## Audits [POST /stores/audits]
+Audits list of the organization.
+
++ Parameters
+    + type: (integer, optional) - Type to filter the audits by a type
+
++ Request (application/json)
+
++ Response 200 (application/json)
+    + Body
+
+            []
+
+## Audit [POST /stores/audits/audit]
+Audit data returned by passing the ID of the audit.
+
++ Parameters
+    + typeID: (string, required) - TypeID to receive data on a particular audit
+
++ Request (application/json)
+
++ Response 200 (application/json)
+    + Body
+
+            []
+
+## Create Audit [POST /stores/audits/audit/create]
+Create audit
+
++ Parameters
+    + type: (integer, optional) - Store type
+    + typeID: (string, required) - Store id
+    + name: (string, optional) -
+    + description: (string, optional) -
+    + status: (integer, optional) - Status ID
+        + Default: 1
+
++ Request (application/json)
+
++ Response 200 (application/json)
+    + Body
+
+            []
+
 # Stock Transfers [/stock/transfers]
 Stock transfers related operations.
 
