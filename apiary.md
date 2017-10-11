@@ -1122,60 +1122,6 @@ Allows the user to update a store
                 "_id": "593523ff4189dc4e1c7d3e52"
             }
 
-# GRN [/stores/grns]
-GRN related operations.
-
-## GRNs [POST /stores/grns]
-GRN list of the organization.
-
-+ Request (application/json)
-
-+ Response 200 (application/json)
-    + Body
-
-            []
-
-## GRN Profile [POST /stores/grns/grn]
-GRN record information.
-
-+ Parameters
-    + id: (string, required) - GRN ID
-
-+ Request (application/json)
-
-+ Response 200 (application/json)
-    + Body
-
-            []
-
-## Create GRN [POST /stores/grns/grn/create]
-Stocks information of the organization.
-
-Products array can contain id, qty, pieces, unitPrice, discount, lineTotal as keys of the array element
-
-+ Parameters
-    + number: (string, optional) - GRN number
-    + storeId: (string, required) - Store id of the store where the GRN is received to.
-    + vendorType: (integer, optional) - Type of vendor. General vendor ID is 38
-        + Default: 38
-    + vendorTypeID: (string, required) - ID of the vendor
-    + poID: (string, optional) - Purchase order ID
-    + description: (string, optional) - 
-    + products: (array, required) - See description for information.
-    + model: (string, optional) - Options: simple, weight, weightAndPieces
-        + Default: simple
-    + grnMethod: (string, optional) - Options: manual
-        + Default: manual
-    + status: (integer, optional) - Status ID
-        + Default: 1
-
-+ Request (application/json)
-
-+ Response 200 (application/json)
-    + Body
-
-            []
-
 # Weigh slip items [/stores/weigh-slips/weigh-slip/items]
 Weigh slip related operations.
 
@@ -1271,6 +1217,60 @@ Returns an item in a weigh slip by the weigh slip item ID
 
             []
 
+# GRN [/stores/grns]
+GRN related operations.
+
+## GRNs [POST /stores/grns]
+GRN list of the organization.
+
++ Request (application/json)
+
++ Response 200 (application/json)
+    + Body
+
+            []
+
+## GRN Profile [POST /stores/grns/grn]
+GRN record information.
+
++ Parameters
+    + id: (string, required) - GRN ID
+
++ Request (application/json)
+
++ Response 200 (application/json)
+    + Body
+
+            []
+
+## Create GRN [POST /stores/grns/grn/create]
+Stocks information of the organization.
+
+Products array can contain id, qty, pieces, unitPrice, discount, lineTotal as keys of the array element
+
++ Parameters
+    + number: (string, optional) - GRN number
+    + storeId: (string, required) - Store id of the store where the GRN is received to.
+    + vendorType: (integer, optional) - Type of vendor. General vendor ID is 38
+        + Default: 38
+    + vendorTypeID: (string, required) - ID of the vendor
+    + poID: (string, optional) - Purchase order ID
+    + description: (string, optional) - 
+    + products: (array, required) - See description for information.
+    + model: (string, optional) - Options: simple, weight, weightAndPieces
+        + Default: simple
+    + grnMethod: (string, optional) - Options: manual
+        + Default: manual
+    + status: (integer, optional) - Status ID
+        + Default: 1
+
++ Request (application/json)
+
++ Response 200 (application/json)
+    + Body
+
+            []
+
 # Stores - Audit [/stores/audits]
 Stores audit related operations.
 
@@ -1345,40 +1345,6 @@ Record the items of an audit being performed
 
             []
 
-# Stock Transfers [/stock/transfers]
-Stock transfers related operations.
-
-## Transfer between stores [POST /stock/transfers/transfer]
-User can transfer stock between stores.
-
-+ Parameters
-    + from: (string, required) - Store id of the store where the items are moving out of.
-    + to: (string, required) - Store id of the store where the items will be transferred to.
-    + txMethod: (string, required) - The method used for transferring. Options: rfid, barcode, id
-        + Default: id
-    + items: (string, required) - Array of item rfid/barcode/id that will be subjected to the transfer.
-
-+ Request (application/json)
-    + Headers
-
-            Accept: application/vnd.fxhello.v1+json
-            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
-    + Body
-
-            {
-                "from": "46ab4658f88e312",
-                "to": "46ab4658f88e8d8",
-                "method": "rfid",
-                "items": "{{'epc': '123123123', 'tid': 'cacacacacacac'}, {'epc': '123123123', 'tid': 'cacacacacacac'}, {'epc': '123123123', 'tid': 'cacacacacacac'}}"
-            }
-
-+ Response 200 (application/json)
-    + Body
-
-            {
-                "message": "Successfully transferred the stock."
-            }
-
 # Stock Transfers [/stock/stocks]
 Stocks related operations.
 
@@ -1441,6 +1407,40 @@ Make the existing stock 0 using the barcodes
     + Body
 
             []
+
+# Stock Transfers [/stock/transfers]
+Stock transfers related operations.
+
+## Transfer between stores [POST /stock/transfers/transfer]
+User can transfer stock between stores.
+
++ Parameters
+    + from: (string, required) - Store id of the store where the items are moving out of.
+    + to: (string, required) - Store id of the store where the items will be transferred to.
+    + txMethod: (string, required) - The method used for transferring. Options: rfid, barcode, id
+        + Default: id
+    + items: (string, required) - Array of item rfid/barcode/id that will be subjected to the transfer.
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/vnd.fxhello.v1+json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "from": "46ab4658f88e312",
+                "to": "46ab4658f88e8d8",
+                "method": "rfid",
+                "items": "{{'epc': '123123123', 'tid': 'cacacacacacac'}, {'epc': '123123123', 'tid': 'cacacacacacac'}, {'epc': '123123123', 'tid': 'cacacacacacac'}}"
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "message": "Successfully transferred the stock."
+            }
 
 # Fleet - Organization [/fleet/organization]
 Organization fleet related operations.
@@ -1569,6 +1569,76 @@ Returns all alarm information for all the vehicles of the organization.
             Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
 
 + Response 200 (application/json)
+    + Body
+
+            []
+
+# Announcements [/assets/assets]
+Assets
+
+## Create asset [POST /assets/assets/asset/create]
+Create a new asset for the organization
+
++ Parameters
+    + subType: (integer, optional) - 1: Fixed, 2: Current
+    + name: (string, required) - Whether the server should return the serve-able image URL or not.
+        + Default: 
+    + prefix: (string, optional) - Mr., Mrs., Miss, Dr., etc. Retrieve list from API
+    + telephones: (array, optional) - 
+    + mobile: (string, optional) - 
+    + fax: (string, optional) - 
+    + email: (string, optional) - 
+    + website: (string, optional) - 
+    + address1: (string, optional) - 
+    + address2: (string, optional) - 
+    + city: (string, optional) - 
+    + stateID: (string, optional) - 
+    + zip: (string, optional) - 
+    + country: (integer, optional) - 
+    + description: (string, optional) - 
+    + designation: (string, optional) - 
+    + categories: (array, optional) - 
+    + customerSince: (date, optional) - Date as a string in the format of YYYY-mm-dd
+        + Default: 2017-06-23
+    + leadSourceID: (string, optional) - 
+    + creditLimit: (string, optional) - 
+    + creditPeriod: (string, optional) - 
+    + industries: (array, optional) - 
+    + marketingCampaigns: (array, optional) - 
+    + status: (integer, optional) - 
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "customerId": "546813a68bc6"
+            }
+
+# Sales - Quotations [/sales/quotations]
+Sales quotations related operations.
+
+## Create quotations [POST /sales/quotations/quotation/create]
+Create a new sales quoation
+
++ Parameters
+    + subType: (integer, optional) - 1: Company, 2: Individual
+    + cid: (string, required) - Customer ID
+    + title: (string, required) - 
+    + number: (string, required) - 
+    + products: (array, optional) - productID, memo, qty, unitPrice, discount, lineTotal
+    + description: (string, optional) - 
+    + descriptionPre: (string, optional) - 
+    + status: (integer, optional) - 
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
     + Body
 
             []
@@ -2076,6 +2146,38 @@ Returns the full list of warehouses
                 "username": "foo"
             }
 
+# CRM - Customers [/orders]
+Production oders related operations.
+
+## Orders [POST /orders]
+Returns the full list of production orders
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            []
+
+## Materials of the production order [POST /orders/order/material]
+Returns the full list of required materials and their quantities for a provided production order
+
++ Parameters
+    + id: (string, required) - Production order ID
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "id": "59bdd35301aca6bd4e2df072"
+            }
+
 # Material for Production [/production/materials]
 Production material related operations.
 
@@ -2466,6 +2568,150 @@ Vendors of the organization.
                 }
             ]
 
+## Vendors [POST /purchasing/vendors/vendor/create]
+Create vendors of the organization.
+
++ Parameters
+    + name: (string, required) - 
+        + Default: 1
+    + email: (string, optional) - 
+        + Default: 1
+    + website: (string, optional) - 
+        + Default: 1
+    + mobile: (string, optional) - 
+        + Default: 1
+    + description: (string, optional) - 
+        + Default: 1
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "id": "580083186b0bdc05ff588792",
+                "sendImage": false
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            [
+                {
+                    "_id": "596b467e4189dce08e1170a2",
+                    "name": "Sample vendor one",
+                    "email": "sv1@flatorb.com",
+                    "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.",
+                    "oid": 102,
+                    "addresses": {
+                        "main": {
+                            "address1": "123 Some Street",
+                            "address2": "",
+                            "city": "",
+                            "state": null,
+                            "stateID": "",
+                            "zip": "32165",
+                            "country": null,
+                            "countryID": null,
+                            "description": null,
+                            "status": 1,
+                            "cuid": 1,
+                            "uuid": 1,
+                            "created_at": "2017-07-16 10:57:02",
+                            "updated_at": "2017-07-16 10:57:02"
+                        }
+                    },
+                    "telephones": [
+                        "1234567890"
+                    ],
+                    "mobiles": [
+                        "7894561233"
+                    ],
+                    "status": 1,
+                    "statusName": "Active",
+                    "cuid": 1,
+                    "cuName": "Anushan",
+                    "uuid": 1,
+                    "uuName": "Anushan",
+                    "updated_at": "2017-07-16 10:57:02",
+                    "created_at": "2017-07-16 10:57:02"
+                }
+            ]
+
+## Vendors [POST /purchasing/vendors/vendor/update]
+Update vendors of the organization.
+
++ Parameters
+    + name: (string, required) - 
+        + Default: 1
+    + email: (string, optional) - 
+        + Default: 1
+    + website: (string, optional) - 
+        + Default: 1
+    + mobile: (string, optional) - 
+        + Default: 1
+    + description: (string, optional) - 
+        + Default: 1
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "id": "580083186b0bdc05ff588792",
+                "sendImage": false
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            [
+                {
+                    "_id": "596b467e4189dce08e1170a2",
+                    "name": "Sample vendor one",
+                    "email": "sv1@flatorb.com",
+                    "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.",
+                    "oid": 102,
+                    "addresses": {
+                        "main": {
+                            "address1": "123 Some Street",
+                            "address2": "",
+                            "city": "",
+                            "state": null,
+                            "stateID": "",
+                            "zip": "32165",
+                            "country": null,
+                            "countryID": null,
+                            "description": null,
+                            "status": 1,
+                            "cuid": 1,
+                            "uuid": 1,
+                            "created_at": "2017-07-16 10:57:02",
+                            "updated_at": "2017-07-16 10:57:02"
+                        }
+                    },
+                    "telephones": [
+                        "1234567890"
+                    ],
+                    "mobiles": [
+                        "7894561233"
+                    ],
+                    "status": 1,
+                    "statusName": "Active",
+                    "cuid": 1,
+                    "cuName": "Anushan",
+                    "uuid": 1,
+                    "uuName": "Anushan",
+                    "updated_at": "2017-07-16 10:57:02",
+                    "created_at": "2017-07-16 10:57:02"
+                }
+            ]
+
 # Marketing campaigns [/marketing/campaigns]
 Marketing campaigns related operations.
 
@@ -2599,6 +2845,301 @@ Returns the information of campaigns by passing in the Ids
                 }
             ]
 
+# Events [/events/events]
+Events
+
+## Events [POST /events/events]
+Returns the full list of events
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "sendImage": false
+            }
+
+## Events profile [POST /events/events/event]
+Returns the information of an event
+
++ Parameters
+    + eventId: (string, required) - Whether the server should return the serve-able image URL or not.
+        + Default: 
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "eventId": "546813a68bc6"
+            }
+
+## Create event [POST /events/events/event/create]
+Create a new event for the organization
+
++ Parameters
+    + type: (string, required) - 42: Belongs to events
+        + Default: 
+    + typeid: (string, required) - ID of the above type if applicable
+        + Default: 
+    + eventType: (integer, required) - 1: Public, 2: Private
+    + name: (string, required) - Whether the server should return the serve-able image URL or not.
+        + Default: 
+    + category: (string, optional) - 
+    + address: (string, optional) - 
+    + latitude: (array, optional) - 
+    + longitude: (string, optional) - 
+    + date: (date, optional) - 
+    + startTime: (timestamp, optional) - 
+    + endTime: (timestamp, optional) - 
+    + description: (string, optional) - 
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "eventId": "546813a68bc6"
+            }
+
+## Edit event [POST /events/events/event/update]
+Edit/update an event information.
+
++ Parameters
+    + id: (string, required) - Evnet ID
+    + eventType: (integer, required) - 1: Public, 2: Private
+    + name: (string, required) - Whether the server should return the serve-able image URL or not.
+        + Default: 
+    + category: (string, optional) - 
+    + address: (string, optional) - 
+    + latitude: (array, optional) - 
+    + longitude: (string, optional) - 
+    + date: (date, optional) - 
+    + startTime: (timestamp, optional) - 
+    + endTime: (timestamp, optional) - 
+    + description: (string, optional) - 
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "id": "546813a68bc6"
+            }
+
+# Announcements [/communications/announcements]
+Announcements
+
+## Announcements [POST /communications/announcements]
+Returns the full list of Announcements
+
+## Announcement profile [POST /communications/announcements/announcement]
+Returns the information of an Announcement
+
++ Parameters
+    + announcementId: (string, required) - Whether the server should return the serve-able image URL or not.
+        + Default: 
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "announcementId": "546813a68bc6"
+            }
+
+## Create announcement [POST /communications/announcements/announcement/create]
+Create a new announcement for the organization
+
++ Parameters
+    + type: (string, required) - 43: Belongs to announcement
+        + Default: 
+    + typeid: (string, required) - ID of the above type if applicable
+        + Default: 
+    + name: (string, required) - Whether the server should return the serve-able image URL or not.
+        + Default: 
+    + date: (string, optional) - 
+    + location: (string, optional) - 
+    + featured: (boolean, optional) - 
+    + description: (string, optional) - 
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "announcementId": "546813a68bc6"
+            }
+
+## Edit announcement [POST /communications/announcements/announcement/update]
+Edit/update an announcement information.
+
++ Parameters
+    + id: (string, required) - Evnet ID
+    + name: (string, required) - Whether the server should return the serve-able image URL or not.
+        + Default: 
+    + date: (string, optional) - 
+    + location: (string, optional) - 
+    + featured: (boolean, optional) - 
+    + description: (string, optional) - 
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "id": "546813a68bc6"
+            }
+
+# Events [/fundraising/fundraisers]
+Fundraising
+
+## Fundraising [POST /fundraising/fundraisers]
+Returns the full list of fundraisers
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "sendImage": false
+            }
+
+## Fundraising profile [POST /fundraising/fundraisers/fundraiser]
+Returns the information of fundraiser
+
++ Parameters
+    + fundraiserId: (string, required) - Whether the server should return the serve-able image URL or not.
+        + Default: 
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "fundraiserId": "546813a68bc6"
+            }
+
+## Create a fundraiser [POST /fundraising/fundraisers/fundraiser/create]
+Create a new fundraiser for the organization
+
++ Parameters
+    + name: (string, required) - Whether the server should return the serve-able image URL or not.
+        + Default: 
+    + target: (string, optional) - 
+    + location: (string, optional) - 
+    + startDate: (date, optional) - 
+    + endDate: (date, optional) - 
+    + description: (string, optional) - 
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "fundraiserId": "546813a68bc6"
+            }
+
+## Edit fundraiser [POST /fundraising/fundraisers/fundraiser/update]
+Edit/update a fundraiser information.
+
++ Parameters
+    + id: (string, required) - Evnet ID
+    + name: (string, required) - Whether the server should return the serve-able image URL or not.
+        + Default: 
+    + target: (string, optional) - 
+    + location: (string, optional) - 
+    + startDate: (date, optional) - 
+    + endDate: (date, optional) - 
+    + description: (string, optional) - 
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "id": "546813a68bc6"
+            }
+
+# Fundraising - Fundraiser [/fundraising/fundraisers]
+Fundraising related operations.
+
+## Create a donation [POST /fundraising/fundraisers/fundraiser/create]
+Create a new donation for the fundraiser
+
++ Parameters
+    + type: (string, required) - 44: Belongs to fundraiser
+        + Default: 
+    + typeid: (string, required) - ID of the above type if applicable
+        + Default: 
+    + customerId: (string, required) - Whether the server should return the serve-able image URL or not.
+        + Default: 
+    + amount: (string, optional) - 
+    + paymentMethod: (string, optional) - 
+    + description: (date, optional) - 
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "donationId": "546813a68bc6"
+            }
+
+## Fundraiser donations [POST /fundraising/fundraisers/fundraiser/donations]
+Returns the donations that are associated with the fundraiser
+
++ Parameters
+    + fundraiserId: (string, required) - Whether the server should return the serve-able image URL or not.
+        + Default: 
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "fundraiserId": "546813a68bc6"
+            }
+
 # MAINTENANCE [/maintenances]
 Maintenance related data and information for every place where maintenance records are applicable.
 
@@ -2695,6 +3236,32 @@ Allows the user to create the "after" part fo a maintenance record for an item f
                 "id": 10,
                 "username": "foo"
             }
+
+# Announcements [/maintenances]
+Maintenance
+
+## Create maintenance record [POST /maintenances/maintenance/create]
+Create a new maintenance record
+
++ Parameters
+    + type: (integer, required) - 
+    + typeID: (string, required) - 
+        + Default: 
+    + typeName: (string, required) - 
+        + Default: 
+    + name: (string, required) - W
+        + Default: 
+    + description: (string, optional) - 
+    + status: (integer, optional) - 
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            []
 
 # Uploads of Modules [/files]
 Module file uploads related operations.
@@ -2959,6 +3526,90 @@ Returns the full list of "statuses" of the system. Type specific statuses can be
                 }
             ]
 
+# React [/communications/announcements]
+Reaction related operations for types
+
+## Reacts [POST /communications/announcements/react]
+Returns the reaction to the relevant event
+
++ Parameters
+    + oid: (string, required) - Organization ID of the app or event
+    + type: (integer, required) - 
+    + typeID: (string, required) - 
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "oid": "546813a68bc6"
+            }
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "type": 42
+            }
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "typeID": "546813a68bc6"
+            }
+
+## React create [POST /communications/announcements/react/create]
+
+
++ Parameters
+    + oid: (integer, required) - organization ID
+    + type: (integer, required) - E.g. Event = 42
+        + Default: 
+    + typeID: (string, required) - ID of the relevant type
+    + userID: (integer, required) - 
+    + reaction: (string, required) - Going, May be, Nop
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "reactId": "546813a68bc6"
+            }
+
+## React update [POST /communications/announcements/react/update]
+
+
++ Parameters
+    + id: (string, required) - reaction ID
+    + reaction: (string, required) - Going, May be, Nop
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "id": "546813a68bc6"
+            }
+
 # Industries [/system/industries]
 Industries related operations.
 
@@ -3089,6 +3740,32 @@ Update an existing industry of the organization by passing in the ID of the indu
                 "id": "5810752a6b0bdc094041d6e2",
                 "description": "Expo XYZ",
                 "isic_r4": 1
+            }
+
+# Mails [/system/mails]
+Mails related operations.
+
+## Send mail [POST /system/mails/mail/create]
+Sending an email
+
++ Parameters
+    + type: (integer, required) - Sender type
+    + typeid: (string, required) - ID of the relevant sender
+    + typeName: (string, required) - Name of the relevant sender
+    + to: (string, required) - Recipient email
+    + from: (string, required) - Sender email
+    + subject: (string, optional) - Subject
+    + message: (string, optional) - Message
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "id": "546813a68bc6"
             }
 
 # Notes [/general/notes]
