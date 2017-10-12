@@ -860,6 +860,53 @@ Allows the user the create a new task
                 "_id": "591d2b884189dc52725cc042"
             }
 
+# Device health [/devices/health]
+Device health related monitoring and operation.
+
+## Create health ping [POST /devices/health/create]
+Create a new device health ping
+
++ Parameters
+    + timestamp: (string, optional) - Format: Y-m-d H:m:s
+        + Default: Current time stamp
+    + gpsOn: (integer, optional) - 0:False, 1:True
+    + gpsLat: (string, optional) - 
+    + gpsLon: (string, optional) - 
+    + gpsSignalStrength: (string, optional) - 
+    + batteryPercentage: (string, optional) - 
+    + dataOn: (integer, optional) - 0:False, 1:True
+    + dataStrength: (string, optional) - 
+    + gsmOn: (integer, optional) - 0:False, 1:True
+    + gsmStrength: (string, optional) - 
+    + macAddress: (string, optional) - 
+    + status: (integer, optional) - 
+        + Default: 1
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            []
+
+## Create health ping [POST /devices/health/create-bulk]
+Create a new device health ping
+
++ Parameters
+    + payload: (string, optional) - JSON string array with parameters mentioned in single health ping
+        + Default: Current time stamp
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            []
+
 # Stores [/stores]
 Stores related operations.
 
@@ -1618,20 +1665,225 @@ Create a new asset for the organization
                 "customerId": "546813a68bc6"
             }
 
+# Finance - Invoices [/finances/invoices]
+Finance invoices related operations.
+
+## Invoices list [POST /finances/invoices]
+Returns all the invoices of the organization
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "id": "546813a68bc6"
+            }
+
+## Invoice profile [POST /finances/invoices/invoice]
+Returns the information of a invoice by passing the ID
+
++ Parameters
+    + id: (string, required) - ID of the contact
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "id": "546813a68bc6"
+            }
+
+## Create invoices [POST /finances/invoices/invoice/create]
+Create a new invoices
+
++ Parameters
+    + customerID: (string, optional) - Customer ID
+    + name: (string, required) - Customer name
+    + reference: (string, required) - 
+    + salesOrderID: (string, optional) - 
+    + quotationID: (string, optional) - 
+    + products: (array, optional) - productID, memo, qty, unitPrice, discount, lineTotal
+    + discounts: (string, optional) - 
+    + subTotal: (string, optional) - 
+    + taxes: (string, optional) - 
+    + total: (string, optional) - 
+    + creditPeriod: (string, optional) - 
+    + description: (string, optional) - 
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            []
+
+# Sales - Opportunities [/sales/opportunities]
+Sales opportunities related operations.
+
+## Opportunities list [POST /sales/opportunities]
+Returns all the opportunities of the organization
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "id": "546813a68bc6"
+            }
+
+## Opportunity profile [POST /sales/opportunities/opportunity]
+Returns the information of a opportunity by passing the ID
+
++ Parameters
+    + id: (string, required) - ID of the contact
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "id": "546813a68bc6"
+            }
+
+## Create opportunity [POST /sales/opportunities/opportunity/create]
+Create a new opportunity
+
++ Parameters
+    + customerTypeId: (string, optional) - Customer ID
+    + name: (string, required) - Customer name
+    + category: (string, optional) - 
+    + description: (string, optional) - 
+    + value: (array, optional) - 
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            []
+
 # Sales - Quotations [/sales/quotations]
 Sales quotations related operations.
 
+## Quotations list [POST /sales/quotations]
+Returns all the quotations of the organization
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "id": "546813a68bc6"
+            }
+
+## Quotation profile [POST /sales/quotations/quotation]
+Returns the information of a quotation by passing the ID
+
++ Parameters
+    + id: (string, required) - ID of the contact
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "id": "546813a68bc6"
+            }
+
 ## Create quotations [POST /sales/quotations/quotation/create]
-Create a new sales quoation
+Create a new sales quotation
 
 + Parameters
     + subType: (integer, optional) - 1: Company, 2: Individual
     + cid: (string, required) - Customer ID
-    + title: (string, required) - 
+    + name: (string, required) - 
     + number: (string, required) - 
     + products: (array, optional) - productID, memo, qty, unitPrice, discount, lineTotal
     + description: (string, optional) - 
     + descriptionPre: (string, optional) - 
+    + status: (integer, optional) - 
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            []
+
+# Sales - Orders [/sales/orders]
+Sales orders related operations.
+
+## Orders list [POST /sales/orders]
+Returns all the sales orders of the organization
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            []
+
+## Order profile [POST /sales/orders/order]
+Returns the information of a sales order by passing the ID
+
++ Parameters
+    + id: (string, required) - ID of the sales order
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "id": "546813a68bc6"
+            }
+
+## Create sales order [POST /sales/orders/order/create]
+Create a new sales order
+
++ Parameters
+    + ctype: (integer, optional) - Customer type
+    + cid: (string, required) - Customer ID
+    + ftype: (integer, optional) - Facilitator type
+    + fid: (string, optional) - Facilitator ID
+    + name: (string, optional) - 
+    + number: (string, optional) - 
+    + date: (string, optional) - Format Y-m-d
+    + dateDue: (string, optional) - Format Y-m-d
+    + description: (string, optional) - 
+    + quotationID: (string, optional) - 
+    + creditPeriod: (integer, optional) - 
+    + products: (array, optional) - productID, memo, qty, unitPrice, discount, lineTotal
+    + geoLat: (string, optional) - GPS Latitude
+    + geoLon: (string, optional) - GPS Longitude
     + status: (integer, optional) - 
 
 + Request (application/json)
