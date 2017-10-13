@@ -1699,6 +1699,23 @@ Returns the information of a invoice by passing the ID
                 "id": "546813a68bc6"
             }
 
+## Invoice products [POST /finances/invoices/invoice/products]
+Returns the products of a invoice by passing the ID
+
++ Parameters
+    + id: (string, required) - ID of the sales order
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "id": "546813a68bc6"
+            }
+
 ## Create invoices [POST /finances/invoices/invoice/create]
 Create a new invoices
 
@@ -1710,10 +1727,38 @@ Create a new invoices
     + quotationID: (string, optional) - 
     + products: (array, optional) - productID, memo, qty, unitPrice, discount, lineTotal
     + discounts: (string, optional) - 
-    + subTotal: (string, optional) - 
-    + taxes: (string, optional) - 
-    + total: (string, optional) - 
     + creditPeriod: (string, optional) - 
+    + description: (string, optional) - 
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            []
+
+## Payment methods [POST /finances/invoices/payment-methods]
+Payment receiving methods for invoice payment collections.
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            []
+
+## Create payment for invoice [POST /finances/invoices/invoice/payments/payment/create]
+Create a new invoices
+
++ Parameters
+    + invoiceID: (string, required) - Invoice ID
+    + bankID: (string, required) - Invoice ID
+    + reference: (string, required) - 
+    + total: (double, optional) - Total amount of the payment
     + description: (string, optional) - 
 
 + Request (application/json)
@@ -1812,6 +1857,23 @@ Returns the information of a quotation by passing the ID
                 "id": "546813a68bc6"
             }
 
+## Quotation products [POST /sales/quotations/quotation/products]
+Returns the product of a quotation by passing the ID
+
++ Parameters
+    + id: (string, required) - ID of the contact
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "id": "546813a68bc6"
+            }
+
 ## Create quotations [POST /sales/quotations/quotation/create]
 Create a new sales quotation
 
@@ -1851,6 +1913,23 @@ Returns all the sales orders of the organization
 
 ## Order profile [POST /sales/orders/order]
 Returns the information of a sales order by passing the ID
+
++ Parameters
+    + id: (string, required) - ID of the sales order
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "id": "546813a68bc6"
+            }
+
+## Order products [POST /sales/orders/order/products]
+Returns the products of a sales order by passing the ID
 
 + Parameters
     + id: (string, required) - ID of the sales order
