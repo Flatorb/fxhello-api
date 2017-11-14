@@ -1665,6 +1665,18 @@ Create a new asset for the organization
                 "customerId": "546813a68bc6"
             }
 
+# Consumables purchase orders [/consumables/purchase-orders]
+Purchase order related operations.
+
+## Purchase order list [POST /consumables/purchase-orders]
+Returns a list of purchase orders of the organization.
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+
 # Finance - Invoices [/finances/invoices]
 Finance invoices related operations.
 
@@ -1756,9 +1768,9 @@ Create a new invoices
 
 + Parameters
     + invoiceID: (string, required) - Invoice ID
-    + bankID: (string, required) - Invoice ID
-    + reference: (string, required) - 
-    + total: (double, optional) - Total amount of the payment
+    + bankID: (string, required) - Bank ID
+    + reference: (string, optional) - 
+    + total: (double, required) - Total amount of the payment
     + description: (string, optional) - 
 
 + Request (application/json)
@@ -2507,6 +2519,23 @@ Returns the full list of required materials and their quantities for a provided 
 
             {
                 "id": "59bdd35301aca6bd4e2df072"
+            }
+
+## Picked material of a production order [POST /orders/order/material/picked]
+Returns the full list of picked material of a provided production order
+
++ Parameters
+    + productionOrderID: (string, required) - Production order ID
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "productionOrderID": "59bdd35301aca6bd4e2df072"
             }
 
 # Material for Production [/production/materials]
@@ -3405,7 +3434,7 @@ Create a new fundraiser for the organization
 Edit/update a fundraiser information.
 
 + Parameters
-    + id: (string, required) - Evnet ID
+    + id: (string, required) - Fundraiser ID
     + name: (string, required) - Whether the server should return the serve-able image URL or not.
         + Default: 
     + target: (string, optional) - 
