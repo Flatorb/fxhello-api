@@ -596,7 +596,7 @@ Create a new contact
     + Body
 
             {
-                "customerId": "546813a68bc6"
+                "contactId": "546813a68bc6"
             }
 
 ## Update contact [POST /crm/contacts/contact/create]
@@ -1459,6 +1459,24 @@ Make the existing stock 0 using the barcodes
 
             []
 
+# Stock - Damages [/stock/stocks/damaged]
+Stocks damages related operations.
+
+## Fix damage [POST /stock/stocks/damaged/fix]
+Fixed damaged recording.
+
++ Parameters
+    + mode: (string, required) - Modes: barcode-stock
+    + items: (array, required) - Array of items
+    + description: (string, optional) -
+
++ Request (application/json)
+
++ Response 200 (application/json)
+    + Body
+
+            []
+
 # Stock Transfers [/stock/transfers]
 Stock transfers related operations.
 
@@ -1466,7 +1484,7 @@ Stock transfers related operations.
 User can transfer stock between stores.
 
 + Parameters
-    + from: (string, required) - Store id of the store where the items are moving out of.
+    + from: (string, optional) - Store id of the store where the items are moving out of.
     + to: (string, required) - Store id of the store where the items will be transferred to.
     + txMethod: (string, required) - The method used for transferring. Options: rfid, barcode, id
         + Default: id
@@ -1990,6 +2008,23 @@ Create a new sales order
 
             []
 
+## Picked stock of a sales order [POST /sales/orders/order/products/picked]
+Returns the full list of picked products/stock of a sales order
+
++ Parameters
+    + salesOrderID: (string, required) - Sales order ID
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "salesOrderID": "59bdd35301aca6bd4e2df072"
+            }
+
 # Products [/products]
 Products related operations.
 
@@ -2493,10 +2528,10 @@ Returns the full list of warehouses
                 "username": "foo"
             }
 
-# CRM - Customers [/orders]
+# Production - Orders [/production/orders]
 Production oders related operations.
 
-## Orders [POST /orders]
+## Orders [POST /production/orders]
 Returns the full list of production orders
 
 + Request (application/json)
@@ -2508,7 +2543,7 @@ Returns the full list of production orders
 
             []
 
-## Materials of the production order [POST /orders/order/material]
+## Materials of the production order [POST /production/orders/order/material]
 Returns the full list of required materials and their quantities for a provided production order
 
 + Parameters
@@ -2525,7 +2560,7 @@ Returns the full list of required materials and their quantities for a provided 
                 "id": "59bdd35301aca6bd4e2df072"
             }
 
-## Picked material of a production order [POST /orders/order/material/picked]
+## Picked material of a production order [POST /production/orders/order/material/picked]
 Returns the full list of picked material of a provided production order
 
 + Parameters
@@ -3173,6 +3208,62 @@ Returns the information of a campaign profile retrieved by the ID
                 "_id": "5810752a6b0bdc094041d6e2",
                 "oid": 102,
                 "source": "Email"
+            }
+
+## Create marketing campaign [POST /marketing/campaigns/campaign/create]
+Create a new marketing campaign
+
++ Parameters
+    + category: (string, optional) -
+        + Default:
+    + name: (string, optional) -
+        + Default:
+    + assignTo: (string, optional) -
+    + location: (string, optional) -
+    + description: (string, optional) -
+    + budget: (string, optional) -
+    + startDate: (date, optional) - Date format YYYY-mm-dd
+    + endDate: (date, optional) - Date format YYYY-mm-dd
+    + status: (string, optional) -
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "marketingCampaignId": "546813a68bc6"
+            }
+
+## Edit marketing campaign [POST /marketing/campaigns/campaign/create]
+Edit a new marketing campaign
+
++ Parameters
+    + id: (string, optional) -
+        + Default:
+    + category: (string, optional) -
+        + Default:
+    + name: (string, optional) -
+        + Default:
+    + assignTo: (string, optional) -
+    + location: (string, optional) -
+    + description: (string, optional) -
+    + budget: (string, optional) -
+    + startDate: (date, optional) - Date format YYYY-mm-dd
+    + endDate: (date, optional) - Date format YYYY-mm-dd
+    + status: (string, optional) -
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "marketingCampaignId": "546813a68bc6"
             }
 
 ## Campaigns by IDs (multiple) [POST /marketing/campaigns/campaigns]
