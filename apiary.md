@@ -780,84 +780,94 @@ Retrieve a full or filtered list of tasks. Result may subject to filtration base
 + Request (application/json)
     + Headers
 
-            Accept: application/vnd.fxhello.v1+json
+            Accept: application/json
             Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
             Content-Type: application/json
     + Body
 
-            {
-                "title": "This is the task name",
-                "comment": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.",
-                "dueDate": "2017-10-23 14:23:00",
-                "priority": 3,
-                "type": 17,
-                "typeId": "46ab4658f88e8d8",
-                "subType": 1
-            }
+            []
 
 + Response 200 (application/json)
     + Body
 
-            {
-                "type": 0,
-                "typeid": 0,
-                "subType": 0,
-                "isTask": true,
-                "title": "This is the task name",
-                "comment": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.",
-                "dueDate": null,
-                "priority": 3,
-                "status": 1,
-                "cuid": 1,
-                "cuName": "John",
-                "uuid": 1,
-                "uuName": "John",
-                "updated_at": "2017-05-18 05:05:12",
-                "created_at": "2017-05-18 05:05:12",
-                "_id": "591d2b884189dc52725cc042"
-            }
+            []
 
-## Create a new task [POST /tasks/create]
-Allows the user the create a new task
+## Task [POST /tasks/task]
+Retrieve information of a tasks. Result may subject to filtration based on user permission.
+
++ Parameters
+    + id: (string, required) - Task ID
 
 + Request (application/json)
     + Headers
 
-            Accept: application/vnd.fxhello.v1+json
+            Accept: application/json
             Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
             Content-Type: application/json
     + Body
 
-            {
-                "title": "This is the task name",
-                "comment": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.",
-                "dueDate": "2017-10-23 14:23:00",
-                "priority": 3,
-                "type": 17,
-                "typeId": "46ab4658f88e8d8",
-                "subType": 1
-            }
+            []
 
 + Response 200 (application/json)
     + Body
 
+            []
+
+## Create a new task [POST /tasks/task/create]
+Allows the user the create a new task
+
++ Parameters
+    + type: (integer, optional) - Whether the server should return the serve-able image URL or not.
+        + Default: 
+    + typeid: (string, optional) - Mr., Mrs., Miss, Dr., etc. Retrieve list from API
+    + subType: (integer, optional) - 
+        + Default: 1
+    + title: (string, optional) - 
+    + comment: (string, required) - 
+    + dueDate: (date, optional) - 
+        + Default: In 24 hours
+    + priority: (string, optional) - Highest, High, Medium, Low, Lowest
+        + Default: Medium
+    + status: (integer, optional) - 
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
             {
-                "type": 0,
-                "typeid": 0,
-                "subType": 0,
-                "isTask": true,
-                "title": "This is the task name",
-                "comment": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.",
-                "dueDate": null,
-                "priority": 3,
-                "status": 1,
-                "cuid": 1,
-                "cuName": "John",
-                "uuid": 1,
-                "uuName": "John",
-                "updated_at": "2017-05-18 05:05:12",
-                "created_at": "2017-05-18 05:05:12",
-                "_id": "591d2b884189dc52725cc042"
+                "customerId": "546813a68bc6"
+            }
+
+## Edit task [POST /tasks/task/update]
+Edit/update a task information and status.
+
++ Parameters
+    + id: (string, required) - Customer ID
+    + type: (integer, optional) - Whether the server should return the serve-able image URL or not.
+        + Default: 
+    + typeid: (string, optional) - Mr., Mrs., Miss, Dr., etc. Retrieve list from API
+    + subType: (integer, optional) - 
+        + Default: 1
+    + title: (string, optional) - 
+    + comment: (string, required) - 
+    + dueDate: (date, optional) - 
+        + Default: In 24 hours
+    + priority: (string, optional) - Highest, High, Medium, Low, Lowest
+        + Default: Medium
+    + status: (integer, optional) - 
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "id": "546813a68bc6"
             }
 
 # Device health [/devices/health]
@@ -1392,7 +1402,7 @@ Record the items of an audit being performed
 
             []
 
-# Stock Transfers [/stock/stocks]
+# Stock [/stock/stocks]
 Stocks related operations.
 
 ## Stocks [POST /stock/stocks]
@@ -1455,7 +1465,7 @@ Make the existing stock 0 using the barcodes
 
             []
 
-# Stock - Damages [/stock/stocks/damaged]
+# Stock Damages [/stock/stocks/damaged]
 Stocks damages related operations.
 
 ## Fix damage [POST /stock/stocks/damaged/fix]
@@ -2123,6 +2133,60 @@ Returns the data of a product by passing the product ID.
             {
                 "id": "580083186b0bdc05ff588792",
                 "sendImage": false
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "_id": "58b8dc1758e13f41fd720352",
+                "oid": 102,
+                "sku": "FXH892",
+                "barcode": "32232",
+                "name": "Mini pen drive",
+                "category": "5801b8184189dc69ad4409f6",
+                "categoryName": "Cartons",
+                "weight": null,
+                "weightUnit": null,
+                "price": 0,
+                "thresholdPrice": 0,
+                "lowestPrice": 0,
+                "purchasePrice": 0,
+                "priceCode": "-",
+                "productInfo": "This is the product description",
+                "productUrl": null,
+                "image": "",
+                "description": "This is the product description",
+                "brandName": "TOshiba",
+                "width": null,
+                "depth": null,
+                "height": null,
+                "lengthUnit": null,
+                "status": 1,
+                "creditperiod": null,
+                "cuid": 1681,
+                "uuid": 1681,
+                "created_at": "2017-03-03 02:59:35",
+                "updated_at": "2017-03-03 02:59:35"
+            }
+
+## Product lookup by mode [POST /products/products/product/mode]
+Returns the data of a product by passing the product mode and relavent lookup information. Ex: mode = barcode and by sending the barcode.
+
++ Parameters
+    + mode: (string, required) - Mode: barcode, rfid, id
+    + barcode: (string, optional) - Barcode of the product if mode is barcode
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG
+    + Body
+
+            {
+                "mode": "id",
+                "id": "580083186b0bdc05ff588792"
             }
 
 + Response 200 (application/json)
